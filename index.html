@@ -44,134 +44,362 @@
 
 <div class="admin-modal" id="adminModal"><div class="admin-window">
 <div class="admin-header"><h2>✳ ITEN CONTROL ROOM</h2><button class="close-btn" onclick="closeAdmin()">✕ CLOSE</button></div>
-<div id="loginView" class="login-card"><div class="kicker">RESTRICTED ACCESS</div><h3>Welcome, Admin.</h3><p class="hint">Masukkan PIN untuk membuka dashboard pengelolaan website.</p><input id="adminPin" type="password" placeholder="PIN admin"><button class="add-btn" style="width:100%;padding:13px" onclick="loginAdmin()">UNLOCK DASHBOARD ↗</button><p class="hint">PIN admin diatur aman melalui Apps Script → Project Settings → Script Properties (ADMIN_PIN).</p></div>
+<div id="loginView" class="login-card"><div class="kicker">RESTRICTED ACCESS</div><h3>Welcome, Admin.</h3><p class="hint">Masukkan PIN untuk membuka dashboard pengelolaan website.</p><input id="adminPin" type="password" placeholder="PIN admin"><button class="add-btn" style="width:100%;padding:13px" onclick="loginAdmin()">UNLOCK DASHBOARD ↗</button><p class="hint">PIN admin diatur melalui Apps Script → Project Settings → Script Properties (ADMIN_PIN).</p></div>
 <div id="dashboard" style="display:none"><div class="admin-tabs"><button class="tab-btn active" data-tab="menus" onclick="switchTab('menus')">Menu</button><button class="tab-btn" data-tab="promos" onclick="switchTab('promos')">Promo</button><button class="tab-btn" data-tab="contacts" onclick="switchTab('contacts')">Kontak Barista</button><button class="tab-btn" data-tab="extras" onclick="switchTab('extras')">Additional</button><button class="tab-btn" data-tab="settings" onclick="switchTab('settings')">Pengaturan</button></div><div class="admin-content" id="adminContent"></div></div>
 </div></div><div class="toast" id="toast"></div>
-<script>
-const STORE='itenpoint_coffee_v2';
-// Setelah deploy Apps Script, ganti URL di bawah dengan URL Web App /exec.
-const API_URL='https://script.google.com/macros/s/AKfycbw129PVAR7QrkzI4fq6iCZM0MZpKGv5iAQ25WCprSFiWlAb8wRc5rw2dlSBARZWnFjE/exec';
-let adminPinSession='';
-let cloudReady=false;
-const categories=['Signature','Coffee Series','Kopikano','Milk Series','Frappe Series','Tea & Refresher'];
-const starter={
- menus:[
- ['Palm Sugar Latte','Signature',25000,'Ice','Kopi susu dengan manis khas gula aren.','palm-sugar-latte.webp'],
- ['Caramel Macchiato','Signature',25000,'Ice','Espresso, susu, dan sentuhan caramel.','caramel-macchiato.webp'],
- ['Himalayan Butterscotch','Signature',25000,'Ice','Creamy dengan rasa butterscotch lembut.','himalayan-butterscotch.webp'],
- ['Honey Butter Palm','Signature',25000,'Ice','Perpaduan honey dan palm sugar.','honey-butter-palm.webp'],
- ['Salted Ovomaltine','Signature',25000,'Ice','Rasa kopi dengan sentuhan salted ovomaltine.','salted-ovomaltine.webp'],
- ['Biscoff Latte','Signature',25000,'Ice','Latte creamy dengan rasa biskuit karamel.','biscoff-latte.webp'],
- ['Doppio','Coffee Series',16000,'Hot / Ice','Espresso dengan karakter bold.','caramel-macchiato.webp'],
- ['Long Black / Americano','Coffee Series',20000,'Hot / Ice','Espresso dan air, clean serta bold.','biscoff-latte.webp'],
- ['Latte','Coffee Series',20000,'Hot / Ice','Espresso dengan steamed milk.','himalayan-butterscotch.webp'],
- ['Flavored Latte','Coffee Series',20000,'Hot / Ice','Pilihan rasa vanilla, caramel, atau hazelnut.','honey-butter-palm.webp'],
- ['Cappuccino','Coffee Series',20000,'Hot / Ice','Espresso, susu, dan foam lembut.','caramel-macchiato.webp'],
- ['Flat White','Coffee Series',20000,'Hot / Ice','Kopi susu dengan tekstur silky.','biscoff-latte.webp'],
- ['Mocha','Coffee Series',20000,'Hot / Ice','Kopi dan cokelat dalam satu gelas.','salted-ovomaltine.webp'],
- ['Café Dolce','Coffee Series',20000,'Hot / Ice','Kopi creamy dengan rasa manis lembut.','palm-sugar-latte.webp'],
- ['Skålen Creamy Latte','Coffee Series',20000,'Hot / Ice','Creamy latte dengan karakter khas.','himalayan-butterscotch.webp'],
- ['Dark Aren Latte','Coffee Series',20000,'Hot / Ice','Latte dengan palm sugar yang rich.','palm-sugar-latte.webp'],
- ['Coconut / Cashew Aron Latte','Coffee Series',25000,'Ice','Latte dengan pilihan coconut atau cashew.','biscoff-latte.webp'],
- ['Black Peach / Lychee','Kopikano',25000,'Cold','Minuman buah dengan rasa peach dan lychee.','black-peach-lychee.webp'],
- ['Black Citrus / Sparkling Soda','Kopikano',25000,'Cold','Black citrus dengan sensasi sparkling soda.','black-citrus-soda.webp'],
- ['Lychee Berrykano','Kopikano',25000,'Cold','Lychee dan berry yang menyegarkan.','lychee-berrykano.webp'],
- ['Peach Jerukano','Kopikano',25000,'Cold','Peach dan jeruk dengan sensasi segar.','peach-jerukano.webp'],
- ['Martisá Apelakano','Kopikano',25000,'Cold','Racikan buah segar khas Iten Point.','martisa-apelakano.webp'],
- ['Kelapakano','Kopikano',25000,'Cold','Kesegaran kelapa.','kelapakano.webp'],
- ['Kelapa Jerukano','Kopikano',25000,'Cold','Kelapa dan jeruk yang menyegarkan.','kelapa-jerukano.webp'],
- ['Signature Chocolate','Milk Series',25000,'Ice','Cokelat signature yang rich dan creamy.','signature-chocolate.webp'],
- ['Triple Choco Ovomaltine','Milk Series',25000,'Ice','Sensasi cokelat berlapis dan ovomaltine.','triple-choco.webp'],
- ['Biscoff Milkcheese','Milk Series',25000,'Ice','Susu, cheese, dan Biscoff.','biscoff-milkcheese.webp'],
- ['Matcha Latte','Milk Series',25000,'Ice','Matcha creamy dengan aroma khas.','matcha-latte.webp'],
- ['Matcha Pistachio','Milk Series',25000,'Ice','Matcha dengan sentuhan pistachio.','matcha-pistachio.webp'],
- ['Cookies & Cream','Frappe Series',30000,'Cold','Frappe creamy dengan cookies.','cookies-cream.webp'],
- ['Crunchy Caramel','Frappe Series',30000,'Cold','Caramel frappe dengan tekstur crunchy.','crunchy-caramel.webp'],
- ['Avocadooffee','Frappe Series',30000,'Cold','Perpaduan avocado dan coffee.','avocadooffee.webp'],
- ['Matcha','Frappe Series',30000,'Cold','Matcha frappe dengan tekstur creamy.','matcha-frappe.webp'],
- ['Chocolate','Frappe Series',30000,'Cold','Chocolate frappe yang pekat dan lembut.','chocolate-frappe.webp'],
- ['Rose & Roselle','Tea & Refresher',15000,'Hot / Ice','Teh rosella dengan aroma bunga.','rose-roselle.webp'],
- ['Sunset (Sparkling Soda)','Tea & Refresher',15000,'Hot / Ice','Minuman soda segar dengan warna sunset.','sunset-sparkling.webp'],
- ['Black Tea','Tea & Refresher',15000,'Hot 15K / Ice 18K','Teh hitam klasik.','rose-roselle.webp'],
- ['Earl Grey / Chamomile','Tea & Refresher',15000,'Hot 15K / Ice 18K','Pilihan teh aromatik yang menenangkan.','rose-roselle.webp'],
- ['Peach / Lychee / Lemon','Tea & Refresher',15000,'Hot 15K / Ice 18K','Teh dengan pilihan rasa buah.','sunset-sparkling.webp'],
- ['Jade Ginger','Tea & Refresher',15000,'Hot 15K','Teh jahe dengan rasa hangat.','rose-roselle.webp'],
- ['Sunrise (Sparkling)','Tea & Refresher',15000,'Hot 15K / Ice 25K','Sparkling tea yang fresh.','sunset-sparkling.webp']
- ].map((m,i)=>({id:'m'+i,name:m[0],category:m[1],price:m[2],serve:m[3],desc:m[4],image:m[5],active:true,promoPrice:0})),
- promos:[{id:'promo1',title:'Promo Spesial Iten Point',tag:'TODAY SPECIAL',description:'Tulis penawaran terbaik hari ini di sini. Kamu bisa mengganti foto, judul, harga, dan periode promo kapan saja.',price:'Mulai 20K',period:'Promo hari ini',image:'',active:true}],
- contacts:[{id:'c1',name:'Barista Iten Point',role:'Customer Service',phone:'628123456789',label:'WhatsApp'}],
- extras:[['Syrup','+3K','Caramel / Vanilla / Matcha'],['Sauce','+3K','Caramel / Chocolate'],['Toppings','+3K','Coffee Jelly / Frappe Jelly'],['Palm Sugar','+3K','Tambahan palm sugar'],['Natural Honey','+5K','Tambahan natural honey'],['Espresso','+5K','Extra espresso shot'],['Whipped Cream','+5K','Extra whipped cream'],['Upsize','+5K','Ukuran lebih besar'],['Oat Milk','+4K','Milk alternative'],['Cashew Milk','+4K','Milk alternative'],['Coconut Milk','+10K','Milk alternative'],['Decaf','+8K','Decaffeinated coffee']],
- settings:{tiktok:'https://www.tiktok.com/',maps:'https://maps.google.com/',pin:'123456'}
-};
-// Harga dua penyajian sesuai informasi pada poster menu.
-const dualPrices={
- 'Doppio':'Hot 16K · Ice 18K',
- 'Long Black / Americano':'Hot 20K · Ice 20K',
- 'Latte':'Hot 20K · Ice 25K',
- 'Flavored Latte':'Hot 20K · Ice 25K',
- 'Cappuccino':'Hot 20K · Ice 25K',
- 'Flat White':'Hot 20K · Ice 25K',
- 'Mocha':'Hot 20K · Ice 25K',
- 'Café Dolce':'Hot 20K · Ice 25K',
- 'Skålen Creamy Latte':'Hot 20K · Ice 25K',
- 'Dark Aren Latte':'Hot 20K · Ice 25K',
- 'Black Tea':'Hot 15K · Ice 18K',
- 'Earl Grey / Chamomile':'Hot 15K · Ice 18K',
- 'Peach / Lychee / Lemon':'Hot 15K · Ice 18K',
- 'Jade Ginger':'Hot 15K',
- 'Sunrise (Sparkling)':'Hot 15K · Ice 25K',
- 'Rose & Roselle':'Hot 15K · Ice 18K',
- 'Sunset (Sparkling Soda)':'Hot 15K · Ice 25K'
-};
-starter.menus.forEach(m=>{if(dualPrices[m.name])m.priceText=dualPrices[m.name]});
-function clone(x){return JSON.parse(JSON.stringify(x))}
-function loadData(){try{let d=JSON.parse(localStorage.getItem(STORE));return d&&d.menus?d:clone(starter)}catch(e){return clone(starter)}}
-let data=loadData(),activeCategory='All';
-function persist(message='Perubahan berhasil disimpan!'){try{localStorage.setItem(STORE,JSON.stringify(data));renderAll();if(isCloudConfigured()&&adminPinSession){sendCloudSave(message)}else{notify(isCloudConfigured()?'Perubahan lokal tersimpan. Login admin diperlukan untuk sinkronisasi cloud.':message+' (lokal)')}}catch(e){notify('Penyimpanan penuh. Gunakan URL foto Google Drive, bukan file besar.')}}
-function isCloudConfigured(){return API_URL.startsWith('https://script.google.com/macros/s/')&&!API_URL.includes('PASTE_YOUR')}
-function cloudRead(done){if(!isCloudConfigured()){done(null);return}let cb='itenCloudCb'+Date.now()+Math.floor(Math.random()*1000);window[cb]=payload=>{try{delete window[cb]}catch(e){};script.remove();done(payload&&payload.ok?payload.data:null)};let script=document.createElement('script');script.src=API_URL+'?action=read&callback='+cb+'&_='+Date.now();script.onerror=()=>{delete window[cb];script.remove();done(null)};document.head.appendChild(script)}
-function refreshCloud(silent=false){if(!isCloudConfigured())return;cloudRead(cloud=>{if(cloud&&cloud.menus){data=cloud;try{localStorage.setItem(STORE,JSON.stringify(data))}catch(e){};renderAll();cloudReady=true;if(!silent)notify('Data terbaru dari Google Sheets berhasil dimuat.')}else if(!silent)notify('Belum ada data cloud. Simpan data awal dari panel admin.');});}
-function sendCloudSave(message){let payload={action:'saveAll',pin:adminPinSession,data:data};fetch(API_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(payload)}).then(()=>{notify('Sinkronisasi dikirim ke Google Sheets. Memuat ulang data…');setTimeout(()=>refreshCloud(true),1800)}).catch(()=>notify('Gagal mengirim ke cloud. Periksa URL Apps Script dan koneksi internet.'));}
 
-function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
-function money(n){return 'Rp '+Number(n||0).toLocaleString('id-ID')}
-function asset(path){return path?(path.startsWith('data:')||path.startsWith('http')?path:'assets/'+path):''}
-function notify(msg){let t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2400)}
-function renderPromo(){let p=data.promos.find(x=>x.active);let el=document.getElementById('promoView');if(!p){el.innerHTML='<div class="empty-state">Belum ada promo aktif. Pantau terus promo terbaru kami!</div>';return}el.innerHTML=`<div class="promo-layout"><div class="promo-feature"><span class="promo-label">${esc(p.tag||'SPECIAL OFFER')}</span><h3>${esc(p.title)}</h3><p>${esc(p.description)}</p><div class="promo-value">${esc(p.price)}</div>${p.image?`<img class="promo-image" src="${esc(asset(p.image))}" alt="${esc(p.title)}">`:''}</div><div class="promo-side"><div><div class="kicker">LIMITED OFFER</div><h3>Good things<br>don't wait.</h3><p>${esc(p.period||'Periode promo')}<br>Hubungi barista kami untuk detail dan ketersediaan promo.</p></div><div class="promo-foot">✳ FRESH DEALS • ITEN POINT COFFEE</div></div></div>`}
-function renderPills(){document.getElementById('categoryPills').innerHTML=['All',...categories].map(c=>`<button class="pill ${activeCategory===c?'active':''}" onclick="setCategory('${c}')">${c==='All'?'Semua Menu':c}</button>`).join('')}
-function setCategory(c){activeCategory=c;renderPills();renderMenu()}
-function productCard(m){let photo=asset(m.image);return `<article class="product"><div class="product-photo">${photo?`<img src="${esc(photo)}" alt="${esc(m.name)}" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="no-photo" style="display:none">☕</span>`:'<span class="no-photo">☕</span>'}${m.promoPrice?'<span class="product-tag">PROMO</span>':''}</div><div class="product-content"><h4>${esc(m.name)}</h4><div class="product-bottom"><span class="price">${m.promoPrice?`<del>${money(m.price)}</del>${money(m.promoPrice)}`:esc(m.priceText||money(m.price))}</span><span class="serve">${esc(m.serve)}</span></div><p class="description">${esc(m.desc||'Freshly made for your moment.')}</p></div></article>`}
-function renderMenu(){let q=(document.getElementById('menuSearch')?.value||'').toLowerCase().trim();let visible=data.menus.filter(m=>m.active&&(activeCategory==='All'||m.category===activeCategory)&&(!q||m.name.toLowerCase().includes(q)||m.category.toLowerCase().includes(q)));let cats=activeCategory==='All'?categories:[activeCategory];let html=cats.map(c=>{let items=visible.filter(m=>m.category===c);if(!items.length)return '';return `<section class="category-block"><div class="category-heading"><h3>${esc(c)}</h3><span>${String(items.length).padStart(2,'0')} MENU</span></div><div class="menu-grid">${items.map(productCard).join('')}</div></section>`}).join('');document.getElementById('menuCatalog').innerHTML=html||'<div class="empty-state">Menu tidak ditemukan. Coba kata kunci lain.</div>'}
-function renderContacts(){document.getElementById('contactView').innerHTML=data.contacts.length?data.contacts.map(c=>`<a class="contact-card" href="https://wa.me/${esc(c.phone.replace(/\D/g,''))}" target="_blank" rel="noopener"><span class="avatar">${esc((c.name||'B').slice(0,1).toUpperCase())}</span><span style="min-width:0"><strong>${esc(c.name)}</strong><small>${esc(c.role)} · ${esc(c.label||c.phone)}</small></span><b style="margin-left:auto;color:var(--lime)">↗</b></a>`).join(''):'<div class="empty-state">Kontak barista akan segera tersedia.</div>'}
-function renderExtras(){document.getElementById('additionalView').innerHTML=data.extras.map(x=>`<div class="add-on"><strong>${esc(x[0])}</strong><span>${esc(x[1])}</span><small style="display:block;color:var(--muted);font-size:9px;margin-top:5px">${esc(x[2]||'')}</small></div>`).join('')}
-function renderLinks(){['tiktokTop','tiktokLink'].forEach(id=>document.getElementById(id).href=data.settings.tiktok||'#');['mapsTop','mapsLink'].forEach(id=>document.getElementById(id).href=data.settings.maps||'#')}
-function renderAll(){renderPromo();renderPills();renderMenu();renderContacts();renderExtras();renderLinks();document.getElementById('year').textContent=new Date().getFullYear()}
-function openAdmin(){document.getElementById('adminModal').classList.add('show');document.getElementById('loginView').style.display='block';document.getElementById('dashboard').style.display='none';document.getElementById('adminPin').value=''}
-function closeAdmin(){document.getElementById('adminModal').classList.remove('show')}
-function loginAdmin(){let pin=document.getElementById('adminPin').value.trim();if(pin.length<4){notify('Masukkan PIN admin minimal 4 karakter.');return}adminPinSession=pin;document.getElementById('loginView').style.display='none';document.getElementById('dashboard').style.display='block';switchTab('menus');if(isCloudConfigured())refreshCloud(true);else notify('Mode lokal: URL Google Apps Script belum dipasang.')}
-function switchTab(tab){document.querySelectorAll('.tab-btn').forEach(b=>b.classList.toggle('active',b.dataset.tab===tab));({menus:adminMenus,promos:adminPromos,contacts:adminContacts,extras:adminExtras,settings:adminSettings})[tab]()}
-function adminMenus(){let c=document.getElementById('adminContent');c.innerHTML=`<div class="admin-row"><h3>Kelola Menu · ${data.menus.length} item</h3><button class="add-btn" onclick="editMenu()">＋ TAMBAH MENU</button></div><div class="admin-list">${data.menus.map(m=>`<div class="admin-item"><div><strong>${esc(m.name)}</strong><small>${esc(m.category)} · ${money(m.price)} · ${esc(m.serve)} ${m.active?'':'· disembunyikan'}</small></div><div class="admin-actions"><button class="mini-btn" onclick="editMenu('${m.id}')">Edit</button><button class="mini-btn danger" onclick="removeMenu('${m.id}')">Hapus</button></div></div>`).join('')}</div><p class="hint">Menu yang dinonaktifkan tetap tersimpan di admin, tetapi tidak tampil di katalog pelanggan.</p>`}
-function editMenu(id){let old=data.menus.find(m=>m.id===id);let m=old||{id:'m'+Date.now(),name:'',category:'Coffee Series',price:0,serve:'Hot / Ice',desc:'',image:'',active:true,promoPrice:0};document.getElementById('adminContent').innerHTML=`<div class="admin-row"><h3>${id?'Edit menu':'Tambah menu baru'}</h3><button class="mini-btn" onclick="adminMenus()">← KEMBALI</button></div><div class="form-grid"><div class="field"><label>NAMA MENU</label><input id="mName" value="${esc(m.name)}"></div><div class="field"><label>KATEGORI</label><select id="mCat">${categories.map(x=>`<option ${m.category===x?'selected':''}>${x}</option>`).join('')}</select></div><div class="field"><label>HARGA (ANGKA RUPIAH)</label><input id="mPrice" type="number" value="${m.price}"></div><div class="field"><label>LABEL HARGA (OPSIONAL, CONTOH HOT 16K · ICE 18K)</label><input id="mPriceText" value="${esc(m.priceText||'')}" placeholder="Kosongkan jika satu harga"></div><div class="field"><label>PENYAJIAN</label><input id="mServe" value="${esc(m.serve)}" placeholder="Hot / Ice / Cold"></div><div class="field full"><label>DESKRIPSI MENU</label><textarea id="mDesc">${esc(m.desc)}</textarea></div><div class="field full"><label>FOTO MENU (URL GOOGLE DRIVE / FILE ASSETS)</label><input id="mUrl" value="${m.image&&!m.image.startsWith('data:')?esc(m.image):''}" placeholder="URL gambar Drive atau nama file assets/contoh.webp"><small class="hint">Upload foto ke Google Drive, ubah akses menjadi Anyone with the link, lalu tempel URL gambar. Untuk file bawaan, isi nama file dalam folder assets.</small></div><div class="field"><label>HARGA PROMO (OPSIONAL)</label><input id="mPromo" type="number" value="${m.promoPrice||''}" placeholder="Kosongkan jika normal"></div><div class="field" style="align-content:end"><label class="check"><input id="mActive" type="checkbox" ${m.active?'checked':''}> Tampilkan menu di website</label></div></div><div class="form-actions"><button class="add-btn" onclick="saveMenu('${id||''}')">SIMPAN MENU</button></div>`}
-function readImage(file,done){if(!file){done(null);return}let reader=new FileReader();reader.onload=()=>done(reader.result);reader.onerror=()=>notify('Foto gagal dibaca.');reader.readAsDataURL(file)}
-function saveMenu(id){let old=data.menus.find(m=>m.id===id);let m={id:id||'m'+Date.now(),name:document.getElementById('mName').value.trim(),category:document.getElementById('mCat').value,price:Number(document.getElementById('mPrice').value),priceText:document.getElementById('mPriceText').value.trim(),serve:document.getElementById('mServe').value.trim(),desc:document.getElementById('mDesc').value.trim(),image:document.getElementById('mUrl').value.trim()||old?.image||'',promoPrice:Number(document.getElementById('mPromo').value)||0,active:document.getElementById('mActive').checked};if(!m.name||m.price<=0){notify('Nama dan harga wajib diisi.');return}let i=data.menus.findIndex(x=>x.id===id);if(i>=0)data.menus[i]=m;else data.menus.unshift(m);persist();adminMenus()}
-function removeMenu(id){if(confirm('Hapus menu ini secara permanen?')){data.menus=data.menus.filter(m=>m.id!==id);persist();adminMenus()}}
-function adminPromos(){let c=document.getElementById('adminContent');c.innerHTML=`<div class="admin-row"><h3>Promo & campaign</h3><button class="add-btn" onclick="editPromo()">＋ BUAT PROMO</button></div><div class="admin-list">${data.promos.map(p=>`<div class="admin-item"><div><strong>${esc(p.title)}</strong><small>${esc(p.tag)} · ${esc(p.period)} · ${p.active?'AKTIF':'NONAKTIF'}</small></div><div class="admin-actions"><button class="mini-btn" onclick="editPromo('${p.id}')">Edit</button><button class="mini-btn danger" onclick="removePromo('${p.id}')">Hapus</button></div></div>`).join('')||'<div class="empty-state">Belum ada promo.</div>'}</div>`}
-function editPromo(id){let old=data.promos.find(p=>p.id===id);let p=old||{id:'p'+Date.now(),title:'',tag:'SPECIAL OFFER',description:'',price:'',period:'Promo hari ini',image:'',active:true};document.getElementById('adminContent').innerHTML=`<div class="admin-row"><h3>${id?'Edit promo':'Buat promo baru'}</h3><button class="mini-btn" onclick="adminPromos()">← KEMBALI</button></div><div class="form-grid"><div class="field"><label>JUDUL PROMO</label><input id="pTitle" value="${esc(p.title)}"></div><div class="field"><label>LABEL PROMO</label><input id="pTag" value="${esc(p.tag)}"></div><div class="field"><label>HARGA / PENAWARAN</label><input id="pPrice" value="${esc(p.price)}" placeholder="Contoh: Buy 1 Get 1 / 20K"></div><div class="field"><label>PERIODE PROMO</label><input id="pPeriod" value="${esc(p.period)}"></div><div class="field full"><label>DESKRIPSI PROMO</label><textarea id="pDesc">${esc(p.description)}</textarea></div><div class="field full"><label>FOTO PROMO (URL GOOGLE DRIVE / FILE ASSETS)</label><input id="pUrl" placeholder="URL gambar Drive atau nama file assets" value="${p.image&&!p.image.startsWith('data:')?esc(p.image):''}"><small class="hint">Upload foto ke Google Drive dan aktifkan Anyone with the link, lalu tempel link gambar.</small></div><div class="field"><label class="check"><input id="pActive" type="checkbox" ${p.active?'checked':''}> Tampilkan sebagai promo aktif</label></div></div><div class="form-actions"><button class="add-btn" onclick="savePromo('${id||''}')">SIMPAN PROMO</button></div>`}
-function savePromo(id){let old=data.promos.find(p=>p.id===id);let p={id:id||'p'+Date.now(),title:document.getElementById('pTitle').value.trim(),tag:document.getElementById('pTag').value,price:document.getElementById('pPrice').value,period:document.getElementById('pPeriod').value,description:document.getElementById('pDesc').value,image:document.getElementById('pUrl').value.trim()||old?.image||'',active:document.getElementById('pActive').checked};if(!p.title){notify('Judul promo wajib diisi.');return}if(p.active)data.promos.forEach(x=>x.active=false);let i=data.promos.findIndex(x=>x.id===id);if(i>=0)data.promos[i]=p;else data.promos.unshift(p);persist();adminPromos()}
-function removePromo(id){if(confirm('Hapus promo ini?')){data.promos=data.promos.filter(p=>p.id!==id);persist();adminPromos()}}
-function adminContacts(){let c=document.getElementById('adminContent');c.innerHTML=`<div class="admin-row"><h3>Kontak Barista · ${data.contacts.length}</h3><button class="add-btn" onclick="editContact()">＋ TAMBAH KONTAK</button></div><div class="admin-list">${data.contacts.map(x=>`<div class="admin-item"><div><strong>${esc(x.name)}</strong><small>${esc(x.role)} · ${esc(x.phone)}</small></div><div class="admin-actions"><button class="mini-btn" onclick="editContact('${x.id}')">Edit</button><button class="mini-btn danger" onclick="removeContact('${x.id}')">Hapus</button></div></div>`).join('')||'<div class="empty-state">Belum ada kontak.</div>'}</div>`}
-function editContact(id){let old=data.contacts.find(x=>x.id===id);let x=old||{id:'c'+Date.now(),name:'',role:'Barista',phone:'',label:'WhatsApp'};document.getElementById('adminContent').innerHTML=`<div class="admin-row"><h3>${id?'Edit kontak':'Tambah kontak barista'}</h3><button class="mini-btn" onclick="adminContacts()">← KEMBALI</button></div><div class="form-grid"><div class="field"><label>NAMA</label><input id="cName" value="${esc(x.name)}"></div><div class="field"><label>JABATAN / ROLE</label><input id="cRole" value="${esc(x.role)}"></div><div class="field"><label>NOMOR WHATSAPP</label><input id="cPhone" value="${esc(x.phone)}" placeholder="628xxxxxxxxxx"></div><div class="field"><label>LABEL</label><input id="cLabel" value="${esc(x.label)}" placeholder="Chat WhatsApp"></div></div><div class="form-actions"><button class="add-btn" onclick="saveContact('${id||''}')">SIMPAN KONTAK</button></div><p class="hint">Gunakan nomor dengan kode negara tanpa tanda +, spasi, atau strip. Contoh Indonesia: 62812xxxxxxx.</p>`}
-function saveContact(id){let x={id:id||'c'+Date.now(),name:document.getElementById('cName').value.trim(),role:document.getElementById('cRole').value.trim(),phone:document.getElementById('cPhone').value.replace(/\D/g,''),label:document.getElementById('cLabel').value.trim()};if(!x.name||!x.phone){notify('Nama dan nomor WhatsApp wajib diisi.');return}let i=data.contacts.findIndex(c=>c.id===id);if(i>=0)data.contacts[i]=x;else data.contacts.push(x);persist();adminContacts()}
-function removeContact(id){if(confirm('Hapus kontak ini?')){data.contacts=data.contacts.filter(c=>c.id!==id);persist();adminContacts()}}
-function adminExtras(){document.getElementById('adminContent').innerHTML=`<div class="admin-row"><h3>Additional / Topping</h3><button class="add-btn" onclick="editExtra()">＋ TAMBAH ADD-ON</button></div><div class="admin-list">${data.extras.map((x,i)=>`<div class="admin-item"><div><strong>${esc(x[0])}</strong><small>${esc(x[1])} · ${esc(x[2])}</small></div><div class="admin-actions"><button class="mini-btn" onclick="editExtra(${i})">Edit</button><button class="mini-btn danger" onclick="removeExtra(${i})">Hapus</button></div></div>`).join('')}</div>`}
-function editExtra(i){let x=i===undefined?['','','']:data.extras[i];document.getElementById('adminContent').innerHTML=`<div class="admin-row"><h3>${i===undefined?'Tambah':'Edit'} additional</h3><button class="mini-btn" onclick="adminExtras()">← KEMBALI</button></div><div class="form-grid"><div class="field"><label>NAMA</label><input id="eName" value="${esc(x[0])}"></div><div class="field"><label>HARGA</label><input id="ePrice" value="${esc(x[1])}"></div><div class="field full"><label>KETERANGAN</label><input id="eDesc" value="${esc(x[2])}"></div></div><div class="form-actions"><button class="add-btn" onclick="saveExtra(${i===undefined?'null':i})">SIMPAN</button></div>`}
-function saveExtra(i){let x=[document.getElementById('eName').value,document.getElementById('ePrice').value,document.getElementById('eDesc').value];if(!x[0]){notify('Nama additional wajib diisi.');return}if(i===null)data.extras.push(x);else data.extras[i]=x;persist();adminExtras()}
-function removeExtra(i){if(confirm('Hapus item additional?')){data.extras.splice(i,1);persist();adminExtras()}}
-function adminSettings(){document.getElementById('adminContent').innerHTML=`<div class="admin-row"><h3>Pengaturan website</h3></div><div class="form-grid"><div class="field full"><label>LINK TIKTOK SHOP / AKUN TIKTOK</label><input id="sTikTok" value="${esc(data.settings.tiktok)}"></div><div class="field full"><label>LINK GOOGLE MAPS / REVIEW</label><input id="sMaps" value="${esc(data.settings.maps)}"></div><div class="field full"><label>STATUS DATABASE</label><input value="${isCloudConfigured()?'Google Sheets API terpasang':'URL Apps Script belum dipasang'}" disabled></div></div><div class="form-actions"><button class="add-btn" onclick="saveSettings()">SIMPAN PENGATURAN</button></div><hr style="border:0;border-top:1px solid var(--line);margin:20px 0"><p class="hint"><b>Google Sheets:</b> Tempel URL Apps Script pada konstanta API_URL di bagian atas index.html. PIN admin disimpan di Apps Script Project Settings → Script Properties dengan nama ADMIN_PIN. PIN tidak ditampilkan kepada pengunjung. Foto disimpan di Google Drive, sedangkan URL-nya masuk ke Sheet.</p><button class="mini-btn" onclick="refreshCloud()">↻ AMBIL DATA TERBARU DARI SHEETS</button><button class="mini-btn" onclick="publishInitialData()">↑ KIRIM DATA AWAL KE SHEETS</button><button class="mini-btn danger" onclick="resetData()">RESET DATA WEBSITE</button>`}
-function saveSettings(){data.settings.tiktok=document.getElementById('sTikTok').value.trim();data.settings.maps=document.getElementById('sMaps').value.trim();persist();adminSettings()}
-function publishInitialData(){if(!isCloudConfigured()){notify('Pasang URL Apps Script terlebih dahulu.');return}if(!adminPinSession){notify('Login admin terlebih dahulu.');return}persist('Data awal dikirim ke Google Sheets.');}
-function resetData(){if(confirm('Kembalikan seluruh menu, promo, kontak, dan pengaturan ke data awal?')){data=clone(starter);persist('Data awal dipulihkan.');adminSettings()}}
+<script>
+const STORE = 'itenpoint_coffee_v2';
+// Masukkan URL Web App Google Apps Script kamu di bawah ini (berakhiran /exec)
+const API_URL = 'https://script.google.com/macros/s/AKfycbw129PVAR7QrkzI4fq6iCZM0MZpKGv5iAQ25WCprSFiWlAb8wRc5rw2dlSBARZWnFjE/exec';
+
+let adminPinSession = '';
+let cloudReady = false;
+const categories = ['Signature', 'Coffee Series', 'Kopikano', 'Milk Series', 'Frappe Series', 'Tea & Refresher'];
+const starter = {
+ menus: [
+ ['Palm Sugar Latte', 'Signature', 25000, 'Ice', 'Kopi susu dengan manis khas gula aren.', 'palm-sugar-latte.webp'],
+ ['Caramel Macchiato', 'Signature', 25000, 'Ice', 'Espresso, susu, dan sentuhan caramel.', 'caramel-macchiato.webp'],
+ ['Himalayan Butterscotch', 'Signature', 25000, 'Ice', 'Creamy dengan rasa butterscotch lembut.', 'himalayan-butterscotch.webp'],
+ ['Honey Butter Palm', 'Signature', 25000, 'Ice', 'Perpaduan honey dan palm sugar.', 'honey-butter-palm.webp'],
+ ['Salted Ovomaltine', 'Signature', 25000, 'Ice', 'Rasa kopi dengan sentuhan salted ovomaltine.', 'salted-ovomaltine.webp'],
+ ['Biscoff Latte', 'Signature', 25000, 'Ice', 'Latte creamy dengan rasa biskuit karamel.', 'biscoff-latte.webp'],
+ ['Doppio', 'Coffee Series', 16000, 'Hot / Ice', 'Espresso dengan karakter bold.', 'caramel-macchiato.webp'],
+ ['Long Black / Americano', 'Coffee Series', 20000, 'Hot / Ice', 'Espresso dan air, clean serta bold.', 'biscoff-latte.webp'],
+ ['Latte', 'Coffee Series', 20000, 'Hot / Ice', 'Espresso dengan steamed milk.', 'himalayan-butterscotch.webp'],
+ ['Flavored Latte', 'Coffee Series', 20000, 'Hot / Ice', 'Pilihan rasa vanilla, caramel, atau hazelnut.', 'honey-butter-palm.webp'],
+ ['Cappuccino', 'Coffee Series', 20000, 'Hot / Ice', 'Espresso, susu, dan foam lembut.', 'caramel-macchiato.webp'],
+ ['Flat White', 'Coffee Series', 20000, 'Hot / Ice', 'Kopi susu dengan tekstur silky.', 'biscoff-latte.webp'],
+ ['Mocha', 'Coffee Series', 20000, 'Hot / Ice', 'Kopi dan cokelat dalam satu gelas.', 'salted-ovomaltine.webp'],
+ ['Café Dolce', 'Coffee Series', 20000, 'Hot / Ice', 'Kopi creamy dengan rasa manis lembut.', 'palm-sugar-latte.webp'],
+ ['Skålen Creamy Latte', 'Coffee Series', 20000, 'Hot / Ice', 'Creamy latte dengan karakter khas.', 'himalayan-butterscotch.webp'],
+ ['Dark Aren Latte', 'Coffee Series', 20000, 'Hot / Ice', 'Latte dengan palm sugar yang rich.', 'palm-sugar-latte.webp'],
+ ['Coconut / Cashew Aron Latte', 'Coffee Series', 25000, 'Ice', 'Latte dengan pilihan coconut atau cashew.', 'biscoff-latte.webp'],
+ ['Black Peach / Lychee', 'Kopikano', 25000, 'Cold', 'Minuman buah dengan rasa peach dan lychee.', 'black-peach-lychee.webp'],
+ ['Black Citrus / Sparkling Soda', 'Kopikano', 25000, 'Cold', 'Black citrus dengan sensasi sparkling soda.', 'black-citrus-soda.webp'],
+ ['Lychee Berrykano', 'Kopikano', 25000, 'Cold', 'Lychee dan berry yang menyegarkan.', 'lychee-berrykano.webp'],
+ ['Peach Jerukano', 'Kopikano', 25000, 'Cold', 'Peach dan jeruk dengan sensasi segar.', 'peach-jerukano.webp'],
+ ['Martisá Apelakano', 'Kopikano', 25000, 'Cold', 'Racikan buah segar khas Iten Point.', 'martisa-apelakano.webp'],
+ ['Kelapakano', 'Kopikano', 25000, 'Cold', 'Kesegaran kelapa.', 'kelapakano.webp'],
+ ['Kelapa Jerukano', 'Kopikano', 25000, 'Cold', 'Kelapa dan jeruk yang menyegarkan.', 'kelapa-jerukano.webp'],
+ ['Signature Chocolate', 'Milk Series', 25000, 'Ice', 'Cokelat signature yang rich dan creamy.', 'signature-chocolate.webp'],
+ ['Triple Choco Ovomaltine', 'Milk Series', 25000, 'Ice', 'Sensasi cokelat berlapis dan ovomaltine.', 'triple-choco.webp'],
+ ['Biscoff Milkcheese', 'Milk Series', 25000, 'Ice', 'Susu, cheese, dan Biscoff.', 'biscoff-milkcheese.webp'],
+ ['Matcha Latte', 'Milk Series', 25000, 'Ice', 'Matcha creamy dengan aroma khas.', 'matcha-latte.webp'],
+ ['Matcha Pistachio', 'Milk Series', 25000, 'Ice', 'Matcha dengan sentuhan pistachio.', 'matcha-pistachio.webp'],
+ ['Cookies & Cream', 'Frappe Series', 30000, 'Cold', 'Frappe creamy dengan cookies.', 'cookies-cream.webp'],
+ ['Crunchy Caramel', 'Frappe Series', 30000, 'Cold', 'Caramel frappe dengan tekstur crunchy.', 'crunchy-caramel.webp'],
+ ['Avocadooffee', 'Frappe Series', 30000, 'Cold', 'Perpaduan avocado dan coffee.', 'avocadooffee.webp'],
+ ['Matcha', 'Frappe Series', 30000, 'Cold', 'Matcha frappe dengan tekstur creamy.', 'matcha-frappe.webp'],
+ ['Chocolate', 'Frappe Series', 30000, 'Cold', 'Chocolate frappe yang pekat dan lembut.', 'chocolate-frappe.webp'],
+ ['Rose & Roselle', 'Tea & Refresher', 15000, 'Hot / Ice', 'Teh rosella dengan aroma bunga.', 'rose-roselle.webp'],
+ ['Sunset (Sparkling Soda)', 'Tea & Refresher', 15000, 'Hot / Ice', 'Minuman soda segar dengan warna sunset.', 'sunset-sparkling.webp'],
+ ['Black Tea', 'Tea & Refresher', 15000, 'Hot 15K / Ice 18K', 'Teh hitam klasik.', 'rose-roselle.webp'],
+ ['Earl Grey / Chamomile', 'Tea & Refresher', 15000, 'Hot 15K / Ice 18K', 'Pilihan teh aromatik yang menenangkan.', 'rose-roselle.webp'],
+ ['Peach / Lychee / Lemon', 'Tea & Refresher', 15000, 'Hot 15K / Ice 18K', 'Teh dengan pilihan rasa buah.', 'sunset-sparkling.webp'],
+ ['Jade Ginger', 'Tea & Refresher', 15000, 'Hot 15K', 'Teh jahe dengan rasa hangat.', 'rose-roselle.webp'],
+ ['Sunrise (Sparkling)', 'Tea & Refresher', 15000, 'Hot 15K / Ice 25K', 'Sparkling tea yang fresh.', 'sunset-sparkling.webp']
+ ].map((m, i) => ({ id: 'm' + i, name: m[0], category: m[1], price: m[2], serve: m[3], desc: m[4], image: m[5], active: true, promoPrice: 0 })),
+ promos: [{ id: 'promo1', title: 'Promo Spesial Iten Point', tag: 'TODAY SPECIAL', description: 'Tulis penawaran terbaik hari ini di sini. Kamu bisa mengganti foto, judul, harga, dan periode promo kapan saja.', price: 'Mulai 20K', period: 'Promo hari ini', image: '', active: true }],
+ contacts: [{ id: 'c1', name: 'Barista Iten Point', role: 'Customer Service', phone: '628123456789', label: 'WhatsApp' }],
+ extras: [['Syrup', '+3K', 'Caramel / Vanilla / Matcha'], ['Sauce', '+3K', 'Caramel / Chocolate'], ['Toppings', '+3K', 'Coffee Jelly / Frappe Jelly'], ['Palm Sugar', '+3K', 'Tambahan palm sugar'], ['Natural Honey', '+5K', 'Tambahan natural honey'], ['Espresso', '+5K', 'Extra espresso shot'], ['Whipped Cream', '+5K', 'Extra whipped cream'], ['Upsize', '+5K', 'Ukuran lebih besar'], ['Oat Milk', '+4K', 'Milk alternative'], ['Cashew Milk', '+4K', 'Milk alternative'], ['Coconut Milk', '+10K', 'Milk alternative'], ['Decaf', '+8K', 'Decaffeinated coffee']],
+ settings: { tiktok: 'https://www.tiktok.com/', maps: 'https://maps.google.com/', pin: '123456' }
+};
+
+const dualPrices = {
+ 'Doppio': 'Hot 16K · Ice 18K',
+ 'Long Black / Americano': 'Hot 20K · Ice 20K',
+ 'Latte': 'Hot 20K · Ice 25K',
+ 'Flavored Latte': 'Hot 20K · Ice 25K',
+ 'Cappuccino': 'Hot 20K · Ice 25K',
+ 'Flat White': 'Hot 20K · Ice 25K',
+ 'Mocha': 'Hot 20K · Ice 25K',
+ 'Café Dolce': 'Hot 20K · Ice 25K',
+ 'Skålen Creamy Latte': 'Hot 20K · Ice 25K',
+ 'Dark Aren Latte': 'Hot 20K · Ice 25K',
+ 'Black Tea': 'Hot 15K · Ice 18K',
+ 'Earl Grey / Chamomile': 'Hot 15K · Ice 18K',
+ 'Peach / Lychee / Lemon': 'Hot 15K · Ice 18K',
+ 'Jade Ginger': 'Hot 15K',
+ 'Sunrise (Sparkling)': 'Hot 15K · Ice 25K',
+ 'Rose & Roselle': 'Hot 15K · Ice 18K',
+ 'Sunset (Sparkling Soda)': 'Hot 15K · Ice 25K'
+};
+
+starter.menus.forEach(m => { if (dualPrices[m.name]) m.priceText = dualPrices[m.name] });
+
+function clone(x) { return JSON.parse(JSON.stringify(x)) }
+function loadData() { try { let d = JSON.parse(localStorage.getItem(STORE)); return d && d.menus ? d : clone(starter) } catch (e) { return clone(starter) } }
+
+let data = loadData(), activeCategory = 'All';
+
+function persist(message = 'Perubahan berhasil disimpan!') {
+ try {
+  localStorage.setItem(STORE, JSON.stringify(data));
+  renderAll();
+  if (isCloudConfigured() && adminPinSession) {
+   sendCloudSave(message);
+  } else {
+   notify(isCloudConfigured() ? 'Perubahan lokal tersimpan. Login admin diperlukan untuk sinkronisasi cloud.' : message + ' (lokal)');
+  }
+ } catch (e) {
+  notify('Penyimpanan penuh. Gunakan URL foto Google Drive, bukan file besar.');
+ }
+}
+
+function isCloudConfigured() {
+ return API_URL.startsWith('https://script.google.com/macros/s/') && !API_URL.includes('PASTE_YOUR');
+}
+
+// Komunikasi JSONP untuk read data dari Google Sheets (Code.gs)
+function cloudRead(done) {
+ if (!isCloudConfigured()) { done(null); return; }
+ let cb = 'itenCloudCb' + Date.now() + Math.floor(Math.random() * 1000);
+ window[cb] = payload => {
+  try { delete window[cb]; } catch (e) {}
+  script.remove();
+  done(payload && payload.ok ? payload.data : null);
+ };
+ let script = document.createElement('script');
+ script.src = API_URL + '?action=read&callback=' + cb + '&_=' + Date.now();
+ script.onerror = () => {
+  delete window[cb];
+  script.remove();
+  done(null);
+ };
+ document.head.appendChild(script);
+}
+
+function refreshCloud(silent = false) {
+ if (!isCloudConfigured()) return;
+ cloudRead(cloud => {
+  if (cloud && cloud.menus) {
+   data = cloud;
+   try { localStorage.setItem(STORE, JSON.stringify(data)); } catch (e) {}
+   renderAll();
+   cloudReady = true;
+   if (!silent) notify('Data terbaru dari Google Sheets berhasil dimuat.');
+  } else if (!silent) {
+   notify('Belum ada data cloud atau koneksi gagal.');
+  }
+ });
+}
+
+// Komunikasi POST untuk simpan data ke Google Sheets (Code.gs)
+function sendCloudSave(message) {
+ let payload = { action: 'saveAll', pin: adminPinSession, data: data };
+ fetch(API_URL, {
+  method: 'POST',
+  headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+  body: JSON.stringify(payload)
+ })
+ .then(res => res.json())
+ .then(res => {
+  if (res.ok) {
+   notify('Sinkronisasi ke Google Sheets berhasil!');
+   setTimeout(() => refreshCloud(true), 1200);
+  } else {
+   notify('Gagal menyimpan: ' + (res.error || 'PIN Salah / Error'));
+  }
+ })
+ .catch(err => {
+  console.error('Cloud Save Error:', err);
+  notify('Gagal mengirim ke cloud. Periksa URL Apps Script dan koneksi.');
+ });
+}
+
+function esc(s) { return String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c])) }
+function money(n) { return 'Rp ' + Number(n || 0).toLocaleString('id-ID') }
+function asset(path) { return path ? (path.startsWith('data:') || path.startsWith('http') ? path : 'assets/' + path) : '' }
+function notify(msg) { let t = document.getElementById('toast'); t.textContent = msg; t.classList.add('show'); setTimeout(() => t.classList.remove('show'), 2400) }
+
+function renderPromo() {
+ let p = data.promos.find(x => x.active);
+ let el = document.getElementById('promoView');
+ if (!p) { el.innerHTML = '<div class="empty-state">Belum ada promo aktif. Pantau terus promo terbaru kami!</div>'; return; }
+ el.innerHTML = `<div class="promo-layout"><div class="promo-feature"><span class="promo-label">${esc(p.tag || 'SPECIAL OFFER')}</span><h3>${esc(p.title)}</h3><p>${esc(p.description)}</p><div class="promo-value">${esc(p.price)}</div>${p.image ? `<img class="promo-image" src="${esc(asset(p.image))}" alt="${esc(p.title)}">` : ''}</div><div class="promo-side"><div><div class="kicker">LIMITED OFFER</div><h3>Good things<br>don't wait.</h3><p>${esc(p.period || 'Periode promo')}<br>Hubungi barista kami untuk detail dan ketersediaan promo.</p></div><div class="promo-foot">✳ FRESH DEALS • ITEN POINT COFFEE</div></div></div>`;
+}
+
+function renderPills() {
+ document.getElementById('categoryPills').innerHTML = ['All', ...categories].map(c => `<button class="pill ${activeCategory === c ? 'active' : ''}" onclick="setCategory('${c}')">${c === 'All' ? 'Semua Menu' : c}</button>`).join('');
+}
+
+function setCategory(c) { activeCategory = c; renderPills(); renderMenu(); }
+
+function productCard(m) {
+ let photo = asset(m.image);
+ return `<article class="product"><div class="product-photo">${photo ? `<img src="${esc(photo)}" alt="${esc(m.name)}" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="no-photo" style="display:none">☕</span>` : '<span class="no-photo">☕</span>'}${m.promoPrice ? '<span class="product-tag">PROMO</span>' : ''}</div><div class="product-content"><h4>${esc(m.name)}</h4><div class="product-bottom"><span class="price">${m.promoPrice ? `<del>${money(m.price)}</del>${money(m.promoPrice)}` : esc(m.priceText || money(m.price))}</span><span class="serve">${esc(m.serve)}</span></div><p class="description">${esc(m.desc || 'Freshly made for your moment.')}</p></div></article>`;
+}
+
+function renderMenu() {
+ let q = (document.getElementById('menuSearch')?.value || '').toLowerCase().trim();
+ let visible = data.menus.filter(m => m.active && (activeCategory === 'All' || m.category === activeCategory) && (!q || m.name.toLowerCase().includes(q) || m.category.toLowerCase().includes(q)));
+ let cats = activeCategory === 'All' ? categories : [activeCategory];
+ let html = cats.map(c => {
+  let items = visible.filter(m => m.category === c);
+  if (!items.length) return '';
+  return `<section class="category-block"><div class="category-heading"><h3>${esc(c)}</h3><span>${String(items.length).padStart(2, '0')} MENU</span></div><div class="menu-grid">${items.map(productCard).join('')}</div></section>`;
+ }).join('');
+ document.getElementById('menuCatalog').innerHTML = html || '<div class="empty-state">Menu tidak ditemukan. Coba kata kunci lain.</div>';
+}
+
+function renderContacts() {
+ document.getElementById('contactView').innerHTML = data.contacts.length ? data.contacts.map(c => `<a class="contact-card" href="https://wa.me/${esc(c.phone.replace(/\D/g, ''))}" target="_blank" rel="noopener"><span class="avatar">${esc((c.name || 'B').slice(0, 1).toUpperCase())}</span><span style="min-width:0"><strong>${esc(c.name)}</strong><small>${esc(c.role)} · ${esc(c.label || c.phone)}</small></span><b style="margin-left:auto;color:var(--lime)">↗</b></a>`).join('') : '<div class="empty-state">Kontak barista akan segera tersedia.</div>';
+}
+
+function renderExtras() {
+ document.getElementById('additionalView').innerHTML = data.extras.map(x => `<div class="add-on"><strong>${esc(x[0])}</strong><span>${esc(x[1])}</span><small style="display:block;color:var(--muted);font-size:9px;margin-top:5px">${esc(x[2] || '')}</small></div>`).join('');
+}
+
+function renderLinks() {
+ ['tiktokTop', 'tiktokLink'].forEach(id => document.getElementById(id).href = data.settings.tiktok || '#');
+ ['mapsTop', 'mapsLink'].forEach(id => document.getElementById(id).href = data.settings.maps || '#');
+}
+
+function renderAll() {
+ renderPromo(); renderPills(); renderMenu(); renderContacts(); renderExtras(); renderLinks();
+ document.getElementById('year').textContent = new Date().getFullYear();
+}
+
+function openAdmin() {
+ document.getElementById('adminModal').classList.add('show');
+ document.getElementById('loginView').style.display = 'block';
+ document.getElementById('dashboard').style.display = 'none';
+ document.getElementById('adminPin').value = '';
+}
+
+function closeAdmin() { document.getElementById('adminModal').classList.remove('show'); }
+
+function loginAdmin() {
+ let pin = document.getElementById('adminPin').value.trim();
+ if (pin.length < 4) { notify('Masukkan PIN admin minimal 4 karakter.'); return; }
+ adminPinSession = pin;
+ document.getElementById('loginView').style.display = 'none';
+ document.getElementById('dashboard').style.display = 'block';
+ switchTab('menus');
+ if (isCloudConfigured()) refreshCloud(true);
+ else notify('Mode lokal: URL Google Apps Script belum dipasang.');
+}
+
+function switchTab(tab) {
+ document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active', b.dataset.tab === tab));
+ ({ menus: adminMenus, promos: adminPromos, contacts: adminContacts, extras: adminExtras, settings: adminSettings })[tab]();
+}
+
+function adminMenus() {
+ let c = document.getElementById('adminContent');
+ c.innerHTML = `<div class="admin-row"><h3>Kelola Menu · ${data.menus.length} item</h3><button class="add-btn" onclick="editMenu()">＋ TAMBAH MENU</button></div><div class="admin-list">${data.menus.map(m => `<div class="admin-item"><div><strong>${esc(m.name)}</strong><small>${esc(m.category)} · ${money(m.price)} · ${esc(m.serve)} ${m.active ? '' : '· disembunyikan'}</small></div><div class="admin-actions"><button class="mini-btn" onclick="editMenu('${m.id}')">Edit</button><button class="mini-btn danger" onclick="removeMenu('${m.id}')">Hapus</button></div></div>`).join('')}</div><p class="hint">Menu yang dinonaktifkan tetap tersimpan di admin, tetapi tidak tampil di katalog pelanggan.</p>`;
+}
+
+function editMenu(id) {
+ let old = data.menus.find(m => m.id === id);
+ let m = old || { id: 'm' + Date.now(), name: '', category: 'Coffee Series', price: 0, serve: 'Hot / Ice', desc: '', image: '', active: true, promoPrice: 0 };
+ document.getElementById('adminContent').innerHTML = `<div class="admin-row"><h3>${id ? 'Edit menu' : 'Tambah menu baru'}</h3><button class="mini-btn" onclick="adminMenus()">← KEMBALI</button></div><div class="form-grid"><div class="field"><label>NAMA MENU</label><input id="mName" value="${esc(m.name)}"></div><div class="field"><label>KATEGORI</label><select id="mCat">${categories.map(x => `<option ${m.category === x ? 'selected' : ''}>${x}</option>`).join('')}</select></div><div class="field"><label>HARGA (ANGKA RUPIAH)</label><input id="mPrice" type="number" value="${m.price}"></div><div class="field"><label>LABEL HARGA (OPSIONAL, CONTOH HOT 16K · ICE 18K)</label><input id="mPriceText" value="${esc(m.priceText || '')}" placeholder="Kosongkan jika satu harga"></div><div class="field"><label>PENYAJIAN</label><input id="mServe" value="${esc(m.serve)}" placeholder="Hot / Ice / Cold"></div><div class="field full"><label>DESKRIPSI MENU</label><textarea id="mDesc">${esc(m.desc)}</textarea></div><div class="field full"><label>FOTO MENU (URL GOOGLE DRIVE / FILE ASSETS)</label><input id="mUrl" value="${m.image && !m.image.startsWith('data:') ? esc(m.image) : ''}" placeholder="URL gambar Drive atau nama file assets/contoh.webp"><small class="hint">Upload foto ke Google Drive, ubah akses menjadi Anyone with the link, lalu tempel URL gambar.</small></div><div class="field"><label>HARGA PROMO (OPSIONAL)</label><input id="mPromo" type="number" value="${m.promoPrice || ''}" placeholder="Kosongkan jika normal"></div><div class="field" style="align-content:end"><label class="check"><input id="mActive" type="checkbox" ${m.active ? 'checked' : ''}> Tampilkan menu di website</label></div></div><div class="form-actions"><button class="add-btn" onclick="saveMenu('${id || ''}')">SIMPAN MENU</button></div>`;
+}
+
+function saveMenu(id) {
+ let old = data.menus.find(m => m.id === id);
+ let m = { id: id || 'm' + Date.now(), name: document.getElementById('mName').value.trim(), category: document.getElementById('mCat').value, price: Number(document.getElementById('mPrice').value), priceText: document.getElementById('mPriceText').value.trim(), serve: document.getElementById('mServe').value.trim(), desc: document.getElementById('mDesc').value.trim(), image: document.getElementById('mUrl').value.trim() || old?.image || '', promoPrice: Number(document.getElementById('mPromo').value) || 0, active: document.getElementById('mActive').checked };
+ if (!m.name || m.price <= 0) { notify('Nama dan harga wajib diisi.'); return; }
+ let i = data.menus.findIndex(x => x.id === id);
+ if (i >= 0) data.menus[i] = m; else data.menus.unshift(m);
+ persist(); adminMenus();
+}
+
+function removeMenu(id) {
+ if (confirm('Hapus menu ini secara permanen?')) { data.menus = data.menus.filter(m => m.id !== id); persist(); adminMenus(); }
+}
+
+function adminPromos() {
+ let c = document.getElementById('adminContent');
+ c.innerHTML = `<div class="admin-row"><h3>Promo & campaign</h3><button class="add-btn" onclick="editPromo()">＋ BUAT PROMO</button></div><div class="admin-list">${data.promos.map(p => `<div class="admin-item"><div><strong>${esc(p.title)}</strong><small>${esc(p.tag)} · ${esc(p.period)} · ${p.active ? 'AKTIF' : 'NONAKTIF'}</small></div><div class="admin-actions"><button class="mini-btn" onclick="editPromo('${p.id}')">Edit</button><button class="mini-btn danger" onclick="removePromo('${p.id}')">Hapus</button></div></div>`).join('') || '<div class="empty-state">Belum ada promo.</div>'}</div>`;
+}
+
+function editPromo(id) {
+ let old = data.promos.find(p => p.id === id);
+ let p = old || { id: 'p' + Date.now(), title: '', tag: 'SPECIAL OFFER', description: '', price: '', period: 'Promo hari ini', image: '', active: true };
+ document.getElementById('adminContent').innerHTML = `<div class="admin-row"><h3>${id ? 'Edit promo' : 'Buat promo baru'}</h3><button class="mini-btn" onclick="adminPromos()">← KEMBALI</button></div><div class="form-grid"><div class="field"><label>JUDUL PROMO</label><input id="pTitle" value="${esc(p.title)}"></div><div class="field"><label>LABEL PROMO</label><input id="pTag" value="${esc(p.tag)}"></div><div class="field"><label>HARGA / PENAWARAN</label><input id="pPrice" value="${esc(p.price)}" placeholder="Contoh: Buy 1 Get 1 / 20K"></div><div class="field"><label>PERIODE PROMO</label><input id="pPeriod" value="${esc(p.period)}"></div><div class="field full"><label>DESKRIPSI PROMO</label><textarea id="pDesc">${esc(p.description)}</textarea></div><div class="field full"><label>FOTO PROMO (URL GOOGLE DRIVE / FILE ASSETS)</label><input id="pUrl" placeholder="URL gambar Drive atau nama file assets" value="${p.image && !p.image.startsWith('data:') ? esc(p.image) : ''}"><small class="hint">Upload foto ke Google Drive dan aktifkan Anyone with the link, lalu tempel link gambar.</small></div><div class="field"><label class="check"><input id="pActive" type="checkbox" ${p.active ? 'checked' : ''}> Tampilkan sebagai promo aktif</label></div></div><div class="form-actions"><button class="add-btn" onclick="savePromo('${id || ''}')">SIMPAN PROMO</button></div>`;
+}
+
+function savePromo(id) {
+ let old = data.promos.find(p => p.id === id);
+ let p = { id: id || 'p' + Date.now(), title: document.getElementById('pTitle').value.trim(), tag: document.getElementById('pTag').value, price: document.getElementById('pPrice').value, period: document.getElementById('pPeriod').value, description: document.getElementById('pDesc').value, image: document.getElementById('pUrl').value.trim() || old?.image || '', active: document.getElementById('pActive').checked };
+ if (!p.title) { notify('Judul promo wajib diisi.'); return; }
+ if (p.active) data.promos.forEach(x => x.active = false);
+ let i = data.promos.findIndex(x => x.id === id);
+ if (i >= 0) data.promos[i] = p; else data.promos.unshift(p);
+ persist(); adminPromos();
+}
+
+function removePromo(id) {
+ if (confirm('Hapus promo ini?')) { data.promos = data.promos.filter(p => p.id !== id); persist(); adminPromos(); }
+}
+
+function adminContacts() {
+ let c = document.getElementById('adminContent');
+ c.innerHTML = `<div class="admin-row"><h3>Kontak Barista · ${data.contacts.length}</h3><button class="add-btn" onclick="editContact()">＋ TAMBAH KONTAK</button></div><div class="admin-list">${data.contacts.map(x => `<div class="admin-item"><div><strong>${esc(x.name)}</strong><small>${esc(x.role)} · ${esc(x.phone)}</small></div><div class="admin-actions"><button class="mini-btn" onclick="editContact('${x.id}')">Edit</button><button class="mini-btn danger" onclick="removeContact('${x.id}')">Hapus</button></div></div>`).join('') || '<div class="empty-state">Belum ada kontak.</div>'}</div>`;
+}
+
+function editContact(id) {
+ let old = data.contacts.find(x => x.id === id);
+ let x = old || { id: 'c' + Date.now(), name: '', role: 'Barista', phone: '', label: 'WhatsApp' };
+ document.getElementById('adminContent').innerHTML = `<div class="admin-row"><h3>${id ? 'Edit kontak' : 'Tambah kontak barista'}</h3><button class="mini-btn" onclick="adminContacts()">← KEMBALI</button></div><div class="form-grid"><div class="field"><label>NAMA</label><input id="cName" value="${esc(x.name)}"></div><div class="field"><label>JABATAN / ROLE</label><input id="cRole" value="${esc(x.role)}"></div><div class="field"><label>NOMOR WHATSAPP</label><input id="cPhone" value="${esc(x.phone)}" placeholder="628xxxxxxxxxx"></div><div class="field"><label>LABEL</label><input id="cLabel" value="${esc(x.label)}" placeholder="Chat WhatsApp"></div></div><div class="form-actions"><button class="add-btn" onclick="saveContact('${id || ''}')">SIMPAN KONTAK</button></div><p class="hint">Gunakan nomor dengan kode negara tanpa tanda +, spasi, atau strip. Contoh Indonesia: 62812xxxxxxx.</p>`;
+}
+
+function saveContact(id) {
+ let x = { id: id || 'c' + Date.now(), name: document.getElementById('cName').value.trim(), role: document.getElementById('cRole').value.trim(), phone: document.getElementById('cPhone').value.replace(/\D/g, ''), label: document.getElementById('cLabel').value.trim() };
+ if (!x.name || !x.phone) { notify('Nama dan nomor WhatsApp wajib diisi.'); return; }
+ let i = data.contacts.findIndex(c => c.id === id);
+ if (i >= 0) data.contacts[i] = x; else data.contacts.push(x);
+ persist(); adminContacts();
+}
+
+function removeContact(id) {
+ if (confirm('Hapus kontak ini?')) { data.contacts = data.contacts.filter(c => c.id !== id); persist(); adminContacts(); }
+}
+
+function adminExtras() {
+ document.getElementById('adminContent').innerHTML = `<div class="admin-row"><h3>Additional / Topping</h3><button class="add-btn" onclick="editExtra()">＋ TAMBAH ADD-ON</button></div><div class="admin-list">${data.extras.map((x, i) => `<div class="admin-item"><div><strong>${esc(x[0])}</strong><small>${esc(x[1])} · ${esc(x[2])}</small></div><div class="admin-actions"><button class="mini-btn" onclick="editExtra(${i})">Edit</button><button class="mini-btn danger" onclick="removeExtra(${i})">Hapus</button></div></div>`).join('')}</div>`;
+}
+
+function editExtra(i) {
+ let x = i === undefined ? ['', '', ''] : data.extras[i];
+ document.getElementById('adminContent').innerHTML = `<div class="admin-row"><h3>${i === undefined ? 'Tambah' : 'Edit'} additional</h3><button class="mini-btn" onclick="adminExtras()">← KEMBALI</button></div><div class="form-grid"><div class="field"><label>NAMA</label><input id="eName" value="${esc(x[0])}"></div><div class="field"><label>HARGA</label><input id="ePrice" value="${esc(x[1])}"></div><div class="field full"><label>KETERANGAN</label><input id="eDesc" value="${esc(x[2])}"></div></div><div class="form-actions"><button class="add-btn" onclick="saveExtra(${i === undefined ? 'null' : i})">SIMPAN</button></div>`;
+}
+
+function saveExtra(i) {
+ let x = [document.getElementById('eName').value, document.getElementById('ePrice').value, document.getElementById('eDesc').value];
+ if (!x[0]) { notify('Nama additional wajib diisi.'); return; }
+ if (i === null) data.extras.push(x); else data.extras[i] = x;
+ persist(); adminExtras();
+}
+
+function removeExtra(i) {
+ if (confirm('Hapus item additional?')) { data.extras.splice(i, 1); persist(); adminExtras(); }
+}
+
+function adminSettings() {
+ document.getElementById('adminContent').innerHTML = `<div class="admin-row"><h3>Pengaturan website</h3></div><div class="form-grid"><div class="field full"><label>LINK TIKTOK SHOP / AKUN TIKTOK</label><input id="sTikTok" value="${esc(data.settings.tiktok)}"></div><div class="field full"><label>LINK GOOGLE MAPS / REVIEW</label><input id="sMaps" value="${esc(data.settings.maps)}"></div><div class="field full"><label>STATUS DATABASE</label><input value="${isCloudConfigured() ? 'Google Sheets API terpasang' : 'URL Apps Script belum dipasang'}" disabled></div></div><div class="form-actions"><button class="add-btn" onclick="saveSettings()">SIMPAN PENGATURAN</button></div><hr style="border:0;border-top:1px solid var(--line);margin:20px 0"><p class="hint"><b>Google Sheets:</b> Tempel URL Apps Script pada konstanta API_URL di bagian atas index.html. PIN admin disimpan di Apps Script Project Settings → Script Properties dengan nama ADMIN_PIN.</p><button class="mini-btn" onclick="refreshCloud()">↻ AMBIL DATA TERBARU DARI SHEETS</button><button class="mini-btn" onclick="publishInitialData()">↑ KIRIM DATA AWAL KE SHEETS</button><button class="mini-btn danger" onclick="resetData()">RESET DATA WEBSITE</button>`;
+}
+
+function saveSettings() {
+ data.settings.tiktok = document.getElementById('sTikTok').value.trim();
+ data.settings.maps = document.getElementById('sMaps').value.trim();
+ persist(); adminSettings();
+}
+
+function publishInitialData() {
+ if (!isCloudConfigured()) { notify('Pasang URL Apps Script terlebih dahulu.'); return; }
+ if (!adminPinSession) { notify('Login admin terlebih dahulu.'); return; }
+ persist('Data awal dikirim ke Google Sheets.');
+}
+
+function resetData() {
+ if (confirm('Kembalikan seluruh menu, promo, kontak, dan pengaturan ke data awal?')) { data = clone(starter); persist('Data awal dipulihkan.'); adminSettings(); }
+}
+
 renderAll();
-if(isCloudConfigured()){refreshCloud(true);setInterval(()=>refreshCloud(true),10000)}
+if (isCloudConfigured()) { refreshCloud(true); setInterval(() => refreshCloud(true), 15000); }
 </script>
-</body></html>
+</body>
+</html>
