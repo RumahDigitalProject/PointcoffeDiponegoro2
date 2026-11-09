@@ -269,13 +269,33 @@ function closeAdmin() { document.getElementById('adminModal').classList.remove('
 
 function loginAdmin() {
  let pin = document.getElementById('adminPin').value.trim();
- if (pin.length < 4) { notify('Masukkan PIN admin minimal 4 karakter.'); return; }
+ 
+ // Ambil PIN yang aktif dari data settings (default '123456' jika belum ada)
+ let correctPin = (data.settings && data.settings.pin) ? data.settings.pin : '123456';
+
+ // Cek apakah PIN yang dimasukkan kosong atau kurang dari 4 karakter
+ if (pin.length < 4) {
+  notify('Masukkan PIN admin minimal 4 karakter.');
+  return;
+}
+
+ // Cek apakah PIN yang diketik SAMA PERSIS dengan PIN di sistem
+ if (pin !== correctPin) {
+  notify('PIN salah! Akses ditolak.');
+  return; // Hentikan proses, jangan biarkan masuk dashboard
+ }
+
+ // Jika PIN benar, izinkan masuk ke dashboard
  adminPinSession = pin;
  document.getElementById('loginView').style.display = 'none';
  document.getElementById('dashboard').style.display = 'block';
  switchTab('menus');
- if (isCloudConfigured()) refreshCloud(true);
- else notify('Mode lokal: URL Google Apps Script belum dipasang.');
+ 
+ if (isCloudConfigured()) {
+  refreshCloud(true);
+ } else {
+  notify('Mode lokal: URL Google Apps Script belum dipasang.');
+ }
 }
 
 function switchTab(tab) {
