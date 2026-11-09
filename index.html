@@ -44,14 +44,13 @@
 
 <div class="admin-modal" id="adminModal"><div class="admin-window">
 <div class="admin-header"><h2>✳ ITEN CONTROL ROOM</h2><button class="close-btn" onclick="closeAdmin()">✕ CLOSE</button></div>
-<div id="loginView" class="login-card"><div class="kicker">RESTRICTED ACCESS</div><h3>Welcome, Admin.</h3><p class="hint">Masukkan PIN untuk membuka dashboard pengelolaan website.</p><input id="adminPin" type="password" placeholder="PIN admin"><button class="add-btn" style="width:100%;padding:13px" onclick="loginAdmin()">UNLOCK DASHBOARD ↗</button><p class="hint">PIN admin diatur melalui Apps Script → Project Settings → Script Properties (ADMIN_PIN).</p></div>
+<div id="loginView" class="login-card"><div class="kicker">RESTRICTED ACCESS</div><h3>Welcome, Admin.</h3><p class="hint">Masukkan PIN untuk membuka dashboard pengelolaan website.</p><input id="adminPin" type="password" placeholder="PIN admin"><button class="add-btn" style="width:100%;padding:13px" onclick="loginAdmin()">UNLOCK DASHBOARD ↗</button><p class="hint">PIN default awal adalah 123456 (Dapat diubah di tab Pengaturan setelah login).</p></div>
 <div id="dashboard" style="display:none"><div class="admin-tabs"><button class="tab-btn active" data-tab="menus" onclick="switchTab('menus')">Menu</button><button class="tab-btn" data-tab="promos" onclick="switchTab('promos')">Promo</button><button class="tab-btn" data-tab="contacts" onclick="switchTab('contacts')">Kontak Barista</button><button class="tab-btn" data-tab="extras" onclick="switchTab('extras')">Additional</button><button class="tab-btn" data-tab="settings" onclick="switchTab('settings')">Pengaturan</button></div><div class="admin-content" id="adminContent"></div></div>
 </div></div><div class="toast" id="toast"></div>
 
 <script>
 const STORE = 'itenpoint_coffee_v2';
-// Masukkan URL Web App Google Apps Script kamu di bawah ini (berakhiran /exec)
-const API_URL = 'https://script.google.com/macros/s/AKfycbyz6UmmIOivAoKstHJmDR77r7TdmDN3QKwsFe0ggbZWh_AWbSvfVfhLDW88BXNesg/exec';
+const API_URL = 'https://script.google.com/macros/s/AKfycbwVyCfE1oSn3TyiC6rgD97bgCHw8OdXIpSyQS0UOG9XkYA-0WY3FqwXRZLcVOxqH_Kw/exec';
 
 let adminPinSession = '';
 let cloudReady = false;
@@ -151,7 +150,6 @@ function isCloudConfigured() {
  return API_URL.startsWith('https://script.google.com/macros/s/') && !API_URL.includes('PASTE_YOUR');
 }
 
-// Komunikasi JSONP untuk read data dari Google Sheets (Code.gs)
 function cloudRead(done) {
  if (!isCloudConfigured()) { done(null); return; }
  let cb = 'itenCloudCb' + Date.now() + Math.floor(Math.random() * 1000);
@@ -185,7 +183,6 @@ function refreshCloud(silent = false) {
  });
 }
 
-// Komunikasi POST untuk simpan data ke Google Sheets (Code.gs)
 function sendCloudSave(message) {
  let payload = { action: 'saveAll', pin: adminPinSession, data: data };
  fetch(API_URL, {
@@ -379,12 +376,16 @@ function removeExtra(i) {
 }
 
 function adminSettings() {
- document.getElementById('adminContent').innerHTML = `<div class="admin-row"><h3>Pengaturan website</h3></div><div class="form-grid"><div class="field full"><label>LINK TIKTOK SHOP / AKUN TIKTOK</label><input id="sTikTok" value="${esc(data.settings.tiktok)}"></div><div class="field full"><label>LINK GOOGLE MAPS / REVIEW</label><input id="sMaps" value="${esc(data.settings.maps)}"></div><div class="field full"><label>STATUS DATABASE</label><input value="${isCloudConfigured() ? 'Google Sheets API terpasang' : 'URL Apps Script belum dipasang'}" disabled></div></div><div class="form-actions"><button class="add-btn" onclick="saveSettings()">SIMPAN PENGATURAN</button></div><hr style="border:0;border-top:1px solid var(--line);margin:20px 0"><p class="hint"><b>Google Sheets:</b> Tempel URL Apps Script pada konstanta API_URL di bagian atas index.html. PIN admin disimpan di Apps Script Project Settings → Script Properties dengan nama ADMIN_PIN.</p><button class="mini-btn" onclick="refreshCloud()">↻ AMBIL DATA TERBARU DARI SHEETS</button><button class="mini-btn" onclick="publishInitialData()">↑ KIRIM DATA AWAL KE SHEETS</button><button class="mini-btn danger" onclick="resetData()">RESET DATA WEBSITE</button>`;
+ document.getElementById('adminContent').innerHTML = `<div class="admin-row"><h3>Pengaturan website</h3></div><div class="form-grid"><div class="field full"><label>LINK TIKTOK SHOP / AKUN TIKTOK</label><input id="sTikTok" value="${esc(data.settings.tiktok)}"></div><div class="field full"><label>LINK GOOGLE MAPS / REVIEW</label><input id="sMaps" value="${esc(data.settings.maps)}"></div><div class="field full"><label>UBAH PIN ADMIN BARU</label><input id="sPin" type="password" value="${esc(data.settings.pin || '123456')}" placeholder="Masukkan PIN baru"></div><div class="field full"><label>STATUS DATABASE</label><input value="${isCloudConfigured() ? 'Google Sheets API terpasang' : 'URL Apps Script belum dipasang'}" disabled></div></div><div class="form-actions"><button class="add-btn" onclick="saveSettings()">SIMPAN PENGATURAN</button></div><hr style="border:0;border-top:1px solid var(--line);margin:20px 0"><p class="hint"><b>Google Sheets:</b> PIN admin disimpan aman di database Google Sheets dan dapat diubah kapan saja melalui form di atas.</p><button class="mini-btn" onclick="refreshCloud()">↻ AMBIL DATA TERBARU DARI SHEETS</button><button class="mini-btn" onclick="publishInitialData()">↑ KIRIM DATA AWAL KE SHEETS</button><button class="mini-btn danger" onclick="resetData()">RESET DATA WEBSITE</button>`;
 }
 
 function saveSettings() {
  data.settings.tiktok = document.getElementById('sTikTok').value.trim();
  data.settings.maps = document.getElementById('sMaps').value.trim();
+ let newPin = document.getElementById('sPin').value.trim();
+ if (newPin) {
+  data.settings.pin = newPin;
+ }
  persist(); adminSettings();
 }
 
