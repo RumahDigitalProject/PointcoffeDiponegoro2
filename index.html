@@ -12,7 +12,7 @@
 :root{--bg:#0b0e0a;--surface:#121710;--surface2:#192018;--line:#293326;--text:#f4f6ee;--muted:#9ca795;--lime:#d8fa4b;--lime2:#bce52d;--orange:#ffad72;--r:22px;--shadow:0 18px 55px #0007}
 *{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:90px}body{margin:0;background:var(--bg);color:var(--text);font-family:"DM Sans",sans-serif}body:before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.12;background-image:radial-gradient(#d8fa4b 0.55px,transparent .55px);background-size:22px 22px;mask-image:linear-gradient(to bottom,#000,transparent 70%);z-index:-1}a{color:inherit}button,input,select,textarea{font:inherit}button{cursor:pointer}.container{width:min(1180px,calc(100% - 38px));margin:auto}.topbar{height:4px;background:linear-gradient(90deg,var(--lime),#69d5a1,#ffb273)}.site-header{position:sticky;top:0;z-index:30;background:#0b0e0aeF;backdrop-filter:blur(18px);border-bottom:1px solid #ffffff12}.nav{height:74px;display:flex;align-items:center;justify-content:space-between;gap:20px}.brand{display:flex;gap:11px;align-items:center;text-decoration:none}.brand-icon{width:43px;height:43px;display:grid;place-items:center;background:var(--lime);color:#10140c;border-radius:14px;font:800 19px "Space Grotesk";box-shadow:0 7px 22px #d8fa4b2b;transform:rotate(-4deg)}.brand strong{font:700 15px "Space Grotesk";letter-spacing:.4px}.brand small{display:block;font-size:9px;letter-spacing:2.5px;color:var(--muted);margin-top:3px}.nav-links{display:flex;gap:27px}.nav-links a{font-size:12px;font-weight:800;color:#c6cebf;text-decoration:none}.nav-links a:hover{color:var(--lime)}.nav-tools{display:flex;gap:9px;align-items:center}.round-link{height:39px;width:39px;border:1px solid var(--line);border-radius:13px;display:grid;place-items:center;text-decoration:none;font-weight:900}.admin-open,.primary{background:var(--lime);color:#10140b;border:0;border-radius:12px;padding:12px 16px;font-size:11px;font-weight:900;letter-spacing:.4px}.hero{padding:68px 0 46px;display:grid;grid-template-columns:1.05fr .95fr;gap:38px;align-items:center}.eyebrow{display:inline-flex;gap:9px;align-items:center;border:1px solid #d8fa4b45;color:var(--lime);padding:8px 12px;border-radius:50px;font-size:9px;font-weight:900;letter-spacing:2px}.dot{width:7px;height:7px;border-radius:50%;background:var(--lime);box-shadow:0 0 0 5px #d8fa4b1c}.hero h1{font:700 clamp(45px,6.4vw,78px)/.97 "Space Grotesk";letter-spacing:-4px;margin:23px 0 18px}.hero h1 em{font-style:normal;color:var(--lime)}.hero-copy{max-width:510px;color:var(--muted);font-size:14px;line-height:1.85}.hero-buttons{display:flex;gap:11px;flex-wrap:wrap;margin-top:26px}.primary,.secondary{display:inline-flex;align-items:center;gap:10px;text-decoration:none;padding:14px 18px;border-radius:13px;font-size:11px;font-weight:900}.secondary{border:1px solid var(--line);color:white}
 
-/* === SLIDER HERO / FRESHLY MADE REDESIGN === */
+/* === FRESHLY MADE HERO ROTATING CAROUSEL STYLES === */
 .hero-visual{min-height:360px;height:380px;border:1px solid #ffffff18;border-radius:30px;position:relative;overflow:hidden;background:radial-gradient(circle at 70% 25%,#d8fa4b27,transparent 35%),linear-gradient(145deg,#222d1c,#11160f 75%)}
 .hero-slider-container{width:100%;height:100%;position:relative;overflow:hidden}
 .hero-slide{position:absolute;inset:0;opacity:0;visibility:hidden;transition:opacity .8s cubic-bezier(.4,0,.2,1),transform .8s cubic-bezier(.4,0,.2,1);transform:scale(1.04);display:flex;align-items:center;justify-content:center}
@@ -52,7 +52,7 @@
 <div class="hero-buttons"><a class="primary" href="#menu">LIHAT MENU ↗</a><a class="secondary" href="#promo">LIHAT PROMO ✳</a></div>
 </div>
 
-<!-- REDESIGNED HERO VISUAL / PROMO ROTATING CAROUSEL -->
+<!-- FRESHLY MADE HERO ROTATING CAROUSEL (BAGIAN ATAS) -->
 <div class="hero-visual" id="heroVisual">
   <div class="visual-label">FRESHLY MADE • EVERY DAY</div>
   <div class="hero-slider-container" id="heroSliderContainer"></div>
@@ -61,7 +61,17 @@
 </div>
 </section>
 
-<section class="container section" id="promo"><div class="section-head"><div><div class="kicker">DON'T MISS THE DEAL</div><h2>Promo hari ini<span style="color:var(--lime)">.</span></h2></div><div class="section-intro">Penawaran spesial Iten Point Coffee. Promo, foto, harga, dan periode dapat diubah langsung dari Admin Panel.</div></div><div id="promoView"></div></section>
+<!-- BAGIAN PROMO HARI INI (HANYA 1 FOTO PROMO KHUSUS) -->
+<section class="container section" id="promo">
+  <div class="section-head">
+    <div>
+      <div class="kicker">DON'T MISS THE DEAL</div>
+      <h2>Promo hari ini<span style="color:var(--lime)">.</span></h2>
+    </div>
+    <div class="section-intro">Penawaran spesial Iten Point Coffee hari ini. Promo, foto khusus, harga, dan periode dapat diubah langsung dari Admin Panel.</div>
+  </div>
+  <div id="promoView"></div>
+</section>
 
 <section class="container section" id="menu"><div class="section-head"><div><div class="kicker">FIND YOUR FAVORITE</div><h2>Katalog menu kategori<span style="color:var(--lime)">.</span></h2></div><div class="section-intro">Pilih kategori atau langsung gulir ke bawah untuk melihat poster menu lengkap kami.</div></div>
 <div class="menu-toolbar"><div class="category-pills" id="categoryPills"></div></div>
@@ -78,7 +88,17 @@
 <div class="admin-modal" id="adminModal"><div class="admin-window">
 <div class="admin-header"><h2>✳ ITEN CONTROL ROOM</h2><button class="close-btn" onclick="closeAdmin()">✕ CLOSE</button></div>
 <div id="loginView" class="login-card"><div class="kicker">RESTRICTED ACCESS</div><h3>Welcome, Admin.</h3><p class="hint">Masukkan PIN untuk membuka dashboard pengelolaan website.</p><input id="adminPin" type="password" placeholder="PIN admin"><button class="add-btn" style="width:100%;padding:13px" onclick="loginAdmin()">UNLOCK DASHBOARD ↗</button><p class="hint">PIN default awal adalah 123456 (Dapat diubah di tab Pengaturan).</p></div>
-<div id="dashboard" style="display:none"><div class="admin-tabs"><button class="tab-btn active" data-tab="categories" onclick="switchTab('categories')">Poster Kategori</button><button class="tab-btn" data-tab="promos" onclick="switchTab('promos')">Promo</button><button class="tab-btn" data-tab="contacts" onclick="switchTab('contacts')">Kontak Barista</button><button class="tab-btn" data-tab="extras" onclick="switchTab('extras')">Additional</button><button class="tab-btn" data-tab="settings" onclick="switchTab('settings')">Pengaturan</button></div><div class="admin-content" id="adminContent"></div></div>
+<div id="dashboard" style="display:none">
+  <div class="admin-tabs">
+    <button class="tab-btn active" data-tab="hero" onclick="switchTab('hero')">Hero Freshly Made</button>
+    <button class="tab-btn" data-tab="promos" onclick="switchTab('promos')">Promo Hari Ini</button>
+    <button class="tab-btn" data-tab="categories" onclick="switchTab('categories')">Poster Kategori</button>
+    <button class="tab-btn" data-tab="contacts" onclick="switchTab('contacts')">Kontak Barista</button>
+    <button class="tab-btn" data-tab="extras" onclick="switchTab('extras')">Additional</button>
+    <button class="tab-btn" data-tab="settings" onclick="switchTab('settings')">Pengaturan</button>
+  </div>
+  <div class="admin-content" id="adminContent"></div>
+</div>
 </div></div>
 <div class="toast" id="toast"></div>
 
@@ -102,17 +122,8 @@ const categoriesList = [
 
 const starter = {
  categories: categoriesList,
- promos: [{ 
-    id: 'promo1', 
-    title: 'Promo Spesial Iten Point', 
-    tag: 'TODAY SPECIAL', 
-    description: 'Tulis penawaran terbaik hari ini di sini. Kamu bisa mengganti foto, judul, harga, dan periode promo kapan saja.', 
-    price: 'Mulai 20K', 
-    period: 'Promo hari ini', 
-    image: '', 
-    gallery: [], 
-    active: true 
- }],
+ heroImages: [], // Array foto untuk slider berputar di atas (Freshly Made)
+ promos: [{ id: 'promo1', title: 'Promo Spesial Iten Point', tag: 'TODAY SPECIAL', description: 'Tulis penawaran terbaik hari ini di sini. Kamu bisa mengganti foto, judul, harga, dan periode promo.', price: 'Mulai 20K', period: 'Promo hari ini', image: '', active: true }],
  contacts: [{ id: 'c1', name: 'Barista Iten Point', role: 'Customer Service', phone: '628123456789', label: 'WhatsApp' }],
  extras: [['Syrup', '+3K', 'Caramel / Vanilla / Matcha'], ['Sauce', '+3K', 'Caramel / Chocolate'], ['Toppings', '+3K', 'Coffee Jelly / Frappe Jelly'], ['Palm Sugar', '+3K', 'Tambahan palm sugar'], ['Natural Honey', '+5K', 'Tambahan natural honey'], ['Espresso', '+5K', 'Extra espresso shot'], ['Whipped Cream', '+5K', 'Extra whipped cream'], ['Upsize', '+5K', 'Ukuran lebih besar'], ['Oat Milk', '+4K', 'Milk alternative'], ['Cashew Milk', '+4K', 'Milk alternative'], ['Coconut Milk', '+10K', 'Milk alternative'], ['Decaf', '+8K', 'Decaffeinated coffee']],
  settings: { tiktok: 'https://www.tiktok.com/', maps: 'https://maps.google.com/', pin: '123456' }
@@ -122,7 +133,10 @@ function clone(x) { return JSON.parse(JSON.stringify(x)) }
 function loadData() { 
  try { 
   let d = JSON.parse(localStorage.getItem(STORE)); 
-  if (d && d.categories) return d;
+  if (d && (d.categories || d.heroImages)) {
+   if(!d.heroImages) d.heroImages = [];
+   return d;
+  }
   let backup = clone(starter);
   if (d && d.menus) {
    if (d.settings) backup.settings = d.settings;
@@ -143,7 +157,7 @@ function persist(message = 'Perubahan berhasil disimpan!') {
   if (isCloudConfigured() && adminPinSession) {
    sendCloudSave(message);
   } else {
-   notify(isCloudConfigured() ? 'Perubahan lokal tersimpan. Login admin diperlukan untuk sinkronisasi cloud.' : message + ' (lokal)');
+   notify(isCloudConfigured() ? 'Perubahan lokal tersimpan. Login admin untuk sinkronisasi cloud real-time.' : message + ' (lokal)');
   }
  } catch (e) {
   notify('Penyimpanan penuh. Gunakan URL foto Google Drive.');
@@ -175,15 +189,13 @@ function cloudRead(done) {
 function refreshCloud(silent = false) {
  if (!isCloudConfigured()) return;
  cloudRead(cloud => {
-  if (cloud && (cloud.categories || cloud.menus)) {
-   if (!cloud.categories && cloud.menus) {
-    cloud.categories = categoriesList;
-   }
+  if (cloud && (cloud.categories || cloud.heroImages || cloud.promos)) {
+   if (!cloud.heroImages) cloud.heroImages = [];
    data = cloud;
    try { localStorage.setItem(STORE, JSON.stringify(data)); } catch (e) {}
    renderAll();
    cloudReady = true;
-   if (!silent) notify('Data poster kategori dari Google Sheets berhasil dimuat.');
+   if (!silent) notify('Data terbaru berhasil dimuat dari cloud (Real-time).');
   } else if (!silent) {
    notify('Belum ada data cloud atau koneksi gagal.');
   }
@@ -200,8 +212,8 @@ function sendCloudSave(message) {
  .then(res => res.json())
  .then(res => {
   if (res.ok) {
-   notify('Sinkronisasi poster kategori ke Google Sheets berhasil!');
-   setTimeout(() => refreshCloud(true), 1200);
+   notify('Berhasil! Perubahan tersimpan real-time ke semua perangkat.');
+   setTimeout(() => refreshCloud(true), 1000);
   } else {
    notify('Gagal menyimpan: ' + (res.error || 'PIN Salah / Error'));
   }
@@ -216,7 +228,7 @@ function esc(s) { return String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;
 function asset(path) { return path ? (path.startsWith('data:') || path.startsWith('http') ? path : 'assets/' + path) : '' }
 function notify(msg) { let t = document.getElementById('toast'); t.textContent = msg; t.classList.add('show'); setTimeout(() => t.classList.remove('show'), 2400) }
 
-/* === LOGIKA SLIDER HERO PROMO (FRESHLY MADE ROTATING PHOTOS) === */
+/* === RENDER HERO ROTATING CAROUSEL (FRESHLY MADE) === */
 function renderHeroSlider() {
  const container = document.getElementById('heroSliderContainer');
  const dotsContainer = document.getElementById('heroSliderDots');
@@ -227,18 +239,9 @@ function renderHeroSlider() {
   heroSliderTimer = null;
  }
 
- // Mengumpulkan seluruh gambar promo aktif
- let promoImages = [];
- (data.promos || []).filter(p => p.active).forEach(p => {
-  if (p.gallery && Array.isArray(p.gallery) && p.gallery.length > 0) {
-   p.gallery.forEach(img => { if (img && img.trim()) promoImages.push(asset(img.trim())); });
-  } else if (p.image && p.image.trim()) {
-   promoImages.push(asset(p.image.trim()));
-  }
- });
+ let images = (data.heroImages || []).map(img => asset(img.trim())).filter(Boolean);
 
- // Jika tidak ada foto promo, tampilkan visual cangkir bawaan (fallback)
- if (promoImages.length === 0) {
+ if (images.length === 0) {
   container.innerHTML = `
    <div class="hero-slide active">
     <div class="hero-slide-fallback">
@@ -249,23 +252,20 @@ function renderHeroSlider() {
   return;
  }
 
- // Render slides gambar promo
- container.innerHTML = promoImages.map((src, i) => `
+ container.innerHTML = images.map((src, i) => `
   <div class="hero-slide ${i === 0 ? 'active' : ''}">
-   <img src="${esc(src)}" alt="Promo Iten Point Coffee" loading="lazy" onerror="this.src='https://via.placeholder.com/600x400?text=Promo+Iten+Point'">
+   <img src="${esc(src)}" alt="Freshly Made Iten Point" loading="lazy" onerror="this.src='https://via.placeholder.com/600x400?text=Iten+Point+Coffee'">
   </div>
  `).join('');
 
- // Render titik navigasi (dots)
- if (promoImages.length > 1) {
-  dotsContainer.innerHTML = promoImages.map((_, i) => `
+ if (images.length > 1) {
+  dotsContainer.innerHTML = images.map((_, i) => `
    <div class="hero-dot ${i === 0 ? 'active' : ''}" onclick="goToHeroSlide(${i})"></div>
   `).join('');
   
   currentHeroSlideIndex = 0;
-  // Putar slider secara otomatis setiap 4000ms (4 detik)
   heroSliderTimer = setInterval(() => {
-   currentHeroSlideIndex = (currentHeroSlideIndex + 1) % promoImages.length;
+   currentHeroSlideIndex = (currentHeroSlideIndex + 1) % images.length;
    updateHeroSlideUI();
   }, 4000);
  } else {
@@ -289,11 +289,35 @@ function updateHeroSlideUI() {
  });
 }
 
+/* === RENDER PROMO HARI INI (HANYA 1 FOTO PROMO KHUSUS) === */
 function renderPromo() {
- let p = data.promos?.find(x => x.active);
+ let p = (data.promos || []).find(x => x.active) || (data.promos || [])[0];
  let el = document.getElementById('promoView');
- if (!p) { el.innerHTML = '<div class="empty-state">Belum ada promo aktif.</div>'; return; }
- el.innerHTML = `<div class="promo-layout"><div class="promo-feature"><span class="promo-label">${esc(p.tag || 'SPECIAL OFFER')}</span><h3>${esc(p.title)}</h3><p>${esc(p.description)}</p><div class="promo-value">${esc(p.price)}</div>${p.image ? `<img class="promo-image" src="${esc(asset(p.image))}" alt="${esc(p.title)}">` : ''}</div><div class="promo-side"><div><div class="kicker">LIMITED OFFER</div><h3>Good things<br>don't wait.</h3><p>${esc(p.period || 'Periode promo')}<br>Hubungi barista kami untuk detail promo.</p></div><div class="promo-foot">✳ FRESH DEALS • ITEN POINT COFFEE</div></div></div>`;
+ 
+ if (!p) { 
+  el.innerHTML = '<div class="empty-state" style="padding:40px;text-align:center;color:var(--muted);background:var(--surface);border:1px solid var(--line);border-radius:20px;">Belum ada promo aktif.</div>'; 
+  return; 
+ }
+
+ el.innerHTML = `
+  <div class="promo-layout">
+   <div class="promo-feature">
+    <span class="promo-label">${esc(p.tag || 'SPECIAL OFFER')}</span>
+    <h3>${esc(p.title)}</h3>
+    <p>${esc(p.description)}</p>
+    <div class="promo-value">${esc(p.price)}</div>
+    ${p.image ? `<img class="promo-image" src="${esc(asset(p.image))}" alt="${esc(p.title)}">` : ''}
+   </div>
+   <div class="promo-side">
+    <div>
+     <div class="kicker">LIMITED OFFER</div>
+     <h3>Good things<br>don't wait.</h3>
+     <p>${esc(p.period || 'Periode promo')}<br>Hubungi barista kami untuk detail promo.</p>
+    </div>
+    <div class="promo-foot">✳ FRESH DEALS • ITEN POINT COFFEE</div>
+   </div>
+  </div>
+ `;
 }
 
 function renderPills() {
@@ -350,16 +374,67 @@ function loginAdmin() {
  adminPinSession = pin;
  document.getElementById('loginView').style.display = 'none';
  document.getElementById('dashboard').style.display = 'block';
- switchTab('categories');
+ switchTab('hero');
  if (isCloudConfigured()) refreshCloud(true);
  else notify('Mode lokal: URL Google Apps Script belum dipasang.');
 }
 
 function switchTab(tab) {
  document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active', b.dataset.tab === tab));
- ({ categories: adminCategories, promos: adminPromos, contacts: adminContacts, extras: adminExtras, settings: adminSettings })[tab]();
+ ({ hero: adminHero, promos: adminPromos, categories: adminCategories, contacts: adminContacts, extras: adminExtras, settings: adminSettings })[tab]();
 }
 
+/* --- TAB 1: KELOLA HERO FRESHLY MADE (CAROUSEL) --- */
+function adminHero() {
+ let c = document.getElementById('adminContent');
+ let currentUrls = (data.heroImages || []).join('\n');
+ c.innerHTML = `
+  <div class="admin-row"><h3>Kelola Foto Carousel "Freshly Made" (Hero Atas)</h3></div>
+  <div class="form-grid">
+   <div class="field full">
+    <label>DAFTAR LINK FOTO HERO (URL GOOGLE DRIVE / DIRECT LINK)</label>
+    <textarea id="heroImagesInput" placeholder="https://lh3.googleusercontent.com/d/...\nhttps://lh3.googleusercontent.com/d/...">${esc(currentUrls)}</textarea>
+    <small class="hint">Masukkan setiap link foto pada baris baru (enter). Foto-foto ini akan berganti-ganti secara otomatis dan terus-menerus di bagian atas website.</small>
+   </div>
+  </div>
+  <div class="form-actions"><button class="add-btn" onclick="saveHeroImages()">SIMPAN FOTO HERO</button></div>
+ `;
+}
+
+function saveHeroImages() {
+ let raw = document.getElementById('heroImagesInput').value.split('\n').map(s => s.trim()).filter(Boolean);
+ data.heroImages = raw;
+ persist('Foto Hero Freshly Made berhasil diperbarui!');
+ adminHero();
+}
+
+/* --- TAB 2: KELOLA PROMO HARI INI (1 FOTO KHUSUS) --- */
+function adminPromos() {
+ let c = document.getElementById('adminContent');
+ c.innerHTML = `<div class="admin-row"><h3>Promo Hari Ini</h3><button class="add-btn" onclick="editPromo()">＋ TAMBAH / EDIT PROMO KHUSUS</button></div><div class="admin-list">${(data.promos || []).map(p => `<div class="admin-item"><div><strong>${esc(p.title)}</strong><small>${esc(p.tag)} · ${esc(p.period)} · ${p.active ? 'AKTIF (Tampil di Web)' : 'NONAKTIF'}</small></div><div class="admin-actions"><button class="mini-btn" onclick="editPromo('${p.id}')">Edit</button><button class="mini-btn danger" onclick="removePromo('${p.id}')">Hapus</button></div></div>`).join('') || '<div class="empty-state">Belum ada promo.</div>'}</div><p class="hint">Bagian promo hari ini hanya akan menampilkan 1 promo khusus yang sedang aktif.</p>`;
+}
+
+function editPromo(id) {
+ let old = (data.promos || []).find(p => p.id === id);
+ let p = old || { id: 'p' + Date.now(), title: '', tag: 'SPECIAL OFFER', description: '', price: '', period: 'Promo hari ini', image: '', active: true };
+ document.getElementById('adminContent').innerHTML = `<div class="admin-row"><h3>${id ? 'Edit promo' : 'Buat promo baru'}</h3><button class="mini-btn" onclick="adminPromos()">← KEMBALI</button></div><div class="form-grid"><div class="field"><label>JUDUL PROMO</label><input id="pTitle" value="${esc(p.title)}"></div><div class="field"><label>LABEL PROMO</label><input id="pTag" value="${esc(p.tag)}"></div><div class="field"><label>HARGA / PENAWARAN</label><input id="pPrice" value="${esc(p.price)}" placeholder="Contoh: Buy 1 Get 1 / 20K"></div><div class="field"><label>PERIODE PROMO</label><input id="pPeriod" value="${esc(p.period)}"></div><div class="field full"><label>DESKRIPSI PROMO</label><textarea id="pDesc">${esc(p.description)}</textarea></div><div class="field full"><label>FOTO PROMO KHUSUS (URL GOOGLE DRIVE)</label><input id="pUrl" placeholder="https://lh3.googleusercontent.com/d/..." value="${esc(p.image)}"></div><div class="field"><label class="check"><input id="pActive" type="checkbox" ${p.active ? 'checked' : ''}> Tampilkan sebagai promo aktif utama</label></div></div><div class="form-actions"><button class="add-btn" onclick="savePromo('${id || ''}')">SIMPAN PROMO</button></div>`;
+}
+
+function savePromo(id) {
+ let p = { id: id || 'p' + Date.now(), title: document.getElementById('pTitle').value.trim(), tag: document.getElementById('pTag').value, price: document.getElementById('pPrice').value, period: document.getElementById('pPeriod').value, description: document.getElementById('pDesc').value, image: document.getElementById('pUrl').value.trim(), active: document.getElementById('pActive').checked };
+ if (!p.title) { notify('Judul promo wajib diisi.'); return; }
+ if (!data.promos) data.promos = [];
+ if (p.active) data.promos.forEach(x => x.active = false);
+ let i = data.promos.findIndex(x => x.id === id);
+ if (i >= 0) data.promos[i] = p; else data.promos.unshift(p);
+ persist(); adminPromos();
+}
+
+function removePromo(id) {
+ if (confirm('Hapus promo ini?')) { data.promos = data.promos.filter(p => p.id !== id); persist(); adminPromos(); }
+}
+
+/* --- TAB 3: POSTER KATEGORI --- */
 function adminCategories() {
  let c = document.getElementById('adminContent');
  c.innerHTML = `<div class="admin-row"><h3>Kelola Poster Kategori · ${data.categories.length} kategori</h3></div><div class="admin-list">${data.categories.map(cat => `<div class="admin-item"><div><strong>${esc(cat.name)}</strong><small>${cat.image ? 'Poster terpasang' : 'Belum ada poster'} · ${cat.active ? 'Tampil' : 'Disembunyikan'}</small></div><div class="admin-actions"><button class="mini-btn" onclick="editCategory('${cat.id}')">Upload/Edit Poster</button></div></div>`).join('')}</div><p class="hint">Upload 1 foto poster/banner untuk mewakili seluruh menu di kategori tersebut.</p>`;
@@ -380,48 +455,7 @@ function saveCategory(id) {
  adminCategories();
 }
 
-function adminPromos() {
- let c = document.getElementById('adminContent');
- c.innerHTML = `<div class="admin-row"><h3>Promo & campaign</h3><button class="add-btn" onclick="editPromo()">＋ BUAT PROMO</button></div><div class="admin-list">${(data.promos || []).map(p => `<div class="admin-item"><div><strong>${esc(p.title)}</strong><small>${esc(p.tag)} · ${esc(p.period)} · ${p.active ? 'AKTIF' : 'NONAKTIF'}</small></div><div class="admin-actions"><button class="mini-btn" onclick="editPromo('${p.id}')">Edit</button><button class="mini-btn danger" onclick="removePromo('${p.id}')">Hapus</button></div></div>`).join('') || '<div class="empty-state">Belum ada promo.</div>'}</div>`;
-}
-
-function editPromo(id) {
- let old = (data.promos || []).find(p => p.id === id);
- let p = old || { id: 'p' + Date.now(), title: '', tag: 'SPECIAL OFFER', description: '', price: '', period: 'Promo hari ini', image: '', gallery: [], active: true };
- 
- let galleryStr = (p.gallery && p.gallery.length > 0) ? p.gallery.join('\n') : (p.image || '');
-
- document.getElementById('adminContent').innerHTML = `<div class="admin-row"><h3>${id ? 'Edit promo' : 'Buat promo baru'}</h3><button class="mini-btn" onclick="adminPromos()">← KEMBALI</button></div><div class="form-grid"><div class="field"><label>JUDUL PROMO</label><input id="pTitle" value="${esc(p.title)}"></div><div class="field"><label>LABEL PROMO</label><input id="pTag" value="${esc(p.tag)}"></div><div class="field"><label>HARGA / PENAWARAN</label><input id="pPrice" value="${esc(p.price)}" placeholder="Contoh: Buy 1 Get 1 / 20K"></div><div class="field"><label>PERIODE PROMO</label><input id="pPeriod" value="${esc(p.period)}"></div><div class="field full"><label>DESKRIPSI PROMO</label><textarea id="pDesc">${esc(p.description)}</textarea></div><div class="field full"><label>FOTO PROMO SLIDER (URL GOOGLE DRIVE - PISAHKAN DENGAN ENTER / BARIS BARU BILA LEBIH DARI 1)</label><textarea id="pGallery" placeholder="https://lh3.googleusercontent.com/d/...\nhttps://lh3.googleusercontent.com/d/...">${esc(galleryStr)}</textarea><small class="hint">Foto-foto di atas akan otomatis berganti-ganti secara terus-menerus pada area Freshly Made di bagian atas website.</small></div><div class="field"><label class="check"><input id="pActive" type="checkbox" ${p.active ? 'checked' : ''}> Tampilkan sebagai promo aktif</label></div></div><div class="form-actions"><button class="add-btn" onclick="savePromo('${id || ''}')">SIMPAN PROMO</button></div>`;
-}
-
-function savePromo(id) {
- let rawGallery = document.getElementById('pGallery').value.split('\n').map(s => s.trim()).filter(Boolean);
- let mainImg = rawGallery[0] || '';
-
- let p = { 
-  id: id || 'p' + Date.now(), 
-  title: document.getElementById('pTitle').value.trim(), 
-  tag: document.getElementById('pTag').value, 
-  price: document.getElementById('pPrice').value, 
-  period: document.getElementById('pPeriod').value, 
-  description: document.getElementById('pDesc').value, 
-  image: mainImg, 
-  gallery: rawGallery,
-  active: document.getElementById('pActive').checked 
- };
-
- if (!p.title) { notify('Judul promo wajib diisi.'); return; }
- if (!data.promos) data.promos = [];
- if (p.active) data.promos.forEach(x => x.active = false);
- let i = data.promos.findIndex(x => x.id === id);
- if (i >= 0) data.promos[i] = p; else data.promos.unshift(p);
- persist(); adminPromos();
-}
-
-function removePromo(id) {
- if (confirm('Hapus promo ini?')) { data.promos = data.promos.filter(p => p.id !== id); persist(); adminPromos(); }
-}
-
+/* --- TAB 4: KONTAK BARISTA --- */
 function adminContacts() {
  let c = document.getElementById('adminContent');
  c.innerHTML = `<div class="admin-row"><h3>Kontak Barista</h3><button class="add-btn" onclick="editContact()">＋ TAMBAH KONTAK</button></div><div class="admin-list">${(data.contacts || []).map(x => `<div class="admin-item"><div><strong>${esc(x.name)}</strong><small>${esc(x.role)} · ${esc(x.phone)}</small></div><div class="admin-actions"><button class="mini-btn" onclick="editContact('${x.id}')">Edit</button><button class="mini-btn danger" onclick="removeContact('${x.id}')">Hapus</button></div></div>`).join('')}</div>`;
@@ -446,6 +480,7 @@ function removeContact(id) {
  if (confirm('Hapus kontak?')) { data.contacts = data.contacts.filter(c => c.id !== id); persist(); adminContacts(); }
 }
 
+/* --- TAB 5: ADDITIONAL --- */
 function adminExtras() {
  document.getElementById('adminContent').innerHTML = `<div class="admin-row"><h3>Additional / Topping</h3><button class="add-btn" onclick="editExtra()">＋ TAMBAH</button></div><div class="admin-list">${(data.extras || []).map((x, i) => `<div class="admin-item"><div><strong>${esc(x[0])}</strong><small>${esc(x[1])} · ${esc(x[2])}</small></div><div class="admin-actions"><button class="mini-btn" onclick="editExtra(${i})">Edit</button><button class="mini-btn danger" onclick="removeExtra(${i})">Hapus</button></div></div>`).join('')}</div>`;
 }
@@ -467,8 +502,9 @@ function removeExtra(i) {
  if (confirm('Hapus item?')) { data.extras.splice(i, 1); persist(); adminExtras(); }
 }
 
+/* --- TAB 6: PENGATURAN --- */
 function adminSettings() {
- document.getElementById('adminContent').innerHTML = `<div class="admin-row"><h3>Pengaturan website</h3></div><div class="form-grid"><div class="field full"><label>LINK TIKTOK</label><input id="sTikTok" value="${esc(data.settings?.tiktok)}"></div><div class="field full"><label>LINK GOOGLE MAPS</label><input id="sMaps" value="${esc(data.settings?.maps)}"></div><div class="field full"><label>UBAH PIN ADMIN BARU</label><input id="sPin" type="password" value="${esc(data.settings?.pin || '123456')}" placeholder="PIN baru"></div><div class="field full"><label>STATUS DATABASE</label><input value="${isCloudConfigured() ? 'Google Sheets API terpasang' : 'Belum dipasang'}" disabled></div></div><div class="form-actions"><button class="add-btn" onclick="saveSettings()">SIMPAN PENGATURAN</button></div><hr style="border:0;border-top:1px solid var(--line);margin:20px 0"><button class="mini-btn" onclick="refreshCloud()">↻ AMBIL DATA TERBARU</button><button class="mini-btn" onclick="publishInitialData()">↑ KIRIM DATA KE SHEETS</button><button class="mini-btn danger" onclick="resetData()">RESET DATA</button>`;
+ document.getElementById('adminContent').innerHTML = `<div class="admin-row"><h3>Pengaturan website</h3></div><div class="form-grid"><div class="field full"><label>LINK TIKTOK</label><input id="sTikTok" value="${esc(data.settings?.tiktok)}"></div><div class="field full"><label>LINK GOOGLE MAPS</label><input id="sMaps" value="${esc(data.settings?.maps)}"></div><div class="field full"><label>UBAH PIN ADMIN BARU</label><input id="sPin" type="password" value="${esc(data.settings?.pin || '123456')}" placeholder="PIN baru"></div><div class="field full"><label>STATUS DATABASE</label><input value="${isCloudConfigured() ? 'Google Sheets API terpasang (Real-time sync aktif)' : 'Belum dipasang'}" disabled></div></div><div class="form-actions"><button class="add-btn" onclick="saveSettings()">SIMPAN PENGATURAN</button></div><hr style="border:0;border-top:1px solid var(--line);margin:20px 0"><button class="mini-btn" onclick="refreshCloud()">↻ AMBIL DATA TERBARU</button><button class="mini-btn" onclick="publishInitialData()">↑ KIRIM DATA KE SHEETS</button><button class="mini-btn danger" onclick="resetData()">RESET DATA</button>`;
 }
 
 function saveSettings() {
@@ -483,7 +519,7 @@ function saveSettings() {
 function publishInitialData() {
  if (!isCloudConfigured()) { notify('Pasang URL Apps Script terlebih dahulu.'); return; }
  if (!adminPinSession) { notify('Login admin terlebih dahulu.'); return; }
- persist('Data poster kategori dikirim ke Google Sheets.');
+ persist('Data berhasil dikirim ke Google Sheets.');
 }
 
 function resetData() {
@@ -491,7 +527,7 @@ function resetData() {
 }
 
 renderAll();
-if (isCloudConfigured()) { refreshCloud(true); setInterval(() => refreshCloud(true), 15000); }
+if (isCloudConfigured()) { refreshCloud(true); setInterval(() => refreshCloud(true), 10000); }
 </script>
 </body>
 </html>
