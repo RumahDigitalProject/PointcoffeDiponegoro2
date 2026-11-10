@@ -10,7 +10,40 @@
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{--bg:#0b0e0a;--surface:#121710;--surface2:#192018;--line:#293326;--text:#f4f6ee;--muted:#9ca795;--lime:#d8fa4b;--lime2:#bce52d;--orange:#ffad72;--r:22px;--shadow:0 18px 55px #0007}
-*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:90px}body{margin:0;background:var(--bg);color:var(--text);font-family:"DM Sans",sans-serif}body:before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.12;background-image:radial-gradient(#d8fa4b 0.55px,transparent .55px);background-size:22px 22px;mask-image:linear-gradient(to bottom,#000,transparent 70%);z-index:-1}a{color:inherit}button,input,select,textarea{font:inherit}button{cursor:pointer}.container{width:min(1180px,calc(100% - 38px));margin:auto}.topbar{height:4px;background:linear-gradient(90deg,var(--lime),#69d5a1,#ffb273)}.site-header{position:sticky;top:0;z-index:30;background:#0b0e0aeF;backdrop-filter:blur(18px);border-bottom:1px solid #ffffff12}.nav{height:74px;display:flex;align-items:center;justify-content:space-between;gap:20px}.brand{display:flex;gap:11px;align-items:center;text-decoration:none}.brand-icon{width:43px;height:43px;display:grid;place-items:center;background:var(--lime);color:#10140c;border-radius:14px;font:800 19px "Space Grotesk";box-shadow:0 7px 22px #d8fa4b2b;transform:rotate(-4deg)}.brand strong{font:700 14px "Space Grotesk";letter-spacing:.4px}.brand small{display:block;font-size:8.5px;letter-spacing:1.8px;color:var(--muted);margin-top:3px}.nav-links{display:flex;gap:27px}.nav-links a{font-size:12px;font-weight:800;color:#c6cebf;text-decoration:none}.nav-links a:hover{color:var(--lime)}.nav-tools{display:flex;gap:9px;align-items:center}.round-link{height:39px;width:39px;border:1px solid var(--line);border-radius:13px;display:grid;place-items:center;text-decoration:none;font-weight:900}.admin-open,.primary{background:var(--lime);color:#10140b;border:0;border-radius:12px;padding:12px 16px;font-size:11px;font-weight:900;letter-spacing:.4px}.hero{padding:68px 0 46px;display:grid;grid-template-columns:1.05fr .95fr;gap:38px;align-items:center}.eyebrow{display:inline-flex;gap:9px;align-items:center;border:1px solid #d8fa4b45;color:var(--lime);padding:8px 12px;border-radius:50px;font-size:9px;font-weight:900;letter-spacing:2px}.dot{width:7px;height:7px;border-radius:50%;background:var(--lime);box-shadow:0 0 0 5px #d8fa4b1c}.hero h1{font:700 clamp(45px,6.4vw,78px)/.97 "Space Grotesk";letter-spacing:-4px;margin:23px 0 18px}.hero h1 em{font-style:normal;color:var(--lime)}.hero-copy{max-width:510px;color:var(--muted);font-size:14px;line-height:1.85}.hero-buttons{display:flex;gap:11px;flex-wrap:wrap;margin-top:26px}.primary,.secondary{display:inline-flex;align-items:center;gap:10px;text-decoration:none;padding:14px 18px;border-radius:13px;font-size:11px;font-weight:900}.secondary{border:1px solid var(--line);color:white}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:90px}body{margin:0;background:var(--bg);color:var(--text);font-family:"DM Sans",sans-serif}body:before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.12;background-image:radial-gradient(#d8fa4b 0.55px,transparent .55px);background-size:22px 22px;mask-image:linear-gradient(to bottom,#000,transparent 70%);z-index:-1}a{color:inherit}button,input,select,textarea{font:inherit}button{cursor:pointer}.container{width:min(1180px,calc(100% - 38px));margin:auto}.topbar{height:4px;background:linear-gradient(90deg,var(--lime),#69d5a1,#ffb273)}.site-header{position:sticky;top:0;z-index:30;background:#0b0e0aeF;backdrop-filter:blur(18px);border-bottom:1px solid #ffffff12}.nav{height:74px;display:flex;align-items:center;justify-content:space-between;gap:20px}.brand{display:flex;gap:11px;align-items:center;text-decoration:none}.brand-icon{width:43px;height:43px;display:grid;place-items:center;background:var(--lime);color:#10140c;border-radius:14px;font:800 19px "Space Grotesk";box-shadow:0 7px 22px #d8fa4b2b;transform:rotate(-4deg)}.brand strong{font:700 14px "Space Grotesk";letter-spacing:.4px}.brand small{display:block;font-size:8.5px;letter-spacing:1.8px;color:var(--muted);margin-top:3px}.nav-links{display:flex;gap:27px}.nav-links a{font-size:12px;font-weight:800;color:#c6cebf;text-decoration:none}.nav-links a:hover{color:var(--lime)}.nav-tools{display:flex;gap:9px;align-items:center}.round-link{height:39px;width:39px;border:1px solid var(--line);border-radius:13px;display:grid;place-items:center;text-decoration:none;font-weight:900}.admin-open,.primary{background:var(--lime);color:#10140b;border:0;border-radius:12px;padding:12px 16px;font-size:11px;font-weight:900;letter-spacing:.4px}
+
+.hero{padding:58px 0 46px;display:grid;grid-template-columns:1.05fr .95fr;gap:38px;align-items:center}
+
+/* === INTERACTIVE DYNAMIC PROMO BOX (DIBAWAH BRAND, DIATAS EYEBROW) === */
+.hero-promo-showcase{background:linear-gradient(135deg,#162013,#10160e);border:1px solid #2d3e26;border-radius:18px;padding:16px 20px;margin-bottom:22px;box-shadow:0 10px 30px #0006;overflow:hidden;transition:all .5s cubic-bezier(.4,0,.2,1)}
+.hp-content{display:flex;flex-direction:column;gap:10px}
+.hp-badge{display:inline-block;background:#d8fa4b20;color:var(--lime);border:1px solid #d8fa4b50;padding:4px 10px;border-radius:30px;font-size:8.5px;font-weight:900;letter-spacing:1.5px;width:fit-content}
+.hp-text{font-size:12px;color:#d1dcd0;line-height:1.5;font-weight:500}
+.hp-platforms{display:flex;align-items:center;gap:10px;margin-top:4px;flex-wrap:wrap}
+
+/* Tombol Platform dengan Efek Detak (Pulse) & Interaktif */
+.hp-btn{display:inline-flex;align-items:center;gap:6px;padding:7px 14px;border-radius:12px;text-decoration:none;font-size:10.5px;font-weight:800;border:1px solid rgba(255,255,255,.12);transition:.3s;animation:pulseSoft 2s infinite}
+.hp-btn.tiktok{background:#00000090;color:#fff;border-color:#fe2c5550}
+.hp-btn.tiktok:hover{background:#fe2c55;border-color:#fe2c55}
+.hp-btn.shopee{background:#ee4d2d20;color:#ff7a5c;border-color:#ee4d2d50}
+.hp-btn.shopee:hover{background:#ee4d2d;color:#fff}
+.hp-btn svg{width:13px;height:13px;fill:currentColor}
+
+@keyframes pulseSoft{0%{transform:scale(1)}50%{transform:scale(1.05)}100%{transform:scale(1)}}
+
+/* Kelas Animasi Masuk/Keluar Acak Dinamis */
+.anim-from-left{opacity:0;transform:translateX(-60px);transition:all .7s cubic-bezier(0.175,0.885,0.32,1.275)}
+.anim-from-right{opacity:0;transform:translateX(60px);transition:all .7s cubic-bezier(0.175,0.885,0.32,1.275)}
+.anim-from-top{opacity:0;transform:translateY(-40px);transition:all .7s cubic-bezier(0.175,0.885,0.32,1.275)}
+.anim-from-bottom{opacity:0;transform:translateY(40px);transition:all .7s cubic-bezier(0.175,0.885,0.32,1.275)}
+
+.anim-to-left{opacity:0 !important;transform:translateX(-60px) !important;transition:all .6s ease-in !important}
+.anim-to-right{opacity:0 !important;transform:translateX(60px) !important;transition:all .6s ease-in !important}
+.anim-to-fade{opacity:0 !important;transform:scale(0.9) !important;transition:all .6s ease-in !important}
+
+.show-anim{opacity:1 !important;transform:translate(0,0) !important}
+
+.eyebrow{display:inline-flex;gap:9px;align-items:center;border:1px solid #d8fa4b45;color:var(--lime);padding:8px 12px;border-radius:50px;font-size:9px;font-weight:900;letter-spacing:2px}.dot{width:7px;height:7px;border-radius:50%;background:var(--lime);box-shadow:0 0 0 5px #d8fa4b1c}.hero h1{font:700 clamp(45px,6.4vw,78px)/.97 "Space Grotesk";letter-spacing:-4px;margin:23px 0 18px}.hero h1 em{font-style:normal;color:var(--lime)}.hero-copy{max-width:510px;color:var(--muted);font-size:14px;line-height:1.85}.hero-buttons{display:flex;gap:11px;flex-wrap:wrap;margin-top:26px}.primary,.secondary{display:inline-flex;align-items:center;gap:10px;text-decoration:none;padding:14px 18px;border-radius:13px;font-size:11px;font-weight:900}.secondary{border:1px solid var(--line);color:white}
 
 /* === FRESHLY MADE HERO ROTATING CAROUSEL (ADAPTIVE FULL POSTER DISPLAY) === */
 .hero-visual{border:1px solid #ffffff18;border-radius:30px;position:relative;overflow:hidden;background:#0d120a;}
@@ -46,10 +79,28 @@
 <main>
 <section class="container hero">
 <div>
-<span class="eyebrow"><i class="dot"></i> GOOD COFFEE, GOOD DAY</span>
-<h1>Make your day<br><em>taste better.</em></h1>
-<p class="hero-copy">Temukan racikan favoritmu di Point Coffee Diponegoro 2. Dari signature coffee sampai minuman segar, katalog poster kategori siap menyajikan pilihan terbaik untuk setiap momenmu.</p>
-<div class="hero-buttons"><a class="primary" href="#menu">LIHAT MENU ↗</a><a class="secondary" href="#promo">LIHAT PROMO ✳</a></div>
+  <!-- DYNAMIC ANIMATED PROMO SHOWCASE DIBAWAH BRAND, DIATAS EYEBROW -->
+  <div class="hero-promo-showcase" id="heroPromoShowcase">
+    <div class="hp-content">
+      <span class="hp-badge anim-element" data-dir="left">SPECIAL DEALS</span>
+      <div class="hp-text anim-element" data-dir="right">Lebih hemat dengan voucher TikTok atau Shopee VIP Rp 1!</div>
+      <div class="hp-platforms">
+        <a class="hp-btn tiktok anim-element" data-dir="left" id="hpTikTokBtn" href="#" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 1 1-5.2-1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V5.8a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 3 12a6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.36V8.62a8.41 8.41 0 0 0 4.92 1.58V6.78a4.85 4.85 0 0 1-1-.09z"/></svg>
+          TikTok Shop ↗
+        </a>
+        <a class="hp-btn shopee anim-element" data-dir="right" id="hpShopeeBtn" href="#" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24"><path d="M19 6h-3.17a4.97 4.97 0 0 0-9.66 0H3a1 1 0 0 0-1 1v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V7a1 1 0 0 0-1-1zm-7-3a2.97 2.97 0 0 1 2.83 2H9.17A2.97 2.97 0 0 1 12 3zm8 16H4V8h16v11z"/></svg>
+          Shopee VIP Rp 1 ↗
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <span class="eyebrow"><i class="dot"></i> GOOD COFFEE, GOOD DAY</span>
+  <h1>Make your day<br><em>taste better.</em></h1>
+  <p class="hero-copy">Temukan racikan favoritmu di Point Coffee Diponegoro 2. Nikmati voucher belanja lebih hemat lewat TikTok Shop dan Shopee VIP Rp 1.</p>
+  <div class="hero-buttons"><a class="primary" href="#menu">LIHAT MENU ↗</a><a class="secondary" href="#promo">LIHAT PROMO ✳</a></div>
 </div>
 
 <!-- FRESHLY MADE HERO ROTATING CAROUSEL (ADAPTIVE FULL POSTER DISPLAY) -->
@@ -68,7 +119,7 @@
       <div class="kicker">DON'T MISS THE DEAL</div>
       <h2>Promo hari ini<span style="color:var(--lime)">.</span></h2>
     </div>
-    <div class="section-intro">Penawaran spesial Point Coffee Diponegoro 2 hari ini. Promo, foto khusus, harga, dan periode dapat diubah langsung dari Admin Panel.</div>
+    <div class="section-intro">Penawaran spesial Point Coffee Diponegoro 2 hari ini. Klaim voucher TikTok & Shopee VIP Rp 1 Anda sekarang!</div>
   </div>
   <div id="promoView"></div>
 </section>
@@ -80,7 +131,7 @@
 
 <section class="container section" id="additional"><div class="section-head"><div><div class="kicker">MAKE IT YOURS</div><h2>Extra your way<span style="color:var(--lime)">.</span></h2></div><div class="section-intro">Tambahan untuk bikin minuman favoritmu makin personal.</div></div><div class="additional-grid" id="additionalView"></div></section>
 
-<section class="container section" id="barista"><div class="contact-box"><div><div class="kicker">LET'S TALK COFFEE</div><h2>Say hi to<br>our barista<span style="color:var(--lime)">.</span></h2><p>Mau tanya menu, order, atau kolaborasi? Hubungi tim barista kami. Kami siap bantu!</p><div class="socials"><a class="social" id="tiktokLink" href="#" target="_blank">♪ TikTok Store ↗</a><a class="social" id="mapsLink" href="#" target="_blank">⌖ Google Maps & Review ↗</a></div></div><div class="contact-grid" id="contactView"></div></div></section>
+<section class="container section" id="barista"><div class="contact-box"><div><div class="kicker">LET'S TALK COFFEE</div><h2>Say hi to<br>our barista<span style="color:var(--lime)">.</span></h2><p>Mau tanya menu, order, atau kolaborasi? Hubungi tim barista kami. Kami siap bantu!</p><div class="socials"><a class="social" id="tiktokLink" href="#" target="_blank">♪ TikTok Shop & Voucher ↗</a><a class="social" id="mapsLink" href="#" target="_blank">⌖ Google Maps & Review ↗</a></div></div><div class="contact-grid" id="contactView"></div></div></section>
 </main>
 
 <footer><div class="container footer-row"><div><b>POINT COFFEE DIPONEGORO 2</b><br>Good coffee, good company.</div><div>© <span id="year"></span> Point Coffee Diponegoro 2 · Made with ☕ and good energy.</div></div></footer>
@@ -122,11 +173,11 @@ const categoriesList = [
 
 const starter = {
  categories: categoriesList,
- heroImages: [], // Array foto slider berputar di atas (Freshly Made)
- promos: [{ id: 'promo1', title: 'Promo Spesial Point Coffee', tag: 'TODAY SPECIAL', description: 'Tulis penawaran terbaik hari ini di sini. Kamu bisa mengganti foto, judul, harga, dan periode promo.', price: 'Mulai 20K', period: 'Promo hari ini', image: '', active: true }],
+ heroImages: [],
+ promos: [{ id: 'promo1', title: 'Promo Spesial Point Coffee', tag: 'TIKTOK & SHOPEE VIP', description: 'Gunakan voucher diskon menarik di TikTok Shop atau klaim voucher spesial Rp 1 Rupiah dengan Shopee VIP untuk pemesanan lebih hemat.', price: 'Voucher Mulai Rp 1', period: 'Berlaku hari ini', image: '', active: true }],
  contacts: [{ id: 'c1', name: 'Barista Point Coffee', role: 'Customer Service', phone: '628123456789', label: 'WhatsApp' }],
  extras: [['Syrup', '+3K', 'Caramel / Vanilla / Matcha'], ['Sauce', '+3K', 'Caramel / Chocolate'], ['Toppings', '+3K', 'Coffee Jelly / Frappe Jelly'], ['Palm Sugar', '+3K', 'Tambahan palm sugar'], ['Natural Honey', '+5K', 'Tambahan natural honey'], ['Espresso', '+5K', 'Extra espresso shot'], ['Whipped Cream', '+5K', 'Extra whipped cream'], ['Upsize', '+5K', 'Ukuran lebih besar'], ['Oat Milk', '+4K', 'Milk alternative'], ['Cashew Milk', '+4K', 'Milk alternative'], ['Coconut Milk', '+10K', 'Milk alternative'], ['Decaf', '+8K', 'Decaffeinated coffee']],
- settings: { tiktok: 'https://www.tiktok.com/', maps: 'https://maps.google.com/', pin: '123456' }
+ settings: { tiktok: 'https://www.tiktok.com/', shopee: 'https://shopee.co.id/', maps: 'https://maps.google.com/', pin: '123456' }
 };
 
 function clone(x) { return JSON.parse(JSON.stringify(x)) }
@@ -311,10 +362,10 @@ function renderPromo() {
    <div class="promo-side">
     <div>
      <div class="kicker">LIMITED OFFER</div>
-     <h3>Good things<br>don't wait.</h3>
-     <p>${esc(p.period || 'Periode promo')}<br>Hubungi barista kami untuk detail promo.</p>
+     <h3>Voucher Hemat<br>TikTok & Shopee.</h3>
+     <p>${esc(p.period || 'Periode promo')}<br>Nikmati diskon spesial dan voucher Rp 1 dengan Shopee VIP.</p>
     </div>
-    <div class="promo-foot">✳ FRESH DEALS • POINT COFFEE</div>
+    <div class="promo-foot">✳ TIKTOK & SHOPEE VIP • POINT COFFEE</div>
    </div>
   </div>
  `;
@@ -348,13 +399,54 @@ function renderExtras() {
 }
 
 function renderLinks() {
- ['tiktokTop', 'tiktokLink'].forEach(id => { let el = document.getElementById(id); if(el) el.href = data.settings?.tiktok || '#'; });
+ ['tiktokTop', 'tiktokLink', 'hpTikTokBtn'].forEach(id => { let el = document.getElementById(id); if(el) el.href = data.settings?.tiktok || '#'; });
+ ['hpShopeeBtn'].forEach(id => { let el = document.getElementById(id); if(el) el.href = data.settings?.shopee || '#'; });
  ['mapsTop', 'mapsLink'].forEach(id => { let el = document.getElementById(id); if(el) el.href = data.settings?.maps || '#'; });
 }
 
 function renderAll() {
  renderHeroSlider(); renderPromo(); renderPills(); renderMenu(); renderContacts(); renderExtras(); renderLinks();
  document.getElementById('year').textContent = new Date().getFullYear();
+}
+
+/* === SISTEM ANIMASI ACAK OTOMATIS (MUNCUL & HILANG BERKALA) === */
+function initRandomPromoAnimation() {
+  const showcase = document.getElementById('heroPromoShowcase');
+  const elements = showcase ? showcase.querySelectorAll('.anim-element') : [];
+  if (!showcase || elements.length === 0) return;
+
+  const entryDirections = ['left', 'right', 'top', 'bottom'];
+  const exitDirections = ['left', 'right', 'fade'];
+
+  function triggerCycle() {
+    // 1. TAMPILKAN DENGAN ANIMASI ACAK
+    let randomEntry = entryDirections[Math.floor(Math.random() * entryDirections.length)];
+    elements.forEach((el, idx) => {
+      // Variasikan arah acak per elemen jika diinginkan
+      setTimeout(() => {
+        el.className = el.className.replace(/anim-from-\w+/g, '').trim();
+        el.classList.add(`anim-from-${idx % 2 === 0 ? randomEntry : (randomEntry === 'left' ? 'right' : 'left')}`);
+        // Paksa reflow agar transisi terbaca
+        void el.offsetWidth;
+        el.classList.add('show-anim');
+      }, idx * 180);
+    });
+
+    // 2. TAHAN SELAMA 5 DETIK, LALU HILANG DENGAN ANIMASI ACAK BERBEDA
+    setTimeout(() => {
+      let randomExit = exitDirections[Math.floor(Math.random() * exitDirections.length)];
+      elements.forEach((el, idx) => {
+        setTimeout(() => {
+          el.classList.remove('show-anim');
+          el.classList.add(`anim-to-${randomExit}`);
+        }, idx * 120);
+      });
+    }, 5000);
+  }
+
+  // Jalankan siklus pertama setelah 1 detik, lalu ulangi setiap 8.5 detik
+  setTimeout(triggerCycle, 1000);
+  setInterval(triggerCycle, 8500);
 }
 
 function openAdmin() {
@@ -416,8 +508,8 @@ function adminPromos() {
 
 function editPromo(id) {
  let old = (data.promos || []).find(p => p.id === id);
- let p = old || { id: 'p' + Date.now(), title: '', tag: 'SPECIAL OFFER', description: '', price: '', period: 'Promo hari ini', image: '', active: true };
- document.getElementById('adminContent').innerHTML = `<div class="admin-row"><h3>${id ? 'Edit promo' : 'Buat promo baru'}</h3><button class="mini-btn" onclick="adminPromos()">← KEMBALI</button></div><div class="form-grid"><div class="field"><label>JUDUL PROMO</label><input id="pTitle" value="${esc(p.title)}"></div><div class="field"><label>LABEL PROMO</label><input id="pTag" value="${esc(p.tag)}"></div><div class="field"><label>HARGA / PENAWARAN</label><input id="pPrice" value="${esc(p.price)}" placeholder="Contoh: Buy 1 Get 1 / 20K"></div><div class="field"><label>PERIODE PROMO</label><input id="pPeriod" value="${esc(p.period)}"></div><div class="field full"><label>DESKRIPSI PROMO</label><textarea id="pDesc">${esc(p.description)}</textarea></div><div class="field full"><label>FOTO PROMO KHUSUS (URL GOOGLE DRIVE)</label><input id="pUrl" placeholder="https://lh3.googleusercontent.com/d/..." value="${esc(p.image)}"></div><div class="field"><label class="check"><input id="pActive" type="checkbox" ${p.active ? 'checked' : ''}> Tampilkan sebagai promo aktif utama</label></div></div><div class="form-actions"><button class="add-btn" onclick="savePromo('${id || ''}')">SIMPAN PROMO</button></div>`;
+ let p = old || { id: 'p' + Date.now(), title: '', tag: 'TIKTOK & SHOPEE VIP', description: '', price: '', period: 'Berlaku hari ini', image: '', active: true };
+ document.getElementById('adminContent').innerHTML = `<div class="admin-row"><h3>${id ? 'Edit promo' : 'Buat promo baru'}</h3><button class="mini-btn" onclick="adminPromos()">← KEMBALI</button></div><div class="form-grid"><div class="field"><label>JUDUL PROMO</label><input id="pTitle" value="${esc(p.title)}"></div><div class="field"><label>LABEL PROMO</label><input id="pTag" value="${esc(p.tag)}"></div><div class="field"><label>HARGA / PENAWARAN</label><input id="pPrice" value="${esc(p.price)}" placeholder="Contoh: Voucher Rp 1 / Diskon 50%"></div><div class="field"><label>PERIODE PROMO</label><input id="pPeriod" value="${esc(p.period)}"></div><div class="field full"><label>DESKRIPSI PROMO</label><textarea id="pDesc">${esc(p.description)}</textarea></div><div class="field full"><label>FOTO PROMO KHUSUS (URL GOOGLE DRIVE)</label><input id="pUrl" placeholder="https://lh3.googleusercontent.com/d/..." value="${esc(p.image)}"></div><div class="field"><label class="check"><input id="pActive" type="checkbox" ${p.active ? 'checked' : ''}> Tampilkan sebagai promo aktif utama</label></div></div><div class="form-actions"><button class="add-btn" onclick="savePromo('${id || ''}')">SIMPAN PROMO</button></div>`;
 }
 
 function savePromo(id) {
@@ -504,12 +596,13 @@ function removeExtra(i) {
 
 /* --- TAB 6: PENGATURAN --- */
 function adminSettings() {
- document.getElementById('adminContent').innerHTML = `<div class="admin-row"><h3>Pengaturan website</h3></div><div class="form-grid"><div class="field full"><label>LINK TIKTOK</label><input id="sTikTok" value="${esc(data.settings?.tiktok)}"></div><div class="field full"><label>LINK GOOGLE MAPS</label><input id="sMaps" value="${esc(data.settings?.maps)}"></div><div class="field full"><label>UBAH PIN ADMIN BARU</label><input id="sPin" type="password" value="${esc(data.settings?.pin || '123456')}" placeholder="PIN baru"></div><div class="field full"><label>STATUS DATABASE</label><input value="${isCloudConfigured() ? 'Google Sheets API terpasang (Real-time sync aktif)' : 'Belum dipasang'}" disabled></div></div><div class="form-actions"><button class="add-btn" onclick="saveSettings()">SIMPAN PENGATURAN</button></div><hr style="border:0;border-top:1px solid var(--line);margin:20px 0"><button class="mini-btn" onclick="refreshCloud()">↻ AMBIL DATA TERBARU</button><button class="mini-btn" onclick="publishInitialData()">↑ KIRIM DATA KE SHEETS</button><button class="mini-btn danger" onclick="resetData()">RESET DATA</button>`;
+ document.getElementById('adminContent').innerHTML = `<div class="admin-row"><h3>Pengaturan website</h3></div><div class="form-grid"><div class="field full"><label>LINK TIKTOK SHOP / VOUCHER</label><input id="sTikTok" value="${esc(data.settings?.tiktok)}"></div><div class="field full"><label>LINK SHOPEE VIP (VOUCHER RP 1)</label><input id="sShopee" value="${esc(data.settings?.shopee || 'https://shopee.co.id/')}"></div><div class="field full"><label>LINK GOOGLE MAPS</label><input id="sMaps" value="${esc(data.settings?.maps)}"></div><div class="field full"><label>UBAH PIN ADMIN BARU</label><input id="sPin" type="password" value="${esc(data.settings?.pin || '123456')}" placeholder="PIN baru"></div><div class="field full"><label>STATUS DATABASE</label><input value="${isCloudConfigured() ? 'Google Sheets API terpasang (Real-time sync aktif)' : 'Belum dipasang'}" disabled></div></div><div class="form-actions"><button class="add-btn" onclick="saveSettings()">SIMPAN PENGATURAN</button></div><hr style="border:0;border-top:1px solid var(--line);margin:20px 0"><button class="mini-btn" onclick="refreshCloud()">↻ AMBIL DATA TERBARU</button><button class="mini-btn" onclick="publishInitialData()">↑ KIRIM DATA KE SHEETS</button><button class="mini-btn danger" onclick="resetData()">RESET DATA</button>`;
 }
 
 function saveSettings() {
  if (!data.settings) data.settings = {};
  data.settings.tiktok = document.getElementById('sTikTok').value.trim();
+ data.settings.shopee = document.getElementById('sShopee').value.trim();
  data.settings.maps = document.getElementById('sMaps').value.trim();
  let newPin = document.getElementById('sPin').value.trim();
  if (newPin) data.settings.pin = newPin;
@@ -527,6 +620,7 @@ function resetData() {
 }
 
 renderAll();
+initRandomPromoAnimation();
 if (isCloudConfigured()) { refreshCloud(true); setInterval(() => refreshCloud(true), 10000); }
 </script>
 </body>
