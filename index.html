@@ -14,32 +14,33 @@
 
 .hero{padding:58px 0 46px;display:grid;grid-template-columns:1.05fr .95fr;gap:38px;align-items:center}
 
-/* === INTERACTIVE DYNAMIC PROMO BOX (DIBAWAH BRAND, DIATAS EYEBROW) === */
-.hero-promo-showcase{background:linear-gradient(135deg,#162013,#10160e);border:1px solid #2d3e26;border-radius:18px;padding:16px 20px;margin-bottom:22px;box-shadow:0 10px 30px #0006;overflow:hidden;transition:all .5s cubic-bezier(.4,0,.2,1)}
-.hp-content{display:flex;flex-direction:column;gap:10px}
-.hp-badge{display:inline-block;background:#d8fa4b20;color:var(--lime);border:1px solid #d8fa4b50;padding:4px 10px;border-radius:30px;font-size:8.5px;font-weight:900;letter-spacing:1.5px;width:fit-content}
-.hp-text{font-size:12px;color:#d1dcd0;line-height:1.5;font-weight:500}
-.hp-platforms{display:flex;align-items:center;gap:10px;margin-top:4px;flex-wrap:wrap}
+/* === PROMO SHOWCASE TANPA KOTAK, DENGAN EFEK ACCORDION MENYUSUT/MELUAS & BERDENYUT SEDANG === */
+.hero-promo-showcase{max-height:0;opacity:0;overflow:hidden;transition:max-height .8s cubic-bezier(0.4,0,0.2,1), opacity .6s ease, margin .8s ease;margin-bottom:0;display:flex;flex-direction:column;gap:8px}
+.hero-promo-showcase.active{max-height:160px;opacity:1;margin-bottom:18px}
 
-/* Tombol Platform dengan Efek Detak (Pulse) & Interaktif */
-.hp-btn{display:inline-flex;align-items:center;gap:6px;padding:7px 14px;border-radius:12px;text-decoration:none;font-size:10.5px;font-weight:800;border:1px solid rgba(255,255,255,.12);transition:.3s;animation:pulseSoft 2s infinite}
-.hp-btn.tiktok{background:#00000090;color:#fff;border-color:#fe2c5550}
+.hp-badge{display:inline-block;background:#d8fa4b18;color:var(--lime);border:1px solid #d8fa4b40;padding:3px 9px;border-radius:30px;font-size:8.5px;font-weight:900;letter-spacing:1.5px;width:fit-content}
+.hp-text{font-size:12px;color:#d1dcd0;line-height:1.5;font-weight:500}
+.hp-platforms{display:flex;align-items:center;gap:10px;margin-top:2px;flex-wrap:wrap}
+
+/* Tombol Platform dengan Efek Berdenyut Sedang (Medium Pulse) */
+.hp-btn{display:inline-flex;align-items:center;gap:6px;padding:7px 14px;border-radius:12px;text-decoration:none;font-size:10.5px;font-weight:800;border:1px solid rgba(255,255,255,.15);animation:pulseMedium 2.2s infinite ease-in-out;transition:.3s}
+.hp-btn.tiktok{background:#00000080;color:#fff;border-color:#fe2c5560}
 .hp-btn.tiktok:hover{background:#fe2c55;border-color:#fe2c55}
 .hp-btn.shopee{background:#ee4d2d20;color:#ff7a5c;border-color:#ee4d2d50}
 .hp-btn.shopee:hover{background:#ee4d2d;color:#fff}
 .hp-btn svg{width:13px;height:13px;fill:currentColor}
 
-@keyframes pulseSoft{0%{transform:scale(1)}50%{transform:scale(1.05)}100%{transform:scale(1)}}
+@keyframes pulseMedium{0%{transform:scale(1)}50%{transform:scale(1.035);box-shadow:0 0 12px rgba(216,250,75,0.25)}100%{transform:scale(1)}}
 
-/* Kelas Animasi Masuk/Keluar Acak Dinamis */
-.anim-from-left{opacity:0;transform:translateX(-60px);transition:all .7s cubic-bezier(0.175,0.885,0.32,1.275)}
-.anim-from-right{opacity:0;transform:translateX(60px);transition:all .7s cubic-bezier(0.175,0.885,0.32,1.275)}
-.anim-from-top{opacity:0;transform:translateY(-40px);transition:all .7s cubic-bezier(0.175,0.885,0.32,1.275)}
-.anim-from-bottom{opacity:0;transform:translateY(40px);transition:all .7s cubic-bezier(0.175,0.885,0.32,1.275)}
+/* Animasi Masuk/Keluar Acak Dinamis */
+.anim-from-left{opacity:0;transform:translateX(-50px);transition:all .6s cubic-bezier(0.175,0.885,0.32,1.275)}
+.anim-from-right{opacity:0;transform:translateX(50px);transition:all .6s cubic-bezier(0.175,0.885,0.32,1.275)}
+.anim-from-top{opacity:0;transform:translateY(-30px);transition:all .6s cubic-bezier(0.175,0.885,0.32,1.275)}
+.anim-from-bottom{opacity:0;transform:translateY(30px);transition:all .6s cubic-bezier(0.175,0.885,0.32,1.275)}
 
-.anim-to-left{opacity:0 !important;transform:translateX(-60px) !important;transition:all .6s ease-in !important}
-.anim-to-right{opacity:0 !important;transform:translateX(60px) !important;transition:all .6s ease-in !important}
-.anim-to-fade{opacity:0 !important;transform:scale(0.9) !important;transition:all .6s ease-in !important}
+.anim-to-left{opacity:0 !important;transform:translateX(-50px) !important;transition:all .5s ease-in !important}
+.anim-to-right{opacity:0 !important;transform:translateX(50px) !important;transition:all .5s ease-in !important}
+.anim-to-fade{opacity:0 !important;transform:scale(0.95) !important;transition:all .5s ease-in !important}
 
 .show-anim{opacity:1 !important;transform:translate(0,0) !important}
 
@@ -73,27 +74,25 @@
 <header class="site-header"><div class="container nav">
 <a class="brand" href="#"><span class="brand-icon">PC</span><span><strong>POINT COFFEE</strong><small>DIPONEGORO 2</small></span></a>
 <nav class="nav-links"><a href="#promo">PROMO</a><a href="#menu">OUR MENU</a><a href="#barista">CONTACT</a></nav>
-<div class="nav-tools"><a class="round-link" id="tiktokTop" href="#" target="_blank" aria-label="TikTok">♪</a><a class="round-link" id="mapsTop" href="#" target="_blank" aria-label="Maps">⌖</a><button class="admin-open" onclick="openAdmin()">ADMIN ↗</button></div>
+<div class="nav-tools"><a class="round-link" id="tiktokTop" href="https://vt.tiktok.com/ZS9fUVAdewXEn-8OUCG/?poisharing=Point-Coffee---Indomaret-Diponegoro-2-%28TLQG%29" target="_blank" aria-label="TikTok">♪</a><a class="round-link" id="mapsTop" href="#" target="_blank" aria-label="Maps">⌖</a><button class="admin-open" onclick="openAdmin()">ADMIN ↗</button></div>
 </div></header>
 
 <main>
 <section class="container hero">
 <div>
-  <!-- DYNAMIC ANIMATED PROMO SHOWCASE DIBAWAH BRAND, DIATAS EYEBROW -->
+  <!-- PROMO SHOWCASE DINAMIS TANPA KOTAK (AKORDION 10 DETIK) -->
   <div class="hero-promo-showcase" id="heroPromoShowcase">
-    <div class="hp-content">
-      <span class="hp-badge anim-element" data-dir="left">SPECIAL DEALS</span>
-      <div class="hp-text anim-element" data-dir="right">Lebih hemat dengan voucher TikTok atau Shopee VIP Rp 1!</div>
-      <div class="hp-platforms">
-        <a class="hp-btn tiktok anim-element" data-dir="left" id="hpTikTokBtn" href="#" target="_blank" rel="noopener">
-          <svg viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 1 1-5.2-1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V5.8a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 3 12a6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.36V8.62a8.41 8.41 0 0 0 4.92 1.58V6.78a4.85 4.85 0 0 1-1-.09z"/></svg>
-          TikTok Shop ↗
-        </a>
-        <a class="hp-btn shopee anim-element" data-dir="right" id="hpShopeeBtn" href="#" target="_blank" rel="noopener">
-          <svg viewBox="0 0 24 24"><path d="M19 6h-3.17a4.97 4.97 0 0 0-9.66 0H3a1 1 0 0 0-1 1v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V7a1 1 0 0 0-1-1zm-7-3a2.97 2.97 0 0 1 2.83 2H9.17A2.97 2.97 0 0 1 12 3zm8 16H4V8h16v11z"/></svg>
-          Shopee VIP Rp 1 ↗
-        </a>
-      </div>
+    <span class="hp-badge anim-element" data-dir="left">SPECIAL DEALS</span>
+    <div class="hp-text anim-element" data-dir="right">Lebih hemat dengan voucher TikTok atau Shopee VIP Rp 1!</div>
+    <div class="hp-platforms">
+      <a class="hp-btn tiktok anim-element" data-dir="left" id="hpTikTokBtn" href="https://vt.tiktok.com/ZS9fUVAdewXEn-8OUCG/?poisharing=Point-Coffee---Indomaret-Diponegoro-2-%28TLQG%29" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 1 1-5.2-1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V5.8a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 3 12a6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.36V8.62a8.41 8.41 0 0 0 4.92 1.58V6.78a4.85 4.85 0 0 1-1-.09z"/></svg>
+        TikTok Shop ↗
+      </a>
+      <a class="hp-btn shopee anim-element" data-dir="right" id="hpShopeeBtn" href="https://shopee.co.id/" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24"><path d="M19 6h-3.17a4.97 4.97 0 0 0-9.66 0H3a1 1 0 0 0-1 1v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V7a1 1 0 0 0-1-1zm-7-3a2.97 2.97 0 0 1 2.83 2H9.17A2.97 2.97 0 0 1 12 3zm8 16H4V8h16v11z"/></svg>
+        Shopee VIP Rp 1 ↗
+      </a>
     </div>
   </div>
 
@@ -131,7 +130,7 @@
 
 <section class="container section" id="additional"><div class="section-head"><div><div class="kicker">MAKE IT YOURS</div><h2>Extra your way<span style="color:var(--lime)">.</span></h2></div><div class="section-intro">Tambahan untuk bikin minuman favoritmu makin personal.</div></div><div class="additional-grid" id="additionalView"></div></section>
 
-<section class="container section" id="barista"><div class="contact-box"><div><div class="kicker">LET'S TALK COFFEE</div><h2>Say hi to<br>our barista<span style="color:var(--lime)">.</span></h2><p>Mau tanya menu, order, atau kolaborasi? Hubungi tim barista kami. Kami siap bantu!</p><div class="socials"><a class="social" id="tiktokLink" href="#" target="_blank">♪ TikTok Shop & Voucher ↗</a><a class="social" id="mapsLink" href="#" target="_blank">⌖ Google Maps & Review ↗</a></div></div><div class="contact-grid" id="contactView"></div></div></section>
+<section class="container section" id="barista"><div class="contact-box"><div><div class="kicker">LET'S TALK COFFEE</div><h2>Say hi to<br>our barista<span style="color:var(--lime)">.</span></h2><p>Mau tanya menu, order, atau kolaborasi? Hubungi tim barista kami. Kami siap bantu!</p><div class="socials"><a class="social" id="tiktokLink" href="https://vt.tiktok.com/ZS9fUVAdewXEn-8OUCG/?poisharing=Point-Coffee---Indomaret-Diponegoro-2-%28TLQG%29" target="_blank">♪ TikTok Shop & Voucher ↗</a><a class="social" id="mapsLink" href="#" target="_blank">⌖ Google Maps & Review ↗</a></div></div><div class="contact-grid" id="contactView"></div></div></section>
 </main>
 
 <footer><div class="container footer-row"><div><b>POINT COFFEE DIPONEGORO 2</b><br>Good coffee, good company.</div><div>© <span id="year"></span> Point Coffee Diponegoro 2 · Made with ☕ and good energy.</div></div></footer>
@@ -177,7 +176,7 @@ const starter = {
  promos: [{ id: 'promo1', title: 'Promo Spesial Point Coffee', tag: 'TIKTOK & SHOPEE VIP', description: 'Gunakan voucher diskon menarik di TikTok Shop atau klaim voucher spesial Rp 1 Rupiah dengan Shopee VIP untuk pemesanan lebih hemat.', price: 'Voucher Mulai Rp 1', period: 'Berlaku hari ini', image: '', active: true }],
  contacts: [{ id: 'c1', name: 'Barista Point Coffee', role: 'Customer Service', phone: '628123456789', label: 'WhatsApp' }],
  extras: [['Syrup', '+3K', 'Caramel / Vanilla / Matcha'], ['Sauce', '+3K', 'Caramel / Chocolate'], ['Toppings', '+3K', 'Coffee Jelly / Frappe Jelly'], ['Palm Sugar', '+3K', 'Tambahan palm sugar'], ['Natural Honey', '+5K', 'Tambahan natural honey'], ['Espresso', '+5K', 'Extra espresso shot'], ['Whipped Cream', '+5K', 'Extra whipped cream'], ['Upsize', '+5K', 'Ukuran lebih besar'], ['Oat Milk', '+4K', 'Milk alternative'], ['Cashew Milk', '+4K', 'Milk alternative'], ['Coconut Milk', '+10K', 'Milk alternative'], ['Decaf', '+8K', 'Decaffeinated coffee']],
- settings: { tiktok: 'https://www.tiktok.com/', shopee: 'https://shopee.co.id/', maps: 'https://maps.google.com/', pin: '123456' }
+ settings: { tiktok: 'https://vt.tiktok.com/ZS9fUVAdewXEn-8OUCG/?poisharing=Point-Coffee---Indomaret-Diponegoro-2-%28TLQG%29', shopee: 'https://shopee.co.id/', maps: 'https://maps.google.com/', pin: '123456' }
 };
 
 function clone(x) { return JSON.parse(JSON.stringify(x)) }
@@ -399,8 +398,11 @@ function renderExtras() {
 }
 
 function renderLinks() {
- ['tiktokTop', 'tiktokLink', 'hpTikTokBtn'].forEach(id => { let el = document.getElementById(id); if(el) el.href = data.settings?.tiktok || '#'; });
- ['hpShopeeBtn'].forEach(id => { let el = document.getElementById(id); if(el) el.href = data.settings?.shopee || '#'; });
+ const tiktokUrl = data.settings?.tiktok || 'https://vt.tiktok.com/ZS9fUVAdewXEn-8OUCG/?poisharing=Point-Coffee---Indomaret-Diponegoro-2-%28TLQG%29';
+ const shopeeUrl = data.settings?.shopee || 'https://shopee.co.id/';
+ 
+ ['tiktokTop', 'tiktokLink', 'hpTikTokBtn'].forEach(id => { let el = document.getElementById(id); if(el) el.href = tiktokUrl; });
+ ['hpShopeeBtn'].forEach(id => { let el = document.getElementById(id); if(el) el.href = shopeeUrl; });
  ['mapsTop', 'mapsLink'].forEach(id => { let el = document.getElementById(id); if(el) el.href = data.settings?.maps || '#'; });
 }
 
@@ -409,8 +411,8 @@ function renderAll() {
  document.getElementById('year').textContent = new Date().getFullYear();
 }
 
-/* === SISTEM ANIMASI ACAK OTOMATIS (MUNCUL & HILANG BERKALA) === */
-function initRandomPromoAnimation() {
+/* === SISTEM ANIMASI ACCORDION & ACAK (TAMPIL 10 DETIK, LALU MENYUSUT KEMBALI) === */
+function initAccordionPromoAnimation() {
   const showcase = document.getElementById('heroPromoShowcase');
   const elements = showcase ? showcase.querySelectorAll('.anim-element') : [];
   if (!showcase || elements.length === 0) return;
@@ -419,34 +421,41 @@ function initRandomPromoAnimation() {
   const exitDirections = ['left', 'right', 'fade'];
 
   function triggerCycle() {
-    // 1. TAMPILKAN DENGAN ANIMASI ACAK
+    // 1. BUKA ACCORDION KE BAWAH
+    showcase.classList.add('active');
+
+    // 2. MUNCULKAN ELEMEN DENGAN ARAH ACAK
     let randomEntry = entryDirections[Math.floor(Math.random() * entryDirections.length)];
     elements.forEach((el, idx) => {
-      // Variasikan arah acak per elemen jika diinginkan
       setTimeout(() => {
         el.className = el.className.replace(/anim-from-\w+/g, '').trim();
         el.classList.add(`anim-from-${idx % 2 === 0 ? randomEntry : (randomEntry === 'left' ? 'right' : 'left')}`);
-        // Paksa reflow agar transisi terbaca
         void el.offsetWidth;
         el.classList.add('show-anim');
-      }, idx * 180);
+      }, idx * 180 + 200);
     });
 
-    // 2. TAHAN SELAMA 5 DETIK, LALU HILANG DENGAN ANIMASI ACAK BERBEDA
+    // 3. TAHAN SELAMA 10 DETIK SEBELUM MENYUSUT KE ATAS
     setTimeout(() => {
       let randomExit = exitDirections[Math.floor(Math.random() * exitDirections.length)];
       elements.forEach((el, idx) => {
         setTimeout(() => {
           el.classList.remove('show-anim');
           el.classList.add(`anim-to-${randomExit}`);
-        }, idx * 120);
+        }, idx * 100);
       });
-    }, 5000);
+
+      // Tutup accordion menyusut ke atas setelah elemen memudar
+      setTimeout(() => {
+        showcase.classList.remove('active');
+      }, 700);
+
+    }, 10000);
   }
 
-  // Jalankan siklus pertama setelah 1 detik, lalu ulangi setiap 8.5 detik
-  setTimeout(triggerCycle, 1000);
-  setInterval(triggerCycle, 8500);
+  // Mulai siklus pertama setelah 1.2 detik, lalu ulangi setiap 17 detik
+  setTimeout(triggerCycle, 1200);
+  setInterval(triggerCycle, 17000);
 }
 
 function openAdmin() {
@@ -596,7 +605,7 @@ function removeExtra(i) {
 
 /* --- TAB 6: PENGATURAN --- */
 function adminSettings() {
- document.getElementById('adminContent').innerHTML = `<div class="admin-row"><h3>Pengaturan website</h3></div><div class="form-grid"><div class="field full"><label>LINK TIKTOK SHOP / VOUCHER</label><input id="sTikTok" value="${esc(data.settings?.tiktok)}"></div><div class="field full"><label>LINK SHOPEE VIP (VOUCHER RP 1)</label><input id="sShopee" value="${esc(data.settings?.shopee || 'https://shopee.co.id/')}"></div><div class="field full"><label>LINK GOOGLE MAPS</label><input id="sMaps" value="${esc(data.settings?.maps)}"></div><div class="field full"><label>UBAH PIN ADMIN BARU</label><input id="sPin" type="password" value="${esc(data.settings?.pin || '123456')}" placeholder="PIN baru"></div><div class="field full"><label>STATUS DATABASE</label><input value="${isCloudConfigured() ? 'Google Sheets API terpasang (Real-time sync aktif)' : 'Belum dipasang'}" disabled></div></div><div class="form-actions"><button class="add-btn" onclick="saveSettings()">SIMPAN PENGATURAN</button></div><hr style="border:0;border-top:1px solid var(--line);margin:20px 0"><button class="mini-btn" onclick="refreshCloud()">↻ AMBIL DATA TERBARU</button><button class="mini-btn" onclick="publishInitialData()">↑ KIRIM DATA KE SHEETS</button><button class="mini-btn danger" onclick="resetData()">RESET DATA</button>`;
+ document.getElementById('adminContent').innerHTML = `<div class="admin-row"><h3>Pengaturan website</h3></div><div class="form-grid"><div class="field full"><label>LINK TIKTOK SHOP (TLQG DIPONEGORO 2)</label><input id="sTikTok" value="${esc(data.settings?.tiktok || 'https://vt.tiktok.com/ZS9fUVAdewXEn-8OUCG/?poisharing=Point-Coffee---Indomaret-Diponegoro-2-%28TLQG%29')}"></div><div class="field full"><label>LINK SHOPEE BELANJA</label><input id="sShopee" value="${esc(data.settings?.shopee || 'https://shopee.co.id/')}"></div><div class="field full"><label>LINK GOOGLE MAPS</label><input id="sMaps" value="${esc(data.settings?.maps)}"></div><div class="field full"><label>UBAH PIN ADMIN BARU</label><input id="sPin" type="password" value="${esc(data.settings?.pin || '123456')}" placeholder="PIN baru"></div><div class="field full"><label>STATUS DATABASE</label><input value="${isCloudConfigured() ? 'Google Sheets API terpasang (Real-time sync aktif)' : 'Belum dipasang'}" disabled></div></div><div class="form-actions"><button class="add-btn" onclick="saveSettings()">SIMPAN PENGATURAN</button></div><hr style="border:0;border-top:1px solid var(--line);margin:20px 0"><button class="mini-btn" onclick="refreshCloud()">↻ AMBIL DATA TERBARU</button><button class="mini-btn" onclick="publishInitialData()">↑ KIRIM DATA KE SHEETS</button><button class="mini-btn danger" onclick="resetData()">RESET DATA</button>`;
 }
 
 function saveSettings() {
@@ -620,7 +629,7 @@ function resetData() {
 }
 
 renderAll();
-initRandomPromoAnimation();
+initAccordionPromoAnimation();
 if (isCloudConfigured()) { refreshCloud(true); setInterval(() => refreshCloud(true), 10000); }
 </script>
 </body>
