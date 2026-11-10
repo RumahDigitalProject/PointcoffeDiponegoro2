@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#0b0e0a">
 <meta name="description" content="Digital menu Iten Point Coffee. Find your favorite coffee, milk, frappe and tea.">
 <title>Iten Point Coffee — Digital Menu</title>
@@ -9,9 +10,29 @@
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{--bg:#0b0e0a;--surface:#121710;--surface2:#192018;--line:#293326;--text:#f4f6ee;--muted:#9ca795;--lime:#d8fa4b;--lime2:#bce52d;--orange:#ffad72;--r:22px;--shadow:0 18px 55px #0007}
-*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:90px}body{margin:0;background:var(--bg);color:var(--text);font-family:"DM Sans",sans-serif}body:before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.12;background-image:radial-gradient(#d8fa4b 0.55px,transparent .55px);background-size:22px 22px;mask-image:linear-gradient(to bottom,#000,transparent 70%);z-index:-1}a{color:inherit}button,input,select,textarea{font:inherit}button{cursor:pointer}.container{width:min(1180px,calc(100% - 38px));margin:auto}.topbar{height:4px;background:linear-gradient(90deg,var(--lime),#69d5a1,#ffb273)}.site-header{position:sticky;top:0;z-index:30;background:#0b0e0aeF;backdrop-filter:blur(18px);border-bottom:1px solid #ffffff12}.nav{height:74px;display:flex;align-items:center;justify-content:space-between;gap:20px}.brand{display:flex;gap:11px;align-items:center;text-decoration:none}.brand-icon{width:43px;height:43px;display:grid;place-items:center;background:var(--lime);color:#10140c;border-radius:14px;font:800 19px "Space Grotesk";box-shadow:0 7px 22px #d8fa4b2b;transform:rotate(-4deg)}.brand strong{font:700 15px "Space Grotesk";letter-spacing:.4px}.brand small{display:block;font-size:9px;letter-spacing:2.5px;color:var(--muted);margin-top:3px}.nav-links{display:flex;gap:27px}.nav-links a{font-size:12px;font-weight:800;color:#c6cebf;text-decoration:none}.nav-links a:hover{color:var(--lime)}.nav-tools{display:flex;gap:9px;align-items:center}.round-link{height:39px;width:39px;border:1px solid var(--line);border-radius:13px;display:grid;place-items:center;text-decoration:none;font-weight:900}.admin-open,.primary{background:var(--lime);color:#10140b;border:0;border-radius:12px;padding:12px 16px;font-size:11px;font-weight:900;letter-spacing:.4px}.hero{padding:68px 0 46px;display:grid;grid-template-columns:1.05fr .95fr;gap:38px;align-items:center}.eyebrow{display:inline-flex;gap:9px;align-items:center;border:1px solid #d8fa4b45;color:var(--lime);padding:8px 12px;border-radius:50px;font-size:9px;font-weight:900;letter-spacing:2px}.dot{width:7px;height:7px;border-radius:50%;background:var(--lime);box-shadow:0 0 0 5px #d8fa4b1c}.hero h1{font:700 clamp(45px,6.4vw,78px)/.97 "Space Grotesk";letter-spacing:-4px;margin:23px 0 18px}.hero h1 em{font-style:normal;color:var(--lime)}.hero-copy{max-width:510px;color:var(--muted);font-size:14px;line-height:1.85}.hero-buttons{display:flex;gap:11px;flex-wrap:wrap;margin-top:26px}.primary,.secondary{display:inline-flex;align-items:center;gap:10px;text-decoration:none;padding:14px 18px;border-radius:13px;font-size:11px;font-weight:900}.secondary{border:1px solid var(--line);color:white}.hero-visual{min-height:340px;border:1px solid #ffffff18;border-radius:30px;position:relative;overflow:hidden;display:grid;place-items:center;background:radial-gradient(circle at 70% 25%,#d8fa4b27,transparent 35%),linear-gradient(145deg,#222d1c,#11160f 75%)}.hero-visual:before,.hero-visual:after{content:"";position:absolute;border:1px solid #d8fa4b38;border-radius:50%;width:280px;height:280px}.hero-visual:after{width:370px;height:370px}.hero-cup{z-index:1;width:142px;height:198px;border-radius:23px 23px 35px 35px;background:linear-gradient(90deg,#b87843,#fff0d2 48%,#bd8751);box-shadow:22px 25px 55px #0009;display:grid;place-items:center;color:#33401c;text-align:center;font:800 18px/1.15 "Space Grotesk";transform:rotate(7deg);position:relative}.hero-cup:before{content:"";position:absolute;top:-13px;left:-8px;width:158px;height:27px;border-radius:50%;background:#fff1d9;border:5px solid #c18c5b}.hero-cup:after{content:"";position:absolute;top:-38px;left:52%;height:40px;width:8px;border-radius:10px;background:#eee4cb;transform:rotate(-13deg)}.visual-label{position:absolute;top:24px;left:25px;color:#cbd4c0;font-size:9px;letter-spacing:2px;font-weight:900}.sticker{position:absolute;right:10%;bottom:12%;z-index:2;width:86px;height:86px;border-radius:50%;background:var(--lime);color:#10140c;display:grid;place-items:center;text-align:center;font:800 11px/1.2 "Space Grotesk";transform:rotate(11deg)}.section{padding:43px 0}.section-head{display:flex;align-items:end;justify-content:space-between;gap:22px;margin-bottom:23px}.kicker{color:var(--lime);font-size:9px;font-weight:900;letter-spacing:2.4px}.section h2{font:700 clamp(28px,4vw,39px) "Space Grotesk";letter-spacing:-1.5px;margin:7px 0 0}.section-intro{max-width:420px;color:var(--muted);font-size:12px;line-height:1.7}.promo-layout{display:grid;grid-template-columns:1.3fr .7fr;gap:15px}.promo-feature{border:1px solid #d8fa4b33;border-radius:24px;padding:26px;position:relative;overflow:hidden;background:linear-gradient(110deg,#2a391c,#141b12 75%)}.promo-label{display:inline-block;background:var(--lime);color:#10140c;padding:7px 10px;border-radius:7px;font-size:9px;font-weight:900;letter-spacing:1px}.promo-feature h3{font:700 28px "Space Grotesk";max-width:380px;margin:14px 0 8px;position:relative;z-index:2}.promo-feature p{color:#c2cdb8;font-size:12px;line-height:1.7;max-width:370px;position:relative;z-index:2}.promo-value{font:700 20px "Space Grotesk";color:var(--lime);margin-top:10px;position:relative;z-index:2}.promo-image{width:100%;max-height:550px;object-fit:contain;border-radius:18px;border:1px solid #ffffff1d;margin-top:18px;display:block;background:#0005}.promo-side{background:var(--surface);border:1px solid var(--line);border-radius:24px;padding:23px;display:flex;flex-direction:column;justify-content:space-between}.promo-side h3{font:700 22px "Space Grotesk";margin:12px 0}.promo-side p{font-size:12px;line-height:1.7;color:var(--muted)}.promo-foot{color:var(--lime);font-size:9px;font-weight:900;letter-spacing:1.3px}.menu-toolbar{display:flex;gap:10px;align-items:center;justify-content:space-between;flex-wrap:wrap;margin:24px 0}.category-pills{display:flex;gap:8px;flex-wrap:wrap}.pill{background:transparent;color:#c4cdbd;border:1px solid var(--line);border-radius:40px;padding:9px 13px;font-size:10px;font-weight:900}.pill.active,.pill:hover{background:var(--lime);border-color:var(--lime);color:#11150d}.category-block{margin:32px 0 43px;scroll-margin-top:94px}.category-card{background:var(--surface);border:1px solid var(--line);border-radius:24px;overflow:hidden;margin-bottom:24px;box-shadow:var(--shadow)}.category-header{padding:20px 24px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center}.category-header h3{font:700 22px "Space Grotesk";margin:0}.category-poster{width:100%;background:#0d120a;display:grid;place-items:center;overflow:hidden}.category-poster img{width:100%;height:auto;max-height:850px;object-fit:contain;display:block}.no-poster{padding:60px 20px;text-align:center;color:var(--muted);font-size:13px}.additional-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.add-on{background:var(--surface);border:1px solid var(--line);border-radius:13px;padding:14px}.add-on strong{font-size:11px;display:block}.add-on span{font-size:10px;color:var(--lime);font-weight:900;display:block;margin-top:5px}.contact-box{display:grid;grid-template-columns:.8fr 1.2fr;gap:25px;padding:28px;border-radius:25px;border:1px solid var(--line);background:linear-gradient(135deg,#1b2517,#10150e)}.contact-box h2{font:700 32px "Space Grotesk";margin:8px 0}.contact-box p{font-size:12px;color:var(--muted);line-height:1.7}.contact-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.contact-card{display:flex;align-items:center;gap:11px;text-decoration:none;background:#ffffff05;border:1px solid var(--line);border-radius:14px;padding:13px;min-width:0}.avatar{width:38px;height:38px;display:grid;place-items:center;border-radius:12px;background:#d8fa4b20;color:var(--lime);font-weight:900;flex:none}.contact-card strong{font-size:11px;display:block}.contact-card small{display:block;color:var(--muted);font-size:9px;margin-top:4px;overflow:hidden;text-overflow:ellipsis}.socials{display:flex;gap:9px;flex-wrap:wrap;margin-top:18px}.social{border:1px solid var(--line);padding:10px 13px;border-radius:11px;text-decoration:none;font-size:10px;font-weight:900}.social:hover{border-color:var(--lime);color:var(--lime)}footer{margin-top:50px;border-top:1px solid var(--line);padding:30px 0 40px}.footer-row{display:flex;justify-content:space-between;align-items:center;gap:20px;color:var(--muted);font-size:10px}.footer-row b{color:white}.admin-modal{display:none;position:fixed;inset:0;z-index:80;background:#000c;padding:16px;align-items:center;justify-content:center}.admin-modal.show{display:flex}.admin-window{width:min(1000px,100%);max-height:94vh;overflow:auto;background:#11170f;border:1px solid #46543d;border-radius:22px;padding:21px;box-shadow:0 35px 110px #000c}.admin-header{display:flex;justify-content:space-between;align-items:center;gap:15px}.admin-header h2{font:700 23px "Space Grotesk";margin:0}.close-btn,.tab-btn,.mini-btn{background:transparent;color:white;border:1px solid var(--line);border-radius:9px;padding:8px 11px;font-size:10px;font-weight:800}.admin-tabs{display:flex;gap:8px;flex-wrap:wrap;margin:19px 0}.tab-btn.active{background:var(--lime);border-color:var(--lime);color:#10140c}.admin-content{border-top:1px solid var(--line);padding-top:17px}.admin-row{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:15px}.admin-row h3{font:700 17px "Space Grotesk";margin:0}.add-btn{background:var(--lime);color:#111;border:0;border-radius:9px;padding:9px 12px;font-size:10px;font-weight:900}.admin-list{display:grid;gap:8px}.admin-item{display:flex;justify-content:space-between;align-items:center;gap:12px;background:#1b2318;border:1px solid var(--line);border-radius:11px;padding:10px 12px}.admin-item strong{font-size:11px}.admin-item small{display:block;color:var(--muted);font-size:9px;margin-top:4px}.admin-actions{display:flex;gap:6px;flex:none}.mini-btn{padding:7px 9px}.mini-btn.danger{background:#492b27;color:#ffb4a8}.form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.field{display:grid;gap:6px}.field.full{grid-column:1/-1}.field label{font-size:9px;letter-spacing:.8px;color:#bdc8b4;font-weight:900}.field input,.field select,.field textarea{width:100%;background:#0a0f09;border:1px solid #35402f;color:white;border-radius:9px;padding:11px;outline:none;font-size:11px}.field textarea{min-height:72px;resize:vertical}.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--lime)}.field input[type=checkbox]{width:auto;accent-color:var(--lime)}.check{display:flex;align-items:center;gap:8px;color:#c7d1c0;font-size:11px}.form-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:15px}.hint{color:var(--muted);font-size:9px;line-height:1.7}.login-card{max-width:360px;margin:34px auto;text-align:center}.login-card input{width:100%;background:#090e08;color:white;border:1px solid var(--line);border-radius:10px;padding:12px;margin:12px 0}.toast{position:fixed;z-index:100;bottom:22px;left:50%;transform:translateX(-50%);background:var(--lime);color:#10140c;border-radius:12px;padding:12px 17px;font-size:11px;font-weight:900;display:none;box-shadow:var(--shadow)}.toast.show{display:block}
-@media(max-width:820px){.nav-links{display:none}.hero{grid-template-columns:1fr;padding-top:42px}.hero-visual{min-height:280px}.promo-layout{grid-template-columns:1fr}.contact-box{grid-template-columns:1fr}}
-@media(max-width:570px){.container{width:calc(100% - 26px)}.nav{height:65px}.brand strong{font-size:12px}.brand-icon{width:38px;height:38px}.admin-open{padding:10px 11px}.round-link{width:35px;height:35px}.hero h1{letter-spacing:-2.5px}.hero-visual{min-height:235px}.section{padding:31px 0}.section-head{display:block}.section-intro{margin-top:10px}.menu-toolbar{align-items:stretch}.category-pills{width:100%}.additional-grid{grid-template-columns:repeat(2,1fr)}.contact-box{padding:20px}.contact-grid{grid-template-columns:1fr}.footer-row{display:block;line-height:2}.form-grid{grid-template-columns:1fr}.field.full{grid-column:auto}.admin-window{padding:15px}.admin-item{align-items:flex-start}.admin-actions{flex-wrap:wrap}}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:90px}body{margin:0;background:var(--bg);color:var(--text);font-family:"DM Sans",sans-serif}body:before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.12;background-image:radial-gradient(#d8fa4b 0.55px,transparent .55px);background-size:22px 22px;mask-image:linear-gradient(to bottom,#000,transparent 70%);z-index:-1}a{color:inherit}button,input,select,textarea{font:inherit}button{cursor:pointer}.container{width:min(1180px,calc(100% - 38px));margin:auto}.topbar{height:4px;background:linear-gradient(90deg,var(--lime),#69d5a1,#ffb273)}.site-header{position:sticky;top:0;z-index:30;background:#0b0e0aeF;backdrop-filter:blur(18px);border-bottom:1px solid #ffffff12}.nav{height:74px;display:flex;align-items:center;justify-content:space-between;gap:20px}.brand{display:flex;gap:11px;align-items:center;text-decoration:none}.brand-icon{width:43px;height:43px;display:grid;place-items:center;background:var(--lime);color:#10140c;border-radius:14px;font:800 19px "Space Grotesk";box-shadow:0 7px 22px #d8fa4b2b;transform:rotate(-4deg)}.brand strong{font:700 15px "Space Grotesk";letter-spacing:.4px}.brand small{display:block;font-size:9px;letter-spacing:2.5px;color:var(--muted);margin-top:3px}.nav-links{display:flex;gap:27px}.nav-links a{font-size:12px;font-weight:800;color:#c6cebf;text-decoration:none}.nav-links a:hover{color:var(--lime)}.nav-tools{display:flex;gap:9px;align-items:center}.round-link{height:39px;width:39px;border:1px solid var(--line);border-radius:13px;display:grid;place-items:center;text-decoration:none;font-weight:900}.admin-open,.primary{background:var(--lime);color:#10140b;border:0;border-radius:12px;padding:12px 16px;font-size:11px;font-weight:900;letter-spacing:.4px}.hero{padding:68px 0 46px;display:grid;grid-template-columns:1.05fr .95fr;gap:38px;align-items:center}.eyebrow{display:inline-flex;gap:9px;align-items:center;border:1px solid #d8fa4b45;color:var(--lime);padding:8px 12px;border-radius:50px;font-size:9px;font-weight:900;letter-spacing:2px}.dot{width:7px;height:7px;border-radius:50%;background:var(--lime);box-shadow:0 0 0 5px #d8fa4b1c}.hero h1{font:700 clamp(45px,6.4vw,78px)/.97 "Space Grotesk";letter-spacing:-4px;margin:23px 0 18px}.hero h1 em{font-style:normal;color:var(--lime)}.hero-copy{max-width:510px;color:var(--muted);font-size:14px;line-height:1.85}.hero-buttons{display:flex;gap:11px;flex-wrap:wrap;margin-top:26px}.primary,.secondary{display:inline-flex;align-items:center;gap:10px;text-decoration:none;padding:14px 18px;border-radius:13px;font-size:11px;font-weight:900}.secondary{border:1px solid var(--line);color:white}
+
+/* === SLIDER HERO / FRESHLY MADE REDESIGN === */
+.hero-visual{min-height:360px;height:380px;border:1px solid #ffffff18;border-radius:30px;position:relative;overflow:hidden;background:radial-gradient(circle at 70% 25%,#d8fa4b27,transparent 35%),linear-gradient(145deg,#222d1c,#11160f 75%)}
+.hero-slider-container{width:100%;height:100%;position:relative;overflow:hidden}
+.hero-slide{position:absolute;inset:0;opacity:0;visibility:hidden;transition:opacity .8s cubic-bezier(.4,0,.2,1),transform .8s cubic-bezier(.4,0,.2,1);transform:scale(1.04);display:flex;align-items:center;justify-content:center}
+.hero-slide.active{opacity:1;visibility:visible;transform:scale(1)}
+.hero-slide img{width:100%;height:100%;object-fit:cover;display:block}
+.hero-slide-fallback{width:100%;height:100%;display:grid;place-items:center;position:relative}
+.hero-slide-fallback:before,.hero-slide-fallback:after{content:"";position:absolute;border:1px solid #d8fa4b38;border-radius:50%;width:280px;height:280px}
+.hero-slide-fallback:after{width:370px;height:370px}
+.hero-cup{z-index:1;width:142px;height:198px;border-radius:23px 23px 35px 35px;background:linear-gradient(90deg,#b87843,#fff0d2 48%,#bd8751);box-shadow:22px 25px 55px #0009;display:grid;place-items:center;color:#33401c;text-align:center;font:800 18px/1.15 "Space Grotesk";transform:rotate(7deg);position:relative}
+.hero-cup:before{content:"";position:absolute;top:-13px;left:-8px;width:158px;height:27px;border-radius:50%;background:#fff1d9;border:5px solid #c18c5b}
+.hero-cup:after{content:"";position:absolute;top:-38px;left:52%;height:40px;width:8px;border-radius:10px;background:#eee4cb;transform:rotate(-13deg)}
+.visual-label{position:absolute;top:20px;left:22px;z-index:5;color:#ffffff;background:#00000080;backdrop-filter:blur(8px);padding:6px 12px;border-radius:30px;border:1px solid #ffffff20;font-size:9px;letter-spacing:1.8px;font-weight:900}
+.sticker{position:absolute;right:8%;bottom:10%;z-index:5;width:82px;height:82px;border-radius:50%;background:var(--lime);color:#10140c;display:grid;place-items:center;text-align:center;font:800 10px/1.2 "Space Grotesk";transform:rotate(11deg);box-shadow:0 8px 25px #0008}
+.hero-slider-dots{position:absolute;bottom:18px;left:50%;transform:translateX(-50%);z-index:5;display:flex;gap:7px}
+.hero-dot{width:8px;height:8px;border-radius:50%;background:#ffffff40;cursor:pointer;transition:.3s}
+.hero-dot.active{background:var(--lime);width:22px;border-radius:10px}
+
+.section{padding:43px 0}.section-head{display:flex;align-items:end;justify-content:space-between;gap:22px;margin-bottom:23px}.kicker{color:var(--lime);font-size:9px;font-weight:900;letter-spacing:2.4px}.section h2{font:700 clamp(28px,4vw,39px) "Space Grotesk";letter-spacing:-1.5px;margin:7px 0 0}.section-intro{max-width:420px;color:var(--muted);font-size:12px;line-height:1.7}.promo-layout{display:grid;grid-template-columns:1.3fr .7fr;gap:15px}.promo-feature{border:1px solid #d8fa4b33;border-radius:24px;padding:26px;position:relative;overflow:hidden;background:linear-gradient(110deg,#2a391c,#141b12 75%)}.promo-label{display:inline-block;background:var(--lime);color:#10140c;padding:7px 10px;border-radius:7px;font-size:9px;font-weight:900;letter-spacing:1px}.promo-feature h3{font:700 28px "Space Grotesk";max-width:380px;margin:14px 0 8px;position:relative;z-index:2}.promo-feature p{color:#c2cdb8;font-size:12px;line-height:1.7;max-width:370px;position:relative;z-index:2}.promo-value{font:700 20px "Space Grotesk";color:var(--lime);margin-top:10px;position:relative;z-index:2}.promo-image{width:100%;max-height:550px;object-fit:contain;border-radius:18px;border:1px solid #ffffff1d;margin-top:18px;display:block;background:#0005}.promo-side{background:var(--surface);border:1px solid var(--line);border-radius:24px;padding:23px;display:flex;flex-direction:column;justify-content:space-between}.promo-side h3{font:700 22px "Space Grotesk";margin:12px 0}.promo-side p{font-size:12px;line-height:1.7;color:var(--muted)}.promo-foot{color:var(--lime);font-size:9px;font-weight:900;letter-spacing:1.3px}.menu-toolbar{display:flex;gap:10px;align-items:center;justify-content:space-between;flex-wrap:wrap;margin:24px 0}.category-pills{display:flex;gap:8px;flex-wrap:wrap}.pill{background:transparent;color:#c4cdbd;border:1px solid var(--line);border-radius:40px;padding:9px 13px;font-size:10px;font-weight:900}.pill.active,.pill:hover{background:var(--lime);border-color:var(--lime);color:#11150d}.category-block{margin:32px 0 43px;scroll-margin-top:94px}.category-card{background:var(--surface);border:1px solid var(--line);border-radius:24px;overflow:hidden;margin-bottom:24px;box-shadow:var(--shadow)}.category-header{padding:20px 24px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center}.category-header h3{font:700 22px "Space Grotesk";margin:0}.category-poster{width:100%;background:#0d120a;display:grid;place-items:center;overflow:hidden}.category-poster img{width:100%;height:auto;max-height:850px;object-fit:contain;display:block}.no-poster{padding:60px 20px;text-align:center;color:var(--muted);font-size:13px}.additional-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.add-on{background:var(--surface);border:1px solid var(--line);border-radius:13px;padding:14px}.add-on strong{font-size:11px;display:block}.add-on span{font-size:10px;color:var(--lime);font-weight:900;display:block;margin-top:5px}.contact-box{display:grid;grid-template-columns:.8fr 1.2fr;gap:25px;padding:28px;border-radius:25px;border:1px solid var(--line);background:linear-gradient(135deg,#1b2517,#10150e)}.contact-box h2{font:700 32px "Space Grotesk";margin:8px 0}.contact-box p{font-size:12px;color:var(--muted);line-height:1.7}.contact-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.contact-card{display:flex;align-items:center;gap:11px;text-decoration:none;background:#ffffff05;border:1px solid var(--line);border-radius:14px;padding:13px;min-width:0}.avatar{width:38px;height:38px;display:grid;place-items:center;border-radius:12px;background:#d8fa4b20;color:var(--lime);font-weight:900;flex:none}.contact-card strong{font-size:11px;display:block}.contact-card small{display:block;color:var(--muted);font-size:9px;margin-top:4px;overflow:hidden;text-overflow:ellipsis}.socials{display:flex;gap:9px;flex-wrap:wrap;margin-top:18px}.social{border:1px solid var(--line);padding:10px 13px;border-radius:11px;text-decoration:none;font-size:10px;font-weight:900}.social:hover{border-color:var(--lime);color:var(--lime)}footer{margin-top:50px;border-top:1px solid var(--line);padding:30px 0 40px}.footer-row{display:flex;justify-content:space-between;align-items:center;gap:20px;color:var(--muted);font-size:10px}.footer-row b{color:white}.admin-modal{display:none;position:fixed;inset:0;z-index:80;background:#000c;padding:16px;align-items:center;justify-content:center}.admin-modal.show{display:flex}.admin-window{width:min(1000px,100%);max-height:94vh;overflow:auto;background:#11170f;border:1px solid #46543d;border-radius:22px;padding:21px;box-shadow:0 35px 110px #000c}.admin-header{display:flex;justify-content:space-between;align-items:center;gap:15px}.admin-header h2{font:700 23px "Space Grotesk";margin:0}.close-btn,.tab-btn,.mini-btn{background:transparent;color:white;border:1px solid var(--line);border-radius:9px;padding:8px 11px;font-size:10px;font-weight:800}.admin-tabs{display:flex;gap:8px;flex-wrap:wrap;margin:19px 0}.tab-btn.active{background:var(--lime);border-color:var(--lime);color:#10140c}.admin-content{border-top:1px solid var(--line);padding-top:17px}.admin-row{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:15px}.admin-row h3{font:700 17px "Space Grotesk";margin:0}.add-btn{background:var(--lime);color:#111;border:0;border-radius:9px;padding:9px 12px;font-size:10px;font-weight:900}.admin-list{display:grid;gap:8px}.admin-item{display:flex;justify-content:space-between;align-items:center;gap:12px;background:#1b2318;border:1px solid var(--line);border-radius:11px;padding:10px 12px}.admin-item strong{font-size:11px}.admin-item small{display:block;color:var(--muted);font-size:9px;margin-top:4px}.admin-actions{display:flex;gap:6px;flex:none}.mini-btn{padding:7px 9px}.mini-btn.danger{background:#492b27;color:#ffb4a8}.form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.field{display:grid;gap:6px}.field.full{grid-column:1/-1}.field label{font-size:9px;letter-spacing:.8px;color:#bdc8b4;font-weight:900}.field input,.field select,.field textarea{width:100%;background:#0a0f09;border:1px solid #35402f;color:white;border-radius:9px;padding:11px;outline:none;font-size:11px}.field textarea{min-height:72px;resize:vertical}.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--lime)}.field input[type=checkbox]{width:auto;accent-color:var(--lime)}.check{display:flex;align-items:center;gap:8px;color:#c7d1c0;font-size:11px}.form-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:15px}.hint{color:var(--muted);font-size:9px;line-height:1.7}.login-card{max-width:360px;margin:34px auto;text-align:center}.login-card input{width:100%;background:#090e08;color:white;border:1px solid var(--line);border-radius:10px;padding:12px;margin:12px 0}.toast{position:fixed;z-index:100;bottom:22px;left:50%;transform:translateX(-50%);background:var(--lime);color:#10140c;border-radius:12px;padding:12px 17px;font-size:11px;font-weight:900;display:none;box-shadow:var(--shadow)}.toast.show{display:block}
+@media(max-width:820px){.nav-links{display:none}.hero{grid-template-columns:1fr;padding-top:42px}.hero-visual{height:300px;min-height:300px}.promo-layout{grid-template-columns:1fr}.contact-box{grid-template-columns:1fr}}
+@media(max-width:570px){.container{width:calc(100% - 26px)}.nav{height:65px}.brand strong{font-size:12px}.brand-icon{width:38px;height:38px}.admin-open{padding:10px 11px}.round-link{width:35px;height:35px}.hero h1{letter-spacing:-2.5px}.hero-visual{height:250px;min-height:250px}.section{padding:31px 0}.section-head{display:block}.section-intro{margin-top:10px}.menu-toolbar{align-items:stretch}.category-pills{width:100%}.additional-grid{grid-template-columns:repeat(2,1fr)}.contact-box{padding:20px}.contact-grid{grid-template-columns:1fr}.footer-row{display:block;line-height:2}.form-grid{grid-template-columns:1fr}.field.full{grid-column:auto}.admin-window{padding:15px}.admin-item{align-items:flex-start}.admin-actions{flex-wrap:wrap}}
 </style>
 </head>
 <body>
@@ -21,13 +42,24 @@
 <nav class="nav-links"><a href="#promo">PROMO</a><a href="#menu">OUR MENU</a><a href="#barista">CONTACT</a></nav>
 <div class="nav-tools"><a class="round-link" id="tiktokTop" href="#" target="_blank" aria-label="TikTok">♪</a><a class="round-link" id="mapsTop" href="#" target="_blank" aria-label="Maps">⌖</a><button class="admin-open" onclick="openAdmin()">ADMIN ↗</button></div>
 </div></header>
+
 <main>
-<section class="container hero"><div>
+<section class="container hero">
+<div>
 <span class="eyebrow"><i class="dot"></i> GOOD COFFEE, GOOD DAY</span>
 <h1>Make your day<br><em>taste better.</em></h1>
 <p class="hero-copy">Temukan racikan favoritmu di Iten Point Coffee. Dari signature coffee sampai minuman segar, katalog poster kategori siap menyajikan pilihan terbaik untuk setiap momenmu.</p>
 <div class="hero-buttons"><a class="primary" href="#menu">LIHAT MENU ↗</a><a class="secondary" href="#promo">LIHAT PROMO ✳</a></div>
-</div><div class="hero-visual"><div class="visual-label">FRESHLY MADE • EVERY DAY</div><div class="hero-cup">ITEN<br>POINT<br>COFFEE</div><div class="sticker">GOOD<br>MOOD<br>ONLY ✳</div></div></section>
+</div>
+
+<!-- REDESIGNED HERO VISUAL / PROMO ROTATING CAROUSEL -->
+<div class="hero-visual" id="heroVisual">
+  <div class="visual-label">FRESHLY MADE • EVERY DAY</div>
+  <div class="hero-slider-container" id="heroSliderContainer"></div>
+  <div class="sticker">GOOD<br>MOOD<br>ONLY ✳</div>
+  <div class="hero-slider-dots" id="heroSliderDots"></div>
+</div>
+</section>
 
 <section class="container section" id="promo"><div class="section-head"><div><div class="kicker">DON'T MISS THE DEAL</div><h2>Promo hari ini<span style="color:var(--lime)">.</span></h2></div><div class="section-intro">Penawaran spesial Iten Point Coffee. Promo, foto, harga, dan periode dapat diubah langsung dari Admin Panel.</div></div><div id="promoView"></div></section>
 
@@ -40,13 +72,15 @@
 
 <section class="container section" id="barista"><div class="contact-box"><div><div class="kicker">LET'S TALK COFFEE</div><h2>Say hi to<br>our barista<span style="color:var(--lime)">.</span></h2><p>Mau tanya menu, order, atau kolaborasi? Hubungi tim barista kami. Kami siap bantu!</p><div class="socials"><a class="social" id="tiktokLink" href="#" target="_blank">♪ TikTok Store ↗</a><a class="social" id="mapsLink" href="#" target="_blank">⌖ Google Maps & Review ↗</a></div></div><div class="contact-grid" id="contactView"></div></div></section>
 </main>
+
 <footer><div class="container footer-row"><div><b>ITEN POINT COFFEE</b><br>Good coffee, good company.</div><div>© <span id="year"></span> Iten Point Coffee · Made with ☕ and good energy.</div></div></footer>
 
 <div class="admin-modal" id="adminModal"><div class="admin-window">
 <div class="admin-header"><h2>✳ ITEN CONTROL ROOM</h2><button class="close-btn" onclick="closeAdmin()">✕ CLOSE</button></div>
 <div id="loginView" class="login-card"><div class="kicker">RESTRICTED ACCESS</div><h3>Welcome, Admin.</h3><p class="hint">Masukkan PIN untuk membuka dashboard pengelolaan website.</p><input id="adminPin" type="password" placeholder="PIN admin"><button class="add-btn" style="width:100%;padding:13px" onclick="loginAdmin()">UNLOCK DASHBOARD ↗</button><p class="hint">PIN default awal adalah 123456 (Dapat diubah di tab Pengaturan).</p></div>
 <div id="dashboard" style="display:none"><div class="admin-tabs"><button class="tab-btn active" data-tab="categories" onclick="switchTab('categories')">Poster Kategori</button><button class="tab-btn" data-tab="promos" onclick="switchTab('promos')">Promo</button><button class="tab-btn" data-tab="contacts" onclick="switchTab('contacts')">Kontak Barista</button><button class="tab-btn" data-tab="extras" onclick="switchTab('extras')">Additional</button><button class="tab-btn" data-tab="settings" onclick="switchTab('settings')">Pengaturan</button></div><div class="admin-content" id="adminContent"></div></div>
-</div></div><div class="toast" id="toast"></div>
+</div></div>
+<div class="toast" id="toast"></div>
 
 <script>
 const STORE = 'itenpoint_coffee_v3';
@@ -54,6 +88,8 @@ const API_URL = 'https://script.google.com/macros/s/AKfycbyuo4sJDyWhdiOgx2l4cFIu
 
 let adminPinSession = '';
 let cloudReady = false;
+let heroSliderTimer = null;
+let currentHeroSlideIndex = 0;
 
 const categoriesList = [
  { id: 'cat1', name: 'Signature', image: '', active: true },
@@ -66,7 +102,17 @@ const categoriesList = [
 
 const starter = {
  categories: categoriesList,
- promos: [{ id: 'promo1', title: 'Promo Spesial Iten Point', tag: 'TODAY SPECIAL', description: 'Tulis penawaran terbaik hari ini di sini. Kamu bisa mengganti foto, judul, harga, dan periode promo kapan saja.', price: 'Mulai 20K', period: 'Promo hari ini', image: '', active: true }],
+ promos: [{ 
+    id: 'promo1', 
+    title: 'Promo Spesial Iten Point', 
+    tag: 'TODAY SPECIAL', 
+    description: 'Tulis penawaran terbaik hari ini di sini. Kamu bisa mengganti foto, judul, harga, dan periode promo kapan saja.', 
+    price: 'Mulai 20K', 
+    period: 'Promo hari ini', 
+    image: '', 
+    gallery: [], 
+    active: true 
+ }],
  contacts: [{ id: 'c1', name: 'Barista Iten Point', role: 'Customer Service', phone: '628123456789', label: 'WhatsApp' }],
  extras: [['Syrup', '+3K', 'Caramel / Vanilla / Matcha'], ['Sauce', '+3K', 'Caramel / Chocolate'], ['Toppings', '+3K', 'Coffee Jelly / Frappe Jelly'], ['Palm Sugar', '+3K', 'Tambahan palm sugar'], ['Natural Honey', '+5K', 'Tambahan natural honey'], ['Espresso', '+5K', 'Extra espresso shot'], ['Whipped Cream', '+5K', 'Extra whipped cream'], ['Upsize', '+5K', 'Ukuran lebih besar'], ['Oat Milk', '+4K', 'Milk alternative'], ['Cashew Milk', '+4K', 'Milk alternative'], ['Coconut Milk', '+10K', 'Milk alternative'], ['Decaf', '+8K', 'Decaffeinated coffee']],
  settings: { tiktok: 'https://www.tiktok.com/', maps: 'https://maps.google.com/', pin: '123456' }
@@ -170,6 +216,79 @@ function esc(s) { return String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;
 function asset(path) { return path ? (path.startsWith('data:') || path.startsWith('http') ? path : 'assets/' + path) : '' }
 function notify(msg) { let t = document.getElementById('toast'); t.textContent = msg; t.classList.add('show'); setTimeout(() => t.classList.remove('show'), 2400) }
 
+/* === LOGIKA SLIDER HERO PROMO (FRESHLY MADE ROTATING PHOTOS) === */
+function renderHeroSlider() {
+ const container = document.getElementById('heroSliderContainer');
+ const dotsContainer = document.getElementById('heroSliderDots');
+ if (!container || !dotsContainer) return;
+ 
+ if (heroSliderTimer) {
+  clearInterval(heroSliderTimer);
+  heroSliderTimer = null;
+ }
+
+ // Mengumpulkan seluruh gambar promo aktif
+ let promoImages = [];
+ (data.promos || []).filter(p => p.active).forEach(p => {
+  if (p.gallery && Array.isArray(p.gallery) && p.gallery.length > 0) {
+   p.gallery.forEach(img => { if (img && img.trim()) promoImages.push(asset(img.trim())); });
+  } else if (p.image && p.image.trim()) {
+   promoImages.push(asset(p.image.trim()));
+  }
+ });
+
+ // Jika tidak ada foto promo, tampilkan visual cangkir bawaan (fallback)
+ if (promoImages.length === 0) {
+  container.innerHTML = `
+   <div class="hero-slide active">
+    <div class="hero-slide-fallback">
+     <div class="hero-cup">ITEN<br>POINT<br>COFFEE</div>
+    </div>
+   </div>`;
+  dotsContainer.innerHTML = '';
+  return;
+ }
+
+ // Render slides gambar promo
+ container.innerHTML = promoImages.map((src, i) => `
+  <div class="hero-slide ${i === 0 ? 'active' : ''}">
+   <img src="${esc(src)}" alt="Promo Iten Point Coffee" loading="lazy" onerror="this.src='https://via.placeholder.com/600x400?text=Promo+Iten+Point'">
+  </div>
+ `).join('');
+
+ // Render titik navigasi (dots)
+ if (promoImages.length > 1) {
+  dotsContainer.innerHTML = promoImages.map((_, i) => `
+   <div class="hero-dot ${i === 0 ? 'active' : ''}" onclick="goToHeroSlide(${i})"></div>
+  `).join('');
+  
+  currentHeroSlideIndex = 0;
+  // Putar slider secara otomatis setiap 4000ms (4 detik)
+  heroSliderTimer = setInterval(() => {
+   currentHeroSlideIndex = (currentHeroSlideIndex + 1) % promoImages.length;
+   updateHeroSlideUI();
+  }, 4000);
+ } else {
+  dotsContainer.innerHTML = '';
+ }
+}
+
+function goToHeroSlide(index) {
+ currentHeroSlideIndex = index;
+ updateHeroSlideUI();
+}
+
+function updateHeroSlideUI() {
+ const slides = document.querySelectorAll('.hero-slide');
+ const dots = document.querySelectorAll('.hero-dot');
+ slides.forEach((slide, i) => {
+  slide.classList.toggle('active', i === currentHeroSlideIndex);
+ });
+ dots.forEach((dot, i) => {
+  dot.classList.toggle('active', i === currentHeroSlideIndex);
+ });
+}
+
 function renderPromo() {
  let p = data.promos?.find(x => x.active);
  let el = document.getElementById('promoView');
@@ -210,7 +329,7 @@ function renderLinks() {
 }
 
 function renderAll() {
- renderPromo(); renderPills(); renderMenu(); renderContacts(); renderExtras(); renderLinks();
+ renderHeroSlider(); renderPromo(); renderPills(); renderMenu(); renderContacts(); renderExtras(); renderLinks();
  document.getElementById('year').textContent = new Date().getFullYear();
 }
 
@@ -268,12 +387,29 @@ function adminPromos() {
 
 function editPromo(id) {
  let old = (data.promos || []).find(p => p.id === id);
- let p = old || { id: 'p' + Date.now(), title: '', tag: 'SPECIAL OFFER', description: '', price: '', period: 'Promo hari ini', image: '', active: true };
- document.getElementById('adminContent').innerHTML = `<div class="admin-row"><h3>${id ? 'Edit promo' : 'Buat promo baru'}</h3><button class="mini-btn" onclick="adminPromos()">← KEMBALI</button></div><div class="form-grid"><div class="field"><label>JUDUL PROMO</label><input id="pTitle" value="${esc(p.title)}"></div><div class="field"><label>LABEL PROMO</label><input id="pTag" value="${esc(p.tag)}"></div><div class="field"><label>HARGA / PENAWARAN</label><input id="pPrice" value="${esc(p.price)}" placeholder="Contoh: Buy 1 Get 1 / 20K"></div><div class="field"><label>PERIODE PROMO</label><input id="pPeriod" value="${esc(p.period)}"></div><div class="field full"><label>DESKRIPSI PROMO</label><textarea id="pDesc">${esc(p.description)}</textarea></div><div class="field full"><label>FOTO PROMO (URL GOOGLE DRIVE)</label><input id="pUrl" placeholder="https://lh3.googleusercontent.com/d/..." value="${esc(p.image)}"></div><div class="field"><label class="check"><input id="pActive" type="checkbox" ${p.active ? 'checked' : ''}> Tampilkan sebagai promo aktif</label></div></div><div class="form-actions"><button class="add-btn" onclick="savePromo('${id || ''}')">SIMPAN PROMO</button></div>`;
+ let p = old || { id: 'p' + Date.now(), title: '', tag: 'SPECIAL OFFER', description: '', price: '', period: 'Promo hari ini', image: '', gallery: [], active: true };
+ 
+ let galleryStr = (p.gallery && p.gallery.length > 0) ? p.gallery.join('\n') : (p.image || '');
+
+ document.getElementById('adminContent').innerHTML = `<div class="admin-row"><h3>${id ? 'Edit promo' : 'Buat promo baru'}</h3><button class="mini-btn" onclick="adminPromos()">← KEMBALI</button></div><div class="form-grid"><div class="field"><label>JUDUL PROMO</label><input id="pTitle" value="${esc(p.title)}"></div><div class="field"><label>LABEL PROMO</label><input id="pTag" value="${esc(p.tag)}"></div><div class="field"><label>HARGA / PENAWARAN</label><input id="pPrice" value="${esc(p.price)}" placeholder="Contoh: Buy 1 Get 1 / 20K"></div><div class="field"><label>PERIODE PROMO</label><input id="pPeriod" value="${esc(p.period)}"></div><div class="field full"><label>DESKRIPSI PROMO</label><textarea id="pDesc">${esc(p.description)}</textarea></div><div class="field full"><label>FOTO PROMO SLIDER (URL GOOGLE DRIVE - PISAHKAN DENGAN ENTER / BARIS BARU BILA LEBIH DARI 1)</label><textarea id="pGallery" placeholder="https://lh3.googleusercontent.com/d/...\nhttps://lh3.googleusercontent.com/d/...">${esc(galleryStr)}</textarea><small class="hint">Foto-foto di atas akan otomatis berganti-ganti secara terus-menerus pada area Freshly Made di bagian atas website.</small></div><div class="field"><label class="check"><input id="pActive" type="checkbox" ${p.active ? 'checked' : ''}> Tampilkan sebagai promo aktif</label></div></div><div class="form-actions"><button class="add-btn" onclick="savePromo('${id || ''}')">SIMPAN PROMO</button></div>`;
 }
 
 function savePromo(id) {
- let p = { id: id || 'p' + Date.now(), title: document.getElementById('pTitle').value.trim(), tag: document.getElementById('pTag').value, price: document.getElementById('pPrice').value, period: document.getElementById('pPeriod').value, description: document.getElementById('pDesc').value, image: document.getElementById('pUrl').value.trim(), active: document.getElementById('pActive').checked };
+ let rawGallery = document.getElementById('pGallery').value.split('\n').map(s => s.trim()).filter(Boolean);
+ let mainImg = rawGallery[0] || '';
+
+ let p = { 
+  id: id || 'p' + Date.now(), 
+  title: document.getElementById('pTitle').value.trim(), 
+  tag: document.getElementById('pTag').value, 
+  price: document.getElementById('pPrice').value, 
+  period: document.getElementById('pPeriod').value, 
+  description: document.getElementById('pDesc').value, 
+  image: mainImg, 
+  gallery: rawGallery,
+  active: document.getElementById('pActive').checked 
+ };
+
  if (!p.title) { notify('Judul promo wajib diisi.'); return; }
  if (!data.promos) data.promos = [];
  if (p.active) data.promos.forEach(x => x.active = false);
