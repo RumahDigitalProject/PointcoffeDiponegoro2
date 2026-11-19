@@ -14,35 +14,256 @@
 
 .hero{padding:58px 0 46px;display:grid;grid-template-columns:1.05fr .95fr;gap:38px;align-items:center}
 
-/* === PROMO SHOWCASE TANPA KOTAK, DENGAN EFEK ACCORDION MENYUSUT/MELUAS & BERDENYUT SEDANG === */
-.hero-promo-showcase{max-height:0;opacity:0;overflow:hidden;transition:max-height .8s cubic-bezier(0.4,0,0.2,1), opacity .6s ease, margin .8s ease;margin-bottom:0;display:flex;flex-direction:column;gap:8px}
-.hero-promo-showcase.active{max-height:160px;opacity:1;margin-bottom:18px}
+/* === HERO BARCODE MARQUEE SHOWCASE (20 DETIK TAMPIL, 5 DETIK HILANG, ANIMASI ACAK KEREN) === */
+.hero-barcode-showcase{
+  max-height:0;
+  opacity:0;
+  overflow:hidden;
+  margin-bottom:0;
+  perspective:1000px;
+  transition:max-height .75s cubic-bezier(0.22, 1, 0.36, 1), margin-bottom .75s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.hero-barcode-showcase.active{
+  max-height:230px;
+  opacity:1;
+  margin-bottom:20px;
+}
 
-.hp-badge{display:inline-block;background:#d8fa4b18;color:var(--lime);border:1px solid #d8fa4b40;padding:3px 9px;border-radius:30px;font-size:8.5px;font-weight:900;letter-spacing:1.5px;width:fit-content}
-.hp-text{font-size:12px;color:#d1dcd0;line-height:1.5;font-weight:500}
-.hp-platforms{display:flex;align-items:center;gap:10px;margin-top:2px;flex-wrap:wrap}
+.hb-inner{
+  display:flex;
+  flex-direction:column;
+  gap:9px;
+  will-change:transform, opacity, filter;
+}
 
-/* Tombol Platform dengan Efek Berdenyut Sedang (Medium Pulse) */
-.hp-btn{display:inline-flex;align-items:center;gap:6px;padding:7px 14px;border-radius:12px;text-decoration:none;font-size:10.5px;font-weight:800;border:1px solid rgba(255,255,255,.15);animation:pulseMedium 2.2s infinite ease-in-out;transition:.3s}
-.hp-btn.tiktok{background:#00000080;color:#fff;border-color:#fe2c5560}
-.hp-btn.tiktok:hover{background:#fe2c55;border-color:#fe2c55}
-.hp-btn.shopee{background:#ee4d2d20;color:#ff7a5c;border-color:#ee4d2d50}
-.hp-btn.shopee:hover{background:#ee4d2d;color:#fff}
-.hp-btn svg{width:13px;height:13px;fill:currentColor}
+.hb-header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:8px;
+}
+.hp-badge{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  background:#d8fa4b18;
+  color:var(--lime);
+  border:1px solid #d8fa4b45;
+  padding:4px 10px;
+  border-radius:30px;
+  font-size:8.5px;
+  font-weight:900;
+  letter-spacing:1.4px;
+  width:fit-content;
+}
+.hb-live-dot{
+  width:6px;
+  height:6px;
+  border-radius:50%;
+  background:var(--lime);
+  animation:pulseLive 1.4s infinite ease-in-out;
+}
+@keyframes pulseLive{
+  0%,100%{transform:scale(1);opacity:1}
+  50%{transform:scale(1.5);opacity:.45}
+}
 
-@keyframes pulseMedium{0%{transform:scale(1)}50%{transform:scale(1.035);box-shadow:0 0 12px rgba(216,250,75,0.25)}100%{transform:scale(1)}}
+/* Container Marquee Horizontal */
+.hb-marquee-viewport{
+  width:100%;
+  overflow:hidden;
+  position:relative;
+  padding:4px 0;
+  mask-image:linear-gradient(to right, transparent 0%, #000 5%, #000 95%, transparent 100%);
+  -webkit-mask-image:linear-gradient(to right, transparent 0%, #000 5%, #000 95%, transparent 100%);
+}
+.hb-marquee-track{
+  display:flex;
+  align-items:stretch;
+  gap:12px;
+  width:max-content;
+  animation:marqueeRightToLeft var(--marquee-duration, 16s) linear infinite;
+}
+.hb-marquee-viewport:hover .hb-marquee-track,
+.hb-marquee-viewport:active .hb-marquee-track{
+  animation-play-state:paused;
+}
 
-/* Animasi Masuk/Keluar Acak Dinamis */
-.anim-from-left{opacity:0;transform:translateX(-50px);transition:all .6s cubic-bezier(0.175,0.885,0.32,1.275)}
-.anim-from-right{opacity:0;transform:translateX(50px);transition:all .6s cubic-bezier(0.175,0.885,0.32,1.275)}
-.anim-from-top{opacity:0;transform:translateY(-30px);transition:all .6s cubic-bezier(0.175,0.885,0.32,1.275)}
-.anim-from-bottom{opacity:0;transform:translateY(30px);transition:all .6s cubic-bezier(0.175,0.885,0.32,1.275)}
+@keyframes marqueeRightToLeft{
+  0%{transform:translateX(0)}
+  100%{transform:translateX(-50%)}
+}
 
-.anim-to-left{opacity:0 !important;transform:translateX(-50px) !important;transition:all .5s ease-in !important}
-.anim-to-right{opacity:0 !important;transform:translateX(50px) !important;transition:all .5s ease-in !important}
-.anim-to-fade{opacity:0 !important;transform:scale(0.95) !important;transition:all .5s ease-in !important}
+/* Item Kartu Barcode Berbanjar ke Samping */
+.hb-item{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  background:linear-gradient(135deg, #182016, #11160f);
+  border:1px solid #d8fa4b35;
+  border-radius:16px;
+  padding:8px 12px 8px 8px;
+  min-width:215px;
+  max-width:255px;
+  flex-shrink:0;
+  box-shadow:0 8px 24px rgba(0,0,0,0.45);
+  transition:border-color .25s, transform .25s;
+}
+.hb-item:hover{
+  border-color:var(--lime);
+  transform:translateY(-2px);
+}
+.hb-qr-box{
+  width:56px;
+  height:56px;
+  border-radius:11px;
+  background:#ffffff;
+  padding:4px;
+  flex-shrink:0;
+  display:grid;
+  place-items:center;
+  cursor:zoom-in;
+  position:relative;
+  overflow:hidden;
+}
+.hb-qr-box img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  display:block;
+}
+.hb-qr-placeholder{
+  font-size:8px;
+  font-weight:800;
+  color:#10140c;
+  text-align:center;
+  line-height:1.1;
+}
+.hb-info{
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  gap:5px;
+  min-width:0;
+  flex:1;
+}
+.hb-title{
+  font:700 11.5px "Space Grotesk";
+  color:var(--text);
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+.hb-btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:4px;
+  padding:5px 10px;
+  border-radius:9px;
+  background:var(--lime);
+  color:#10140c;
+  font-size:9.5px;
+  font-weight:900;
+  text-decoration:none;
+  width:fit-content;
+  animation:pulseMedium 2.2s infinite ease-in-out;
+  transition:background .2s, transform .2s;
+}
+.hb-btn:hover{
+  background:var(--lime2);
+  transform:scale(1.04);
+}
+.hb-btn.zoom-only{
+  background:#242e20;
+  color:var(--lime);
+  border:1px solid #d8fa4b40;
+}
 
-.show-anim{opacity:1 !important;transform:translate(0,0) !important}
+@keyframes pulseMedium{0%{transform:scale(1)}50%{transform:scale(1.035);box-shadow:0 0 12px rgba(216,250,75,0.3)}100%{transform:scale(1)}}
+
+/* === 6 ANIMASI RANDOM MASUK & KELUAR YANG SANGAT KEREN === */
+/* 1. 3D Flip Perspective */
+@keyframes animInFlip3D{
+  0%{opacity:0;transform:rotateX(-75deg) translateY(-20px) scale(0.92);filter:blur(4px)}
+  100%{opacity:1;transform:rotateX(0deg) translateY(0) scale(1);filter:blur(0)}
+}
+@keyframes animOutFlip3D{
+  0%{opacity:1;transform:rotateX(0deg) scale(1)}
+  100%{opacity:0;transform:rotateX(75deg) translateY(15px) scale(0.92)}
+}
+
+/* 2. Elastic Pop & Spring */
+@keyframes animInElastic{
+  0%{opacity:0;transform:scale(0.65) translateY(25px)}
+  60%{opacity:1;transform:scale(1.04) translateY(-4px)}
+  80%{transform:scale(0.98) translateY(2px)}
+  100%{opacity:1;transform:scale(1) translateY(0)}
+}
+@keyframes animOutElastic{
+  0%{opacity:1;transform:scale(1)}
+  30%{transform:scale(1.03)}
+  100%{opacity:0;transform:scale(0.6) translateY(-20px)}
+}
+
+/* 3. Cyber Skew & Glitch Slide */
+@keyframes animInCyber{
+  0%{opacity:0;transform:translateX(70px) skewX(-18deg);filter:brightness(1.8)}
+  70%{opacity:1;transform:translateX(-8px) skewX(5deg);filter:brightness(1.2)}
+  100%{opacity:1;transform:translateX(0) skewX(0deg);filter:brightness(1)}
+}
+@keyframes animOutCyber{
+  0%{opacity:1;transform:translateX(0) skewX(0deg)}
+  100%{opacity:0;transform:translateX(-80px) skewX(18deg);filter:blur(3px)}
+}
+
+/* 4. Blur Zoom Expand */
+@keyframes animInBlurZoom{
+  0%{opacity:0;transform:scale(1.18);filter:blur(12px)}
+  100%{opacity:1;transform:scale(1);filter:blur(0)}
+}
+@keyframes animOutBlurZoom{
+  0%{opacity:1;transform:scale(1);filter:blur(0)}
+  100%{opacity:0;transform:scale(1.15);filter:blur(10px)}
+}
+
+/* 5. Curtain Clip Reveal */
+@keyframes animInCurtain{
+  0%{opacity:0;clip-path:inset(0 50% 0 50%);transform:scale(0.96)}
+  100%{opacity:1;clip-path:inset(0 0% 0 0%);transform:scale(1)}
+}
+@keyframes animOutCurtain{
+  0%{opacity:1;clip-path:inset(0 0% 0 0%)}
+  100%{opacity:0;clip-path:inset(50% 0 50% 0)}
+}
+
+/* 6. Diagonal Swoop */
+@keyframes animInDiagonal{
+  0%{opacity:0;transform:translate(-45px, -30px) rotate(-3deg)}
+  100%{opacity:1;transform:translate(0, 0) rotate(0deg)}
+}
+@keyframes animOutDiagonal{
+  0%{opacity:1;transform:translate(0, 0) rotate(0deg)}
+  100%{opacity:0;transform:translate(45px, 25px) rotate(3deg)}
+}
+
+.fx-in-1{animation:animInFlip3D .75s cubic-bezier(0.16, 1, 0.3, 1) forwards}
+.fx-out-1{animation:animOutFlip3D .55s cubic-bezier(0.7, 0, 0.84, 0) forwards}
+
+.fx-in-2{animation:animInElastic .8s cubic-bezier(0.22, 1, 0.36, 1) forwards}
+.fx-out-2{animation:animOutElastic .55s ease-in forwards}
+
+.fx-in-3{animation:animInCyber .65s cubic-bezier(0.16, 1, 0.3, 1) forwards}
+.fx-out-3{animation:animOutCyber .5s ease-in forwards}
+
+.fx-in-4{animation:animInBlurZoom .7s ease-out forwards}
+.fx-out-4{animation:animOutBlurZoom .5s ease-in forwards}
+
+.fx-in-5{animation:animInCurtain .75s cubic-bezier(0.25, 1, 0.5, 1) forwards}
+.fx-out-5{animation:animOutCurtain .5s ease-in forwards}
+
+.fx-in-6{animation:animInDiagonal .7s cubic-bezier(0.16, 1, 0.3, 1) forwards}
+.fx-out-6{animation:animOutDiagonal .5s ease-in forwards}
 
 .eyebrow{display:inline-flex;gap:9px;align-items:center;border:1px solid #d8fa4b45;color:var(--lime);padding:8px 12px;border-radius:50px;font-size:9px;font-weight:900;letter-spacing:2px}.dot{width:7px;height:7px;border-radius:50%;background:var(--lime);box-shadow:0 0 0 5px #d8fa4b1c}.hero h1{font:700 clamp(45px,6.4vw,78px)/.97 "Space Grotesk";letter-spacing:-4px;margin:23px 0 18px}.hero h1 em{font-style:normal;color:var(--lime)}.hero-copy{max-width:510px;color:var(--muted);font-size:14px;line-height:1.85}.hero-buttons{display:flex;gap:11px;flex-wrap:wrap;margin-top:26px}.primary,.secondary{display:inline-flex;align-items:center;gap:10px;text-decoration:none;padding:14px 18px;border-radius:13px;font-size:11px;font-weight:900}.secondary{border:1px solid var(--line);color:white}
 
@@ -101,20 +322,17 @@
 
 <main>
 <section class="container hero">
-<div>
-  <!-- PROMO SHOWCASE DINAMIS TANPA KOTAK (AKORDION 10 DETIK) -->
-  <div class="hero-promo-showcase" id="heroPromoShowcase">
-    <span class="hp-badge anim-element" data-dir="left">SPECIAL DEALS</span>
-    <div class="hp-text anim-element" data-dir="right">Lebih hemat dengan voucher TikTok atau Shopee VIP Rp 1!</div>
-    <div class="hp-platforms">
-      <a class="hp-btn tiktok anim-element" data-dir="left" id="hpTikTokBtn" href="https://vt.tiktok.com/ZS9fUVAdewXEn-8OUCG/?poisharing=Point-Coffee---Indomaret-Diponegoro-2-%28TLQG%29" target="_blank" rel="noopener">
-        <svg viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 1 1-5.2-1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V5.8a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 3 12a6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.36V8.62a8.41 8.41 0 0 0 4.92 1.58V6.78a4.85 4.85 0 0 1-1-.09z"/></svg>
-        TikTok Shop ↗
-      </a>
-      <a class="hp-btn shopee anim-element" data-dir="right" id="hpShopeeBtn" href="https://shopee.co.id/" target="_blank" rel="noopener">
-        <svg viewBox="0 0 24 24"><path d="M19 6h-3.17a4.97 4.97 0 0 0-9.66 0H3a1 1 0 0 0-1 1v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V7a1 1 0 0 0-1-1zm-7-3a2.97 2.97 0 0 1 2.83 2H9.17A2.97 2.97 0 0 1 12 3zm8 16H4V8h16v11z"/></svg>
-        Shopee VIP Rp 1 ↗
-      </a>
+<div style="min-width:0">
+  <!-- SCAN BARCODE LINK & VOUCHER SHOWCASE (TAMPIL 20 DETIK BERJALAN KANAN->KIRI, HILANG 5 DETIK, ANIMASI RANDOM) -->
+  <div class="hero-barcode-showcase" id="heroBarcodeShowcase">
+    <div class="hb-inner" id="hbInnerBox">
+      <div class="hb-header">
+        <span class="hp-badge"><i class="hb-live-dot"></i> SCAN BARCODE LINK & VOUCHER</span>
+        <span style="font-size:9px;color:var(--muted);font-weight:700">Klik QR untuk Zoom</span>
+      </div>
+      <div class="hb-marquee-viewport">
+        <div class="hb-marquee-track" id="hbMarqueeTrack"></div>
+      </div>
     </div>
   </div>
 
@@ -325,6 +543,52 @@ function esc(s) { return String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;
 function asset(path) { return path ? (path.startsWith('data:') || path.startsWith('http') ? path : 'assets/' + path) : '' }
 function notify(msg) { let t = document.getElementById('toast'); t.textContent = msg; t.classList.add('show'); setTimeout(() => t.classList.remove('show'), 2400) }
 
+/* === RENDER HERO BARCODE MARQUEE (BERBANJAR KE SAMPING, KANAN KE KIRI) === */
+function renderHeroBarcodes() {
+  const track = document.getElementById('hbMarqueeTrack');
+  if (!track) return;
+
+  let activeBarcodes = (data.barcodes || []).filter(b => b.active !== false);
+  if (activeBarcodes.length === 0) {
+    track.innerHTML = `<div class="hb-item" style="min-width:260px"><div class="hb-info"><div class="hb-title">Belum ada barcode aktif</div><span style="font-size:9.5px;color:var(--muted)">Tambahkan via Admin → Barcode & QR</span></div></div>`;
+    return;
+  }
+
+  // Bangun kartu HTML untuk 1 set barcode
+  const buildSet = (list) => list.map(b => {
+    let imgSrc = asset(b.image);
+    return `
+      <div class="hb-item">
+        <div class="hb-qr-box" ${imgSrc ? `onclick="openQrZoom('${esc(b.id)}')"` : ''} title="${imgSrc ? 'Klik untuk memperbesar QR' : 'Belum ada gambar QR'}">
+          ${imgSrc
+            ? `<img src="${esc(imgSrc)}" alt="${esc(b.title)}" loading="lazy" onerror="this.style.display='none';this.parentElement.innerHTML='<span class=\\'hb-qr-placeholder\\'>QR<br>CODE</span>'">`
+            : `<span class="hb-qr-placeholder">QR<br>CODE</span>`
+          }
+        </div>
+        <div class="hb-info">
+          <div class="hb-title" title="${esc(b.title)}">${esc(b.title)}</div>
+          ${b.url
+            ? `<a class="hb-btn" href="${esc(b.url)}" target="_blank" rel="noopener">Buka Link ↗</a>`
+            : (imgSrc ? `<button type="button" class="hb-btn zoom-only" onclick="openQrZoom('${esc(b.id)}')">Lihat QR ⤢</button>` : `<span style="font-size:9px;color:var(--muted)">Scan langsung</span>`)
+          }
+        </div>
+      </div>
+    `;
+  }).join('');
+
+  // Gandakan list agar marquee berjalan seamless tanpa terputus (minimal 4 item per setengah trek)
+  let baseList = [...activeBarcodes];
+  while (baseList.length < 4) {
+    baseList = baseList.concat(activeBarcodes);
+  }
+  const singleHalfHtml = buildSet(baseList);
+  track.innerHTML = singleHalfHtml + singleHalfHtml;
+
+  // Sesuaikan kecepatan marquee berdasarkan jumlah item agar tetap nyaman dibaca/diklik
+  const durationSec = Math.max(12, baseList.length * 4.5);
+  track.style.setProperty('--marquee-duration', durationSec + 's');
+}
+
 /* === RENDER HERO ROTATING CAROUSEL (FRESHLY MADE - FULL POSTER VIEW) === */
 function renderHeroSlider() {
  const container = document.getElementById('heroSliderContainer');
@@ -492,58 +756,66 @@ function renderExtras() {
 
 function renderLinks() {
  const tiktokUrl = data.settings?.tiktok || 'https://vt.tiktok.com/ZS9fUVAdewXEn-8OUCG/?poisharing=Point-Coffee---Indomaret-Diponegoro-2-%28TLQG%29';
- const shopeeUrl = data.settings?.shopee || 'https://shopee.co.id/';
  
- ['tiktokTop', 'tiktokLink', 'hpTikTokBtn'].forEach(id => { let el = document.getElementById(id); if(el) el.href = tiktokUrl; });
- ['hpShopeeBtn'].forEach(id => { let el = document.getElementById(id); if(el) el.href = shopeeUrl; });
+ ['tiktokTop', 'tiktokLink'].forEach(id => { let el = document.getElementById(id); if(el) el.href = tiktokUrl; });
  ['mapsTop', 'mapsLink'].forEach(id => { let el = document.getElementById(id); if(el) el.href = data.settings?.maps || '#'; });
 }
 
 function renderAll() {
- renderHeroSlider(); renderPromo(); renderPills(); renderMenu(); renderContacts(); renderExtras(); renderLinks();
+ renderHeroBarcodes(); renderHeroSlider(); renderPromo(); renderPills(); renderMenu(); renderContacts(); renderExtras(); renderLinks();
  document.getElementById('year').textContent = new Date().getFullYear();
 }
 
-/* === SISTEM ANIMASI ACCORDION & ACAK (TAMPIL 10 DETIK, LALU MENYUSUT KEMBALI) === */
-function initAccordionPromoAnimation() {
-  const showcase = document.getElementById('heroPromoShowcase');
-  const elements = showcase ? showcase.querySelectorAll('.anim-element') : [];
-  if (!showcase || elements.length === 0) return;
+/* === SISTEM ANIMASI BARCODE MARQUEE (TAMPIL 20 DETIK, HILANG 5 DETIK, ANIMASI RANDOM KEREN) === */
+function initBarcodeShowcaseAnimation() {
+  const showcase = document.getElementById('heroBarcodeShowcase');
+  const innerBox = document.getElementById('hbInnerBox');
+  const track = document.getElementById('hbMarqueeTrack');
+  if (!showcase || !innerBox) return;
 
-  const entryDirections = ['left', 'right', 'top', 'bottom'];
-  const exitDirections = ['left', 'right', 'fade'];
+  const totalEffects = 6; // 6 variasi animasi keren (Flip 3D, Elastic, Cyber Skew, Blur Zoom, Curtain, Diagonal)
+  let lastEffect = 0;
 
-  function triggerCycle() {
-    showcase.classList.add('active');
-
-    let randomEntry = entryDirections[Math.floor(Math.random() * entryDirections.length)];
-    elements.forEach((el, idx) => {
-      setTimeout(() => {
-        el.className = el.className.replace(/anim-from-\w+/g, '').trim();
-        el.classList.add(`anim-from-${idx % 2 === 0 ? randomEntry : (randomEntry === 'left' ? 'right' : 'left')}`);
-        void el.offsetWidth;
-        el.classList.add('show-anim');
-      }, idx * 180 + 200);
-    });
-
-    setTimeout(() => {
-      let randomExit = exitDirections[Math.floor(Math.random() * exitDirections.length)];
-      elements.forEach((el, idx) => {
-        setTimeout(() => {
-          el.classList.remove('show-anim');
-          el.classList.add(`anim-to-${randomExit}`);
-        }, idx * 100);
-      });
-
-      setTimeout(() => {
-        showcase.classList.remove('active');
-      }, 700);
-
-    }, 10000);
+  function pickRandomEffect() {
+    let fx;
+    do {
+      fx = Math.floor(Math.random() * totalEffects) + 1;
+    } while (fx === lastEffect && totalEffects > 1);
+    lastEffect = fx;
+    return fx;
   }
 
-  setTimeout(triggerCycle, 1200);
-  setInterval(triggerCycle, 17000);
+  function triggerCycle() {
+    const fx = pickRandomEffect();
+
+    // Reset posisi marquee ke awal setiap kali muncul baru
+    if (track) {
+      track.style.animation = 'none';
+      void track.offsetWidth;
+      track.style.animation = '';
+    }
+
+    // Bersihkan class animasi lama & pasang animasi masuk acak
+    innerBox.className = 'hb-inner fx-in-' + fx;
+    showcase.classList.add('active');
+
+    // Tahan tampil selama 20 detik (20.000 ms)
+    setTimeout(() => {
+      const outFx = pickRandomEffect();
+      innerBox.className = 'hb-inner fx-out-' + outFx;
+
+      // Setelah animasi keluar selesai (550ms), susutkan tinggi accordion
+      setTimeout(() => {
+        showcase.classList.remove('active');
+      }, 550);
+
+    }, 20000);
+  }
+
+  // Muncul pertama kali setelah 800ms
+  setTimeout(triggerCycle, 800);
+  // Ulangi siklus setiap 25 detik (20 detik tampil + 5 detik hilang)
+  setInterval(triggerCycle, 25000);
 }
 
 function openAdmin() {
@@ -646,7 +918,7 @@ function adminBarcodes() {
     </div>
    `).join('') || '<div class="empty-state">Belum ada barcode yang ditambahkan.</div>'}
   </div>
-  <p class="hint">Foto barcode yang aktif akan tampil di bagian samping Promo Hari Ini (menggantikan kotak Limited Offer) dan tersimpan ke Google Sheets.</p>
+  <p class="hint">Foto barcode yang aktif akan tampil berjalan di atas "Good Coffee, Good Day" serta di bagian Promo Hari Ini, dan tersimpan ke Google Sheets.</p>
  `;
 }
 
@@ -803,7 +1075,7 @@ function resetData() {
 }
 
 renderAll();
-initAccordionPromoAnimation();
+initBarcodeShowcaseAnimation();
 if (isCloudConfigured()) { refreshCloud(true); setInterval(() => refreshCloud(true), 10000); }
 </script>
 </body>
