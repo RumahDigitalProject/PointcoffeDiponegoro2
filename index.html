@@ -14,7 +14,7 @@
 
 .hero{padding:58px 0 46px;display:grid;grid-template-columns:1.05fr .95fr;gap:38px;align-items:center}
 
-/* === HERO BARCODE MARQUEE SHOWCASE (20 DETIK TAMPIL, 5 DETIK HILANG, ANIMASI ACAK KEREN) === */
+/* === HERO BARCODE MARQUEE SHOWCASE === */
 .hero-barcode-showcase{
   max-height:0;
   opacity:0;
@@ -68,7 +68,6 @@
   50%{transform:scale(1.5);opacity:.45}
 }
 
-/* Container Marquee Horizontal */
 .hb-marquee-viewport{
   width:100%;
   overflow:hidden;
@@ -94,7 +93,6 @@
   100%{transform:translateX(-50%)}
 }
 
-/* Item Kartu Barcode Berbanjar ke Samping */
 .hb-item{
   display:flex;
   align-items:center;
@@ -182,59 +180,19 @@
 
 @keyframes pulseMedium{0%{transform:scale(1)}50%{transform:scale(1.035);box-shadow:0 0 12px rgba(216,250,75,0.3)}100%{transform:scale(1)}}
 
-/* === 6 ANIMASI RANDOM MASUK & KELUAR YANG SANGAT KEREN === */
-@keyframes animInFlip3D{
-  0%{opacity:0;transform:rotateX(-75deg) translateY(-20px) scale(0.92);filter:blur(4px)}
-  100%{opacity:1;transform:rotateX(0deg) translateY(0) scale(1);filter:blur(0)}
-}
-@keyframes animOutFlip3D{
-  0%{opacity:1;transform:rotateX(0deg) scale(1)}
-  100%{opacity:0;transform:rotateX(75deg) translateY(15px) scale(0.92)}
-}
-@keyframes animInElastic{
-  0%{opacity:0;transform:scale(0.65) translateY(25px)}
-  60%{opacity:1;transform:scale(1.04) translateY(-4px)}
-  80%{transform:scale(0.98) translateY(2px)}
-  100%{opacity:1;transform:scale(1) translateY(0)}
-}
-@keyframes animOutElastic{
-  0%{opacity:1;transform:scale(1)}
-  30%{transform:scale(1.03)}
-  100%{opacity:0;transform:scale(0.6) translateY(-20px)}
-}
-@keyframes animInCyber{
-  0%{opacity:0;transform:translateX(70px) skewX(-18deg);filter:brightness(1.8)}
-  70%{opacity:1;transform:translateX(-8px) skewX(5deg);filter:brightness(1.2)}
-  100%{opacity:1;transform:translateX(0) skewX(0deg);filter:brightness(1)}
-}
-@keyframes animOutCyber{
-  0%{opacity:1;transform:translateX(0) skewX(0deg)}
-  100%{opacity:0;transform:translateX(-80px) skewX(18deg);filter:blur(3px)}
-}
-@keyframes animInBlurZoom{
-  0%{opacity:0;transform:scale(1.18);filter:blur(12px)}
-  100%{opacity:1;transform:scale(1);filter:blur(0)}
-}
-@keyframes animOutBlurZoom{
-  0%{opacity:1;transform:scale(1);filter:blur(0)}
-  100%{opacity:0;transform:scale(1.15);filter:blur(10px)}
-}
-@keyframes animInCurtain{
-  0%{opacity:0;clip-path:inset(0 50% 0 50%);transform:scale(0.96)}
-  100%{opacity:1;clip-path:inset(0 0% 0 0%);transform:scale(1)}
-}
-@keyframes animOutCurtain{
-  0%{opacity:1;clip-path:inset(0 0% 0 0%)}
-  100%{opacity:0;clip-path:inset(50% 0 50% 0)}
-}
-@keyframes animInDiagonal{
-  0%{opacity:0;transform:translate(-45px, -30px) rotate(-3deg)}
-  100%{opacity:1;transform:translate(0, 0) rotate(0deg)}
-}
-@keyframes animOutDiagonal{
-  0%{opacity:1;transform:translate(0, 0) rotate(0deg)}
-  100%{opacity:0;transform:translate(45px, 25px) rotate(3deg)}
-}
+/* ANIMASI HERO BARCODE */
+@keyframes animInFlip3D{0%{opacity:0;transform:rotateX(-75deg) translateY(-20px) scale(0.92);filter:blur(4px)}100%{opacity:1;transform:rotateX(0deg) translateY(0) scale(1);filter:blur(0)}}
+@keyframes animOutFlip3D{0%{opacity:1;transform:rotateX(0deg) scale(1)}100%{opacity:0;transform:rotateX(75deg) translateY(15px) scale(0.92)}}
+@keyframes animInElastic{0%{opacity:0;transform:scale(0.65) translateY(25px)}60%{opacity:1;transform:scale(1.04) translateY(-4px)}80%{transform:scale(0.98) translateY(2px)}100%{opacity:1;transform:scale(1) translateY(0)}}
+@keyframes animOutElastic{0%{opacity:1;transform:scale(1)}30%{transform:scale(1.03)}100%{opacity:0;transform:scale(0.6) translateY(-20px)}}
+@keyframes animInCyber{0%{opacity:0;transform:translateX(70px) skewX(-18deg);filter:brightness(1.8)}70%{opacity:1;transform:translateX(-8px) skewX(5deg);filter:brightness(1.2)}100%{opacity:1;transform:translateX(0) skewX(0deg);filter:brightness(1)}}
+@keyframes animOutCyber{0%{opacity:1;transform:translateX(0) skewX(0deg)}100%{opacity:0;transform:translateX(-80px) skewX(18deg);filter:blur(3px)}}
+@keyframes animInBlurZoom{0%{opacity:0;transform:scale(1.18);filter:blur(12px)}100%{opacity:1;transform:scale(1);filter:blur(0)}}
+@keyframes animOutBlurZoom{0%{opacity:1;transform:scale(1);filter:blur(0)}100%{opacity:0;transform:scale(1.15);filter:blur(10px)}}
+@keyframes animInCurtain{0%{opacity:0;clip-path:inset(0 50% 0 50%);transform:scale(0.96)}100%{opacity:1;clip-path:inset(0 0% 0 0%);transform:scale(1)}}
+@keyframes animOutCurtain{0%{opacity:1;clip-path:inset(0 0% 0 0%)}100%{opacity:0;clip-path:inset(50% 0 50% 0)}}
+@keyframes animInDiagonal{0%{opacity:0;transform:translate(-45px, -30px) rotate(-3deg)}100%{opacity:1;transform:translate(0, 0) rotate(0deg)}}
+@keyframes animOutDiagonal{0%{opacity:1;transform:translate(0, 0) rotate(0deg)}100%{opacity:0;transform:translate(45px, 25px) rotate(3deg)}}
 
 .fx-in-1{animation:animInFlip3D .75s cubic-bezier(0.16, 1, 0.3, 1) forwards}
 .fx-out-1{animation:animOutFlip3D .55s cubic-bezier(0.7, 0, 0.84, 0) forwards}
@@ -251,18 +209,13 @@
 
 .eyebrow{display:inline-flex;gap:9px;align-items:center;border:1px solid #d8fa4b45;color:var(--lime);padding:8px 12px;border-radius:50px;font-size:9px;font-weight:900;letter-spacing:2px}.dot{width:7px;height:7px;border-radius:50%;background:var(--lime);box-shadow:0 0 0 5px #d8fa4b1c}.hero h1{font:700 clamp(45px,6.4vw,78px)/.97 "Space Grotesk";letter-spacing:-4px;margin:23px 0 18px}.hero h1 em{font-style:normal;color:var(--lime)}.hero-copy{max-width:510px;color:var(--muted);font-size:14px;line-height:1.85}.hero-buttons{display:flex;gap:11px;flex-wrap:wrap;margin-top:26px}.primary,.secondary{display:inline-flex;align-items:center;gap:10px;text-decoration:none;padding:14px 18px;border-radius:13px;font-size:11px;font-weight:900}.secondary{border:1px solid var(--line);color:white}
 
-/* === FRESHLY MADE HERO ROTATING CAROUSEL === */
 .hero-visual{border:1px solid #ffffff18;border-radius:30px;position:relative;overflow:hidden;background:#0d120a;}
 .hero-slider-container{width:100%;position:relative;display:grid;place-items:center;min-height:340px;}
 .hero-slide{grid-area:1/1;opacity:0;visibility:hidden;transition:opacity .8s cubic-bezier(.4,0,.2,1);width:100%;display:flex;justify-content:center;align-items:center;}
 .hero-slide.active{opacity:1;visibility:visible;}
 .hero-slide img{width:100%;height:auto;max-height:850px;object-fit:contain;display:block;}
 .hero-slide-fallback{width:100%;min-height:360px;display:grid;place-items:center;position:relative;background:radial-gradient(circle at 70% 25%,#d8fa4b27,transparent 35%),linear-gradient(145deg,#222d1c,#11160f 75%)}
-.hero-slide-fallback:before,.hero-slide-fallback:after{content:"";position:absolute;border:1px solid #d8fa4b38;border-radius:50%;width:280px;height:280px}
-.hero-slide-fallback:after{width:370px;height:370px}
 .hero-cup{z-index:1;width:142px;height:198px;border-radius:23px 23px 35px 35px;background:linear-gradient(90deg,#b87843,#fff0d2 48%,#bd8751);box-shadow:22px 25px 55px #0009;display:grid;place-items:center;color:#33401c;text-align:center;font:800 18px/1.15 "Space Grotesk";transform:rotate(7deg);position:relative}
-.hero-cup:before{content:"";position:absolute;top:-13px;left:-8px;width:158px;height:27px;border-radius:50%;background:#fff1d9;border:5px solid #c18c5b}
-.hero-cup:after{content:"";position:absolute;top:-38px;left:52%;height:40px;width:8px;border-radius:10px;background:#eee4cb;transform:rotate(-13deg)}
 .visual-label{position:absolute;top:20px;left:22px;z-index:5;color:#ffffff;background:#00000080;backdrop-filter:blur(8px);padding:6px 12px;border-radius:30px;border:1px solid #ffffff20;font-size:9px;letter-spacing:1.8px;font-weight:900}
 .sticker{position:absolute;right:8%;bottom:10%;z-index:5;width:82px;height:82px;border-radius:50%;background:var(--lime);color:#10140c;display:grid;place-items:center;text-align:center;font:800 10px/1.2 "Space Grotesk";transform:rotate(11deg);box-shadow:0 8px 25px #0008}
 .hero-slider-dots{position:absolute;bottom:18px;left:50%;transform:translateX(-50%);z-index:5;display:flex;gap:7px}
@@ -271,7 +224,6 @@
 
 .section{padding:43px 0}.section-head{display:flex;align-items:end;justify-content:space-between;gap:22px;margin-bottom:23px}.kicker{color:var(--lime);font-size:9px;font-weight:900;letter-spacing:2.4px}.section h2{font:700 clamp(28px,4vw,39px) "Space Grotesk";letter-spacing:-1.5px;margin:7px 0 0}.section-intro{max-width:420px;color:var(--muted);font-size:12px;line-height:1.7}.promo-layout{display:grid;grid-template-columns:1.25fr .75fr;gap:15px}.promo-feature{border:1px solid #d8fa4b33;border-radius:24px;padding:26px;position:relative;overflow:hidden;background:linear-gradient(110deg,#2a391c,#141b12 75%)}.promo-label{display:inline-block;background:var(--lime);color:#10140c;padding:7px 10px;border-radius:7px;font-size:9px;font-weight:900;letter-spacing:1px}.promo-feature h3{font:700 28px "Space Grotesk";max-width:380px;margin:14px 0 8px;position:relative;z-index:2}.promo-feature p{color:#c2cdb8;font-size:12px;line-height:1.7;max-width:370px;position:relative;z-index:2}.promo-value{font:700 20px "Space Grotesk";color:var(--lime);margin-top:10px;position:relative;z-index:2}.promo-image{width:100%;max-height:850px;object-fit:contain;border-radius:18px;border:1px solid #ffffff1d;margin-top:18px;display:block;background:#0005}.promo-side{background:var(--surface);border:1px solid var(--line);border-radius:24px;padding:23px;display:flex;flex-direction:column;justify-content:space-between;gap:16px}.promo-side h3{font:700 22px "Space Grotesk";margin:8px 0 6px}.promo-side p{font-size:11.5px;line-height:1.6;color:var(--muted);margin:0}.promo-foot{color:var(--lime);font-size:9px;font-weight:900;letter-spacing:1.3px}
 
-/* === BARCODE / QR GALLERY GRID === */
 .qr-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:6px}
 .qr-card{background:#182016;border:1px solid var(--line);border-radius:16px;padding:12px;display:flex;flex-direction:column;align-items:center;text-align:center;transition:border-color .25s, transform .25s}
 .qr-card:hover{border-color:var(--lime);transform:translateY(-2px)}
@@ -284,7 +236,6 @@
 .qr-open-link:hover{background:var(--lime2)}
 .qr-empty{grid-column:1/-1;background:#182016;border:1px dashed var(--line);border-radius:14px;padding:22px 14px;text-align:center;color:var(--muted);font-size:11px;line-height:1.6}
 
-/* === QR LIGHTBOX ZOOM MODAL === */
 .qr-modal{display:none;position:fixed;inset:0;z-index:95;background:#000000e0;backdrop-filter:blur(8px);padding:20px;align-items:center;justify-content:center}
 .qr-modal.show{display:flex}
 .qr-modal-box{background:#121710;border:1px solid #46543d;border-radius:24px;padding:22px;max-width:380px;width:100%;text-align:center;box-shadow:0 25px 80px #000}
@@ -293,7 +244,7 @@
 
 .menu-toolbar{display:flex;gap:10px;align-items:center;justify-content:space-between;flex-wrap:wrap;margin:24px 0}.category-pills{display:flex;gap:8px;flex-wrap:wrap}.pill{background:transparent;color:#c4cdbd;border:1px solid var(--line);border-radius:40px;padding:9px 13px;font-size:10px;font-weight:900}.pill.active,.pill:hover{background:var(--lime);border-color:var(--lime);color:#11150d}.category-block{margin:32px 0 43px;scroll-margin-top:94px}.category-card{background:var(--surface);border:1px solid var(--line);border-radius:24px;overflow:hidden;margin-bottom:24px;box-shadow:var(--shadow)}.category-header{padding:20px 24px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center}.category-header h3{font:700 22px "Space Grotesk";margin:0}.category-poster{width:100%;background:#0d120a;display:grid;place-items:center;overflow:hidden}.category-poster img{width:100%;height:auto;max-height:850px;object-fit:contain;display:block}.no-poster{padding:60px 20px;text-align:center;color:var(--muted);font-size:13px}.additional-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.add-on{background:var(--surface);border:1px solid var(--line);border-radius:13px;padding:14px}.add-on strong{font-size:11px;display:block}.add-on span{font-size:10px;color:var(--lime);font-weight:900;display:block;margin-top:5px}.contact-box{display:grid;grid-template-columns:.8fr 1.2fr;gap:25px;padding:28px;border-radius:25px;border:1px solid var(--line);background:linear-gradient(135deg,#1b2517,#10150e)}.contact-box h2{font:700 32px "Space Grotesk";margin:8px 0}.contact-box p{font-size:12px;color:var(--muted);line-height:1.7}.contact-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.contact-card{display:flex;align-items:center;gap:11px;text-decoration:none;background:#ffffff05;border:1px solid var(--line);border-radius:14px;padding:13px;min-width:0}.avatar{width:38px;height:38px;display:grid;place-items:center;border-radius:12px;background:#d8fa4b20;color:var(--lime);font-weight:900;flex:none}.contact-card strong{font-size:11px;display:block}.contact-card small{display:block;color:var(--muted);font-size:9px;margin-top:4px;overflow:hidden;text-overflow:ellipsis}.socials{display:flex;gap:9px;flex-wrap:wrap;margin-top:18px}.social{border:1px solid var(--line);padding:10px 13px;border-radius:11px;text-decoration:none;font-size:10px;font-weight:900}.social:hover{border-color:var(--lime);color:var(--lime)}
 
-/* === SECTION VIDEO PROMO AUTOPLAY (DI BAWAH KONTAK BARISTA) === */
+/* === SECTION VIDEO PROMO DENGAN TOMBOL PLAY CUSTOM === */
 .video-showcase-card{
   background:linear-gradient(145deg,#182016,#0f140d);
   border:1px solid #d8fa4b38;
@@ -304,61 +255,20 @@
 .video-player-wrap{
   position:relative;
   width:100%;
+  aspect-ratio: 9/16;
+  max-height: 650px;
+  margin: auto;
   border-radius:18px;
   overflow:hidden;
-  background:#070a06;
-  border:1px solid #ffffff15;
-  display:grid;
-  place-items:center;
-}
-.video-player-wrap video{
-  width:100%;
-  max-height:680px;
-  object-fit:contain;
-  display:block;
   background:#000;
+  border:1px solid #ffffff15;
+  box-shadow:0 10px 30px #0008;
 }
-.video-badge-live{
-  position:absolute;
-  top:14px;
-  left:14px;
-  z-index:5;
-  display:inline-flex;
-  align-items:center;
-  gap:6px;
-  background:#0b0e0acc;
-  backdrop-filter:blur(8px);
-  color:var(--lime);
-  border:1px solid #d8fa4b45;
-  padding:6px 12px;
-  border-radius:30px;
-  font-size:9px;
-  font-weight:900;
-  letter-spacing:1.4px;
-}
-.video-controls-bar{
-  position:absolute;
-  bottom:14px;
-  right:14px;
-  z-index:5;
-  display:flex;
-  gap:8px;
-}
-.video-ctrl-btn{
-  background:#0b0e0ad9;
-  backdrop-filter:blur(8px);
-  color:var(--text);
-  border:1px solid #d8fa4b55;
-  padding:8px 13px;
-  border-radius:20px;
-  font-size:10px;
-  font-weight:900;
-  letter-spacing:.5px;
-  transition:.2s;
-}
-.video-ctrl-btn:hover{
-  background:var(--lime);
-  color:#10140c;
+.video-player-wrap iframe{
+  width:100%;
+  height:100%;
+  border:0;
+  display:block;
 }
 .video-caption-row{
   display:flex;
@@ -395,7 +305,6 @@ footer{margin-top:50px;border-top:1px solid var(--line);padding:30px 0 40px}.foo
 <main>
 <section class="container hero">
 <div style="min-width:0">
-  <!-- SCAN BARCODE LINK & VOUCHER SHOWCASE -->
   <div class="hero-barcode-showcase" id="heroBarcodeShowcase">
     <div class="hb-inner" id="hbInnerBox">
       <div class="hb-header">
@@ -414,7 +323,6 @@ footer{margin-top:50px;border-top:1px solid var(--line);padding:30px 0 40px}.foo
   <div class="hero-buttons"><a class="primary" href="#menu">LIHAT MENU ↗</a><a class="secondary" href="#promo">LIHAT PROMO SAAT INI ✳</a></div>
 </div>
 
-<!-- FRESHLY MADE HERO ROTATING CAROUSEL -->
 <div class="hero-visual" id="heroVisual">
   <div class="visual-label">FRESHLY MADE • EVERY DAY</div>
   <div class="hero-slider-container" id="heroSliderContainer"></div>
@@ -423,7 +331,6 @@ footer{margin-top:50px;border-top:1px solid var(--line);padding:30px 0 40px}.foo
 </div>
 </section>
 
-<!-- BAGIAN PROMO HARI INI & SCAN BARCODE -->
 <section class="container section" id="promo">
   <div class="section-head">
     <div>
@@ -444,13 +351,12 @@ footer{margin-top:50px;border-top:1px solid var(--line);padding:30px 0 40px}.foo
 
 <section class="container section" id="barista"><div class="contact-box"><div><div class="kicker">LET'S TALK COFFEE</div><h2>Say hi to<br>our barista<span style="color:var(--lime)">.</span></h2><p>Mau tanya menu, order, atau promo yang sedang berlangsung? Hubungi tim barista kami. Kami siap bantu!</p><div class="socials"><a class="social" id="tiktokLink" href="https://vt.tiktok.com/ZS9fUVAdewXEn-8OUCG/?poisharing=Point-Coffee---Indomaret-Diponegoro-2-%28TLQG%29" target="_blank">♪ TikTok Shop & Voucher ↗</a><a class="social" id="mapsLink" href="#" target="_blank">⌖ Google Maps & Review ↗</a></div></div><div class="contact-grid" id="contactView"></div></div></section>
 
-<!-- BAGIAN VIDEO PROMO AUTOPLAY (DI BAWAH KONTAK BARISTA) -->
+<!-- SECTION VIDEO PROMO DENGAN TOMBOL PLAY DI BAWAH KONTAK BARISTA -->
 <section class="container section" id="videoPromo" style="display:none"></section>
 </main>
 
 <footer><div class="container footer-row"><div><b>POINT COFFEE DIPONEGORO 2</b><br>Good coffee, good company.</div><div>© <span id="year"></span> Point Coffee Diponegoro 2 · Made with ☕ and good energy.</div></div></footer>
 
-<!-- MODAL PERBESAR BARCODE (LIGHTBOX) -->
 <div class="qr-modal" id="qrZoomModal" onclick="if(event.target===this) closeQrZoom()">
   <div class="qr-modal-box">
     <div class="kicker">SCAN BARCODE</div>
@@ -466,7 +372,6 @@ footer{margin-top:50px;border-top:1px solid var(--line);padding:30px 0 40px}.foo
   </div>
 </div>
 
-<!-- ADMIN MODAL -->
 <div class="admin-modal" id="adminModal"><div class="admin-window">
 <div class="admin-header"><h2>✳ POINT CONTROL ROOM</h2><button class="close-btn" onclick="closeAdmin()">✕ CLOSE</button></div>
 <div id="loginView" class="login-card"><div class="kicker">RESTRICTED ACCESS</div><h3>Welcome, Admin.</h3><p class="hint">Masukkan PIN untuk membuka dashboard pengelolaan website.</p><input id="adminPin" type="password" placeholder="PIN admin"><button class="add-btn" style="width:100%;padding:13px" onclick="loginAdmin()">UNLOCK DASHBOARD ↗</button><p class="hint">PIN default awal adalah 123456 (Dapat diubah di tab Pengaturan).</p></div>
@@ -518,8 +423,8 @@ const starter = {
  promoVideo: {
   active: true,
   title: 'Freshly Brewed Every Day — Point Coffee Diponegoro 2',
-  subtitle: 'Saksikan kesegaran racikan kopi favoritmu dan klaim promo spesial hari ini!',
-  url: '',
+  subtitle: 'Tekan tombol play untuk menyaksikan kesegaran racikan minuman kami!',
+  url: 'https://drive.google.com/file/d/1kY3KPR6Wsgh9eZrwRWJSMYEWAibw9Zfr/view?usp=drivesdk',
   ctaText: 'Klaim Voucher TikTok ↗',
   ctaUrl: 'https://vt.tiktok.com/ZS9fUVAdewXEn-8OUCG/?poisharing=Point-Coffee---Indomaret-Diponegoro-2-%28TLQG%29'
  },
@@ -629,19 +534,18 @@ function esc(s) { return String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;
 function asset(path) { return path ? (path.startsWith('data:') || path.startsWith('http') ? path : 'assets/' + path) : '' }
 function notify(msg) { let t = document.getElementById('toast'); t.textContent = msg; t.classList.add('show'); setTimeout(() => t.classList.remove('show'), 2400) }
 
-/* === KONVERTER LINK VIDEO GOOGLE DRIVE KE DIRECT MP4 STREAM === */
+/* === KONVERTER LINK GOOGLE DRIVE KE /preview === */
 function parseDriveVideoUrl(rawUrl) {
   if (!rawUrl) return '';
   let url = rawUrl.trim();
-  // Ekstrak ID file jika format link Google Drive (/file/d/ID/ atau ?id=ID)
   let match = url.match(/\/file\/d\/([a-zA-Z0-9_-]+)/) || url.match(/[?&]id=([a-zA-Z0-9_-]+)/);
   if (match && match[1]) {
-    return 'https://drive.google.com/uc?export=download&id=' + match[1];
+    return 'https://drive.google.com/file/d/' + match[1] + '/preview';
   }
   return url;
 }
 
-/* === RENDER VIDEO PROMO AUTOPLAY (DI BAWAH KONTAK BARISTA) === */
+/* === RENDER VIDEO PROMO DENGAN TOMBOL PLAY GOOGLE DRIVE === */
 function renderPromoVideo() {
   const sec = document.getElementById('videoPromo');
   if (!sec) return;
@@ -665,14 +569,11 @@ function renderPromoVideo() {
     </div>
     <div class="video-showcase-card">
       <div class="video-player-wrap">
-        <span class="video-badge-live"><i class="hb-live-dot"></i> NOW PLAYING</span>
-        <video id="bottomPromoVideo" autoplay muted loop playsinline preload="metadata">
-          <source src="${esc(videoSrc)}" type="video/mp4">
-          Browser Anda tidak mendukung pemutaran video otomatis.
-        </video>
-        <div class="video-controls-bar">
-          <button type="button" class="video-ctrl-btn" onclick="toggleBottomVideoSound(this)">🔇 NYALAKAN SUARA</button>
-        </div>
+        <iframe 
+          src="${esc(videoSrc)}" 
+          allow="autoplay; encrypted-media; fullscreen" 
+          allowfullscreen>
+        </iframe>
       </div>
       <div class="video-caption-row">
         <div>
@@ -683,20 +584,6 @@ function renderPromoVideo() {
       </div>
     </div>
   `;
-
-  // Pastikan browser memaksa autoplay saat elemen selesai dirender
-  const vidEl = document.getElementById('bottomPromoVideo');
-  if (vidEl) {
-    vidEl.muted = true;
-    vidEl.play().catch(() => {});
-  }
-}
-
-function toggleBottomVideoSound(btn) {
-  const vidEl = document.getElementById('bottomPromoVideo');
-  if (!vidEl) return;
-  vidEl.muted = !vidEl.muted;
-  btn.textContent = vidEl.muted ? '🔇 NYALAKAN SUARA' : '🔊 MATIKAN SUARA';
 }
 
 /* === RENDER HERO BARCODE MARQUEE === */
@@ -919,7 +806,6 @@ function renderAll() {
  document.getElementById('year').textContent = new Date().getFullYear();
 }
 
-/* === SISTEM ANIMASI BARCODE MARQUEE === */
 function initBarcodeShowcaseAnimation() {
   const showcase = document.getElementById('heroBarcodeShowcase');
   const innerBox = document.getElementById('hbInnerBox');
@@ -992,7 +878,6 @@ function switchTab(tab) {
  ({ hero: adminHero, promos: adminPromos, barcodes: adminBarcodes, categories: adminCategories, contacts: adminContacts, extras: adminExtras, video: adminVideo, settings: adminSettings })[tab]();
 }
 
-/* --- TAB 1: KELOLA HERO FRESHLY MADE --- */
 function adminHero() {
  let c = document.getElementById('adminContent');
  let currentUrls = (data.heroImages || []).join('\n');
@@ -1002,7 +887,6 @@ function adminHero() {
    <div class="field full">
     <label>DAFTAR LINK FOTO HERO (URL GOOGLE DRIVE / DIRECT LINK)</label>
     <textarea id="heroImagesInput" placeholder="https://lh3.googleusercontent.com/d/...\nhttps://lh3.googleusercontent.com/d/...">${esc(currentUrls)}</textarea>
-    <small class="hint">Masukkan setiap link foto pada baris baru (enter). Foto-foto ini akan berganti-ganti secara otomatis dan menampilkan poster secara penuh tanpa terpotong di bagian atas website.</small>
    </div>
   </div>
   <div class="form-actions"><button class="add-btn" onclick="saveHeroImages()">SIMPAN FOTO HERO</button></div>
@@ -1016,16 +900,15 @@ function saveHeroImages() {
  adminHero();
 }
 
-/* --- TAB 2: KELOLA PROMO HARI INI --- */
 function adminPromos() {
  let c = document.getElementById('adminContent');
- c.innerHTML = `<div class="admin-row"><h3>Promo Hari Ini</h3><button class="add-btn" onclick="editPromo()">＋ TAMBAH / EDIT PROMO KHUSUS</button></div><div class="admin-list">${(data.promos || []).map(p => `<div class="admin-item"><div><strong>${esc(p.title)}</strong><small>${esc(p.tag)} · ${esc(p.period)} · ${p.active ? 'AKTIF (Tampil di Web)' : 'NONAKTIF'}</small></div><div class="admin-actions"><button class="mini-btn" onclick="editPromo('${p.id}')">Edit</button><button class="mini-btn danger" onclick="removePromo('${p.id}')">Hapus</button></div></div>`).join('') || '<div class="empty-state">Belum ada promo.</div>'}</div><p class="hint">Bagian promo hari ini hanya menampilkan 1 foto promo khusus yang sedang aktif.</p>`;
+ c.innerHTML = `<div class="admin-row"><h3>Promo Hari Ini</h3><button class="add-btn" onclick="editPromo()">＋ TAMBAH / EDIT PROMO KHUSUS</button></div><div class="admin-list">${(data.promos || []).map(p => `<div class="admin-item"><div><strong>${esc(p.title)}</strong><small>${esc(p.tag)} · ${esc(p.period)} · ${p.active ? 'AKTIF' : 'NONAKTIF'}</small></div><div class="admin-actions"><button class="mini-btn" onclick="editPromo('${p.id}')">Edit</button><button class="mini-btn danger" onclick="removePromo('${p.id}')">Hapus</button></div></div>`).join('') || '<div class="empty-state">Belum ada promo.</div>'}</div>`;
 }
 
 function editPromo(id) {
  let old = (data.promos || []).find(p => p.id === id);
  let p = old || { id: 'p' + Date.now(), title: '', tag: 'TIKTOK & SHOPEE VIP', description: '', price: '', period: 'Berlaku hari ini', image: '', active: true };
- document.getElementById('adminContent').innerHTML = `<div class="admin-row"><h3>${id ? 'Edit promo' : 'Buat promo baru'}</h3><button class="mini-btn" onclick="adminPromos()">← KEMBALI</button></div><div class="form-grid"><div class="field"><label>JUDUL PROMO</label><input id="pTitle" value="${esc(p.title)}"></div><div class="field"><label>LABEL PROMO</label><input id="pTag" value="${esc(p.tag)}"></div><div class="field"><label>HARGA / PENAWARAN</label><input id="pPrice" value="${esc(p.price)}" placeholder="Contoh: Voucher Rp 1 / Diskon 50%"></div><div class="field"><label>PERIODE PROMO</label><input id="pPeriod" value="${esc(p.period)}"></div><div class="field full"><label>DESKRIPSI PROMO</label><textarea id="pDesc">${esc(p.description)}</textarea></div><div class="field full"><label>FOTO PROMO KHUSUS (URL GOOGLE DRIVE)</label><input id="pUrl" placeholder="https://lh3.googleusercontent.com/d/..." value="${esc(p.image)}"></div><div class="field"><label class="check"><input id="pActive" type="checkbox" ${p.active ? 'checked' : ''}> Tampilkan sebagai promo aktif utama</label></div></div><div class="form-actions"><button class="add-btn" onclick="savePromo('${id || ''}')">SIMPAN PROMO</button></div>`;
+ document.getElementById('adminContent').innerHTML = `<div class="admin-row"><h3>${id ? 'Edit promo' : 'Buat promo baru'}</h3><button class="mini-btn" onclick="adminPromos()">← KEMBALI</button></div><div class="form-grid"><div class="field"><label>JUDUL PROMO</label><input id="pTitle" value="${esc(p.title)}"></div><div class="field"><label>LABEL PROMO</label><input id="pTag" value="${esc(p.tag)}"></div><div class="field"><label>HARGA / PENAWARAN</label><input id="pPrice" value="${esc(p.price)}"></div><div class="field"><label>PERIODE PROMO</label><input id="pPeriod" value="${esc(p.period)}"></div><div class="field full"><label>DESKRIPSI PROMO</label><textarea id="pDesc">${esc(p.description)}</textarea></div><div class="field full"><label>FOTO PROMO KHUSUS (URL GOOGLE DRIVE)</label><input id="pUrl" value="${esc(p.image)}"></div><div class="field"><label class="check"><input id="pActive" type="checkbox" ${p.active ? 'checked' : ''}> Tampilkan sebagai promo aktif utama</label></div></div><div class="form-actions"><button class="add-btn" onclick="savePromo('${id || ''}')">SIMPAN PROMO</button></div>`;
 }
 
 function savePromo(id) {
@@ -1042,7 +925,6 @@ function removePromo(id) {
  if (confirm('Hapus promo ini?')) { data.promos = data.promos.filter(p => p.id !== id); persist(); adminPromos(); }
 }
 
-/* --- TAB BARCODE & QR LINK --- */
 function adminBarcodes() {
  let c = document.getElementById('adminContent');
  let list = data.barcodes || [];
@@ -1065,7 +947,6 @@ function adminBarcodes() {
     </div>
    `).join('') || '<div class="empty-state">Belum ada barcode yang ditambahkan.</div>'}
   </div>
-  <p class="hint">Foto barcode yang aktif akan tampil berjalan di atas "Good Coffee, Good Day" serta di bagian Promo Hari Ini, dan tersimpan ke Google Sheets.</p>
  `;
 }
 
@@ -1078,26 +959,11 @@ function editBarcode(id) {
    <button class="mini-btn" onclick="adminBarcodes()">← KEMBALI</button>
   </div>
   <div class="form-grid">
-   <div class="field">
-    <label>NAMA BARCODE (CONTOH: TIKTOK SHOP / SHOPEE / MAPS)</label>
-    <input id="qrTitle" value="${esc(b.title)}" placeholder="Contoh: TikTok Shop Diponegoro 2">
-   </div>
-   <div class="field">
-    <label>KETERANGAN SINGKAT</label>
-    <input id="qrSub" value="${esc(b.subtitle)}" placeholder="Contoh: Scan klaim voucher diskon">
-   </div>
-   <div class="field full">
-    <label>LINK FOTO BARCODE (URL GOOGLE DRIVE / DIRECT LINK)</label>
-    <input id="qrImage" value="${esc(b.image)}" placeholder="https://lh3.googleusercontent.com/d/...">
-    <small class="hint">Tempel link gambar QR Code dari Google Drive berformat https://lh3.googleusercontent.com/d/ID_FILE agar tampil jelas dan tajam.</small>
-   </div>
-   <div class="field full">
-    <label>LINK TUJUAN (OPSIONAL - UNTUK TOMBOL "BUKA LINK")</label>
-    <input id="qrUrl" value="${esc(b.url)}" placeholder="https://...">
-   </div>
-   <div class="field full">
-    <label class="check"><input id="qrActive" type="checkbox" ${b.active !== false ? 'checked' : ''}> Tampilkan barcode ini di website</label>
-   </div>
+   <div class="field"><label>NAMA BARCODE</label><input id="qrTitle" value="${esc(b.title)}"></div>
+   <div class="field"><label>KETERANGAN SINGKAT</label><input id="qrSub" value="${esc(b.subtitle)}"></div>
+   <div class="field full"><label>LINK FOTO BARCODE (URL GOOGLE DRIVE)</label><input id="qrImage" value="${esc(b.image)}"></div>
+   <div class="field full"><label>LINK TUJUAN</label><input id="qrUrl" value="${esc(b.url)}"></div>
+   <div class="field full"><label class="check"><input id="qrActive" type="checkbox" ${b.active !== false ? 'checked' : ''}> Tampilkan barcode ini di website</label></div>
   </div>
   <div class="form-actions"><button class="add-btn" onclick="saveBarcode('${id || ''}')">SIMPAN BARCODE</button></div>
  `;
@@ -1128,16 +994,15 @@ function removeBarcode(id) {
  }
 }
 
-/* --- TAB 3: POSTER KATEGORI --- */
 function adminCategories() {
  let c = document.getElementById('adminContent');
- c.innerHTML = `<div class="admin-row"><h3>Kelola Poster Kategori · ${data.categories.length} kategori</h3></div><div class="admin-list">${data.categories.map(cat => `<div class="admin-item"><div><strong>${esc(cat.name)}</strong><small>${cat.image ? 'Poster terpasang' : 'Belum ada poster'} · ${cat.active ? 'Tampil' : 'Disembunyikan'}</small></div><div class="admin-actions"><button class="mini-btn" onclick="editCategory('${cat.id}')">Upload/Edit Poster</button></div></div>`).join('')}</div><p class="hint">Upload 1 foto poster/banner untuk mewakili seluruh menu di kategori tersebut.</p>`;
+ c.innerHTML = `<div class="admin-row"><h3>Kelola Poster Kategori · ${data.categories.length} kategori</h3></div><div class="admin-list">${data.categories.map(cat => `<div class="admin-item"><div><strong>${esc(cat.name)}</strong><small>${cat.image ? 'Poster terpasang' : 'Belum ada poster'} · ${cat.active ? 'Tampil' : 'Disembunyikan'}</small></div><div class="admin-actions"><button class="mini-btn" onclick="editCategory('${cat.id}')">Upload/Edit Poster</button></div></div>`).join('')}</div>`;
 }
 
 function editCategory(id) {
  let cat = data.categories.find(x => x.id === id);
  if (!cat) return;
- document.getElementById('adminContent').innerHTML = `<div class="admin-row"><h3>Edit Poster: ${esc(cat.name)}</h3><button class="mini-btn" onclick="adminCategories()">← KEMBALI</button></div><div class="form-grid"><div class="field full"><label>NAMA KATEGORI</label><input id="catName" value="${esc(cat.name)}" disabled></div><div class="field full"><label>LINK POSTER (GOOGLE DRIVE DIRECT LINK / URL)</label><input id="catUrl" value="${esc(cat.image)}" placeholder="https://lh3.googleusercontent.com/d/..."><small class="hint">Tempel link Google Drive berformat lh3.googleusercontent.com/d/ID_FILE agar poster kategori tampil sempurna.</small></div><div class="field" style="align-content:end"><label class="check"><input id="catActive" type="checkbox" ${cat.active ? 'checked' : ''}> Tampilkan kategori ini di website</label></div></div><div class="form-actions"><button class="add-btn" onclick="saveCategory('${id}')">SIMPAN POSTER</button></div>`;
+ document.getElementById('adminContent').innerHTML = `<div class="admin-row"><h3>Edit Poster: ${esc(cat.name)}</h3><button class="mini-btn" onclick="adminCategories()">← KEMBALI</button></div><div class="form-grid"><div class="field full"><label>NAMA KATEGORI</label><input id="catName" value="${esc(cat.name)}" disabled></div><div class="field full"><label>LINK POSTER (GOOGLE DRIVE)</label><input id="catUrl" value="${esc(cat.image)}"></div><div class="field" style="align-content:end"><label class="check"><input id="catActive" type="checkbox" ${cat.active ? 'checked' : ''}> Tampilkan kategori ini di website</label></div></div><div class="form-actions"><button class="add-btn" onclick="saveCategory('${id}')">SIMPAN POSTER</button></div>`;
 }
 
 function saveCategory(id) {
@@ -1149,7 +1014,6 @@ function saveCategory(id) {
  adminCategories();
 }
 
-/* --- TAB 4: KONTAK BARISTA --- */
 function adminContacts() {
  let c = document.getElementById('adminContent');
  c.innerHTML = `<div class="admin-row"><h3>Kontak Barista</h3><button class="add-btn" onclick="editContact()">＋ TAMBAH KONTAK</button></div><div class="admin-list">${(data.contacts || []).map(x => `<div class="admin-item"><div><strong>${esc(x.name)}</strong><small>${esc(x.role)} · ${esc(x.phone)}</small></div><div class="admin-actions"><button class="mini-btn" onclick="editContact('${x.id}')">Edit</button><button class="mini-btn danger" onclick="removeContact('${x.id}')">Hapus</button></div></div>`).join('')}</div>`;
@@ -1158,7 +1022,7 @@ function adminContacts() {
 function editContact(id) {
  let old = (data.contacts || []).find(x => x.id === id);
  let x = old || { id: 'c' + Date.now(), name: '', role: 'Barista', phone: '', label: 'WhatsApp' };
- document.getElementById('adminContent').innerHTML = `<div class="admin-row"><h3>${id ? 'Edit kontak' : 'Tambah kontak'}</h3><button class="mini-btn" onclick="adminContacts()">← KEMBALI</button></div><div class="form-grid"><div class="field"><label>NAMA</label><input id="cName" value="${esc(x.name)}"></div><div class="field"><label>ROLE</label><input id="cRole" value="${esc(x.role)}"></div><div class="field"><label>NOMOR WHATSAPP</label><input id="cPhone" value="${esc(x.phone)}" placeholder="628xxxxxxxxxx"></div><div class="field"><label>LABEL</label><input id="cLabel" value="${esc(x.label)}"></div></div><div class="form-actions"><button class="add-btn" onclick="saveContact('${id || ''}')">SIMPAN</button></div>`;
+ document.getElementById('adminContent').innerHTML = `<div class="admin-row"><h3>${id ? 'Edit kontak' : 'Tambah kontak'}</h3><button class="mini-btn" onclick="adminContacts()">← KEMBALI</button></div><div class="form-grid"><div class="field"><label>NAMA</label><input id="cName" value="${esc(x.name)}"></div><div class="field"><label>ROLE</label><input id="cRole" value="${esc(x.role)}"></div><div class="field"><label>NOMOR WHATSAPP</label><input id="cPhone" value="${esc(x.phone)}"></div><div class="field"><label>LABEL</label><input id="cLabel" value="${esc(x.label)}"></div></div><div class="form-actions"><button class="add-btn" onclick="saveContact('${id || ''}')">SIMPAN</button></div>`;
 }
 
 function saveContact(id) {
@@ -1174,7 +1038,6 @@ function removeContact(id) {
  if (confirm('Hapus kontak?')) { data.contacts = data.contacts.filter(c => c.id !== id); persist(); adminContacts(); }
 }
 
-/* --- TAB 5: ADDITIONAL --- */
 function adminExtras() {
  document.getElementById('adminContent').innerHTML = `<div class="admin-row"><h3>Additional / Topping</h3><button class="add-btn" onclick="editExtra()">＋ TAMBAH</button></div><div class="admin-list">${(data.extras || []).map((x, i) => `<div class="admin-item"><div><strong>${esc(x[0])}</strong><small>${esc(x[1])} · ${esc(x[2])}</small></div><div class="admin-actions"><button class="mini-btn" onclick="editExtra(${i})">Edit</button><button class="mini-btn danger" onclick="removeExtra(${i})">Hapus</button></div></div>`).join('')}</div>`;
 }
@@ -1196,16 +1059,15 @@ function removeExtra(i) {
  if (confirm('Hapus item?')) { data.extras.splice(i, 1); persist(); adminExtras(); }
 }
 
-/* --- TAB BARU: VIDEO PROMO AUTOPLAY (DI BAWAH KONTAK BARISTA) --- */
 function adminVideo() {
  let v = data.promoVideo || clone(starter.promoVideo);
  document.getElementById('adminContent').innerHTML = `
-  <div class="admin-row"><h3>Video Promo Autoplay (Bagian Bawah Website)</h3></div>
+  <div class="admin-row"><h3>Video Promo (Bagian Bawah Website)</h3></div>
   <div class="form-grid">
    <div class="field full">
-    <label>LINK VIDEO GOOGLE DRIVE / DIRECT MP4</label>
-    <input id="vUrl" value="${esc(v.url)}" placeholder="https://drive.google.com/file/d/ID_FILE_VIDEO/view?usp=sharing">
-    <small class="hint">Upload video MP4 ke Google Drive → Klik Bagikan → Ubah ke "Siapa saja yang memiliki link" → Salin & tempel linknya di sini. Sistem akan otomatis memutarnya secara loop tanpa klik!</small>
+    <label>LINK VIDEO GOOGLE DRIVE</label>
+    <input id="vUrl" value="${esc(v.url)}" placeholder="https://drive.google.com/file/d/.../view">
+    <small class="hint">Tempel link Google Drive video kamu di sini. Video akan tampil rapi dengan tombol Play standar Google Drive di tengahnya.</small>
    </div>
    <div class="field">
     <label>JUDUL VIDEO PROMO</label>
@@ -1217,14 +1079,14 @@ function adminVideo() {
    </div>
    <div class="field full">
     <label>KETERANGAN / DESKRIPSI SINGKAT</label>
-    <input id="vSub" value="${esc(v.subtitle)}" placeholder="Contoh: Tonton kesegaran racikan kopi favoritmu!">
+    <input id="vSub" value="${esc(v.subtitle)}" placeholder="Contoh: Tekan tombol play untuk menyaksikan kesegaran racikan kami!">
    </div>
    <div class="field full">
     <label>LINK TUJUAN TOMBOL (OPSIONAL)</label>
     <input id="vCtaUrl" value="${esc(v.ctaUrl)}" placeholder="https://vt.tiktok.com/...">
    </div>
    <div class="field full">
-    <label class="check"><input id="vActive" type="checkbox" ${v.active !== false ? 'checked' : ''}> Tampilkan Video Promo Autoplay di bagian bawah website</label>
+    <label class="check"><input id="vActive" type="checkbox" ${v.active !== false ? 'checked' : ''}> Tampilkan Video Promo di bagian bawah website</label>
    </div>
   </div>
   <div class="form-actions"><button class="add-btn" onclick="saveVideoPromo()">SIMPAN VIDEO PROMO</button></div>
@@ -1244,7 +1106,6 @@ function saveVideoPromo() {
  adminVideo();
 }
 
-/* --- TAB 6: PENGATURAN --- */
 function adminSettings() {
  document.getElementById('adminContent').innerHTML = `<div class="admin-row"><h3>Pengaturan website</h3></div><div class="form-grid"><div class="field full"><label>LINK TIKTOK SHOP (TLQG DIPONEGORO 2)</label><input id="sTikTok" value="${esc(data.settings?.tiktok || 'https://vt.tiktok.com/ZS9fUVAdewXEn-8OUCG/?poisharing=Point-Coffee---Indomaret-Diponegoro-2-%28TLQG%29')}"></div><div class="field full"><label>LINK SHOPEE BELANJA</label><input id="sShopee" value="${esc(data.settings?.shopee || 'https://shopee.co.id/')}"></div><div class="field full"><label>LINK GOOGLE MAPS</label><input id="sMaps" value="${esc(data.settings?.maps)}"></div><div class="field full"><label>UBAH PIN ADMIN BARU</label><input id="sPin" type="password" value="${esc(data.settings?.pin || '123456')}" placeholder="PIN baru"></div><div class="field full"><label>STATUS DATABASE</label><input value="${isCloudConfigured() ? 'Google Sheets API terpasang (Real-time sync aktif)' : 'Belum dipasang'}" disabled></div></div><div class="form-actions"><button class="add-btn" onclick="saveSettings()">SIMPAN PENGATURAN</button></div><hr style="border:0;border-top:1px solid var(--line);margin:20px 0"><button class="mini-btn" onclick="refreshCloud()">↻ AMBIL DATA TERBARU</button><button class="mini-btn" onclick="publishInitialData()">↑ KIRIM DATA KE SHEETS</button><button class="mini-btn danger" onclick="resetData()">RESET DATA</button>`;
 }
