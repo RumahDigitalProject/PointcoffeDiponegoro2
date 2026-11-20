@@ -8,165 +8,148 @@
 <title>Point Coffee Diponegoro 2 — Digital Menu & VIP Pass</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<!-- Library QR Scanner & Generator untuk VIP Card -->
 <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <style>
 :root{--bg:#0b0e0a;--surface:#121710;--surface2:#192018;--line:#293326;--text:#f4f6ee;--muted:#9ca795;--lime:#d8fa4b;--lime2:#bce52d;--orange:#ffad72;--r:22px;--shadow:0 18px 55px #0007}
-*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:90px}body{margin:0;background:var(--bg);color:var(--text);font-family:"DM Sans",sans-serif}
-body.modal-open{overflow:hidden;height:100vh;position:fixed;width:100%}
-body:before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.12;background-image:radial-gradient(#d8fa4b 0.55px,transparent .55px);background-size:22px 22px;mask-image:linear-gradient(to bottom,#000,transparent 70%);z-index:-1}
-a{color:inherit}button,input,select,textarea{font:inherit}button{cursor:pointer}.container{width:min(1180px,calc(100% - 38px));margin:auto}.topbar{height:4px;background:linear-gradient(90deg,var(--lime),#69d5a1,#ffb273)}.site-header{position:sticky;top:0;z-index:30;background:#0b0e0aeF;backdrop-filter:blur(18px);border-bottom:1px solid #ffffff12}.nav{height:74px;display:flex;align-items:center;justify-content:space-between;gap:20px}.brand{display:flex;gap:11px;align-items:center;text-decoration:none}.brand-icon{width:43px;height:43px;display:grid;place-items:center;background:var(--lime);color:#10140c;border-radius:14px;font:800 19px "Space Grotesk";box-shadow:0 7px 22px #d8fa4b2b;transform:rotate(-4deg)}.brand strong{font:700 14px "Space Grotesk";letter-spacing:.4px}.brand small{display:block;font-size:8.5px;letter-spacing:1.8px;color:var(--muted);margin-top:3px}.nav-links{display:flex;gap:27px}.nav-links a{font-size:12px;font-weight:800;color:#c6cebf;text-decoration:none}.nav-links a:hover{color:var(--lime)}.nav-tools{display:flex;gap:9px;align-items:center}.round-link{height:39px;width:39px;border:1px solid var(--line);border-radius:13px;display:grid;place-items:center;text-decoration:none;font-weight:900}.admin-open,.primary{background:var(--lime);color:#10140b;border:0;border-radius:12px;padding:12px 16px;font-size:11px;font-weight:900;letter-spacing:.4px}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:90px}body{margin:0;background:var(--bg);color:var(--text);font-family:"DM Sans",sans-serif}body:before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.12;background-image:radial-gradient(#d8fa4b 0.55px,transparent .55px);background-size:22px 22px;mask-image:linear-gradient(to bottom,#000,transparent 70%);z-index:-1}a{color:inherit}button,input,select,textarea{font:inherit}button{cursor:pointer}.container{width:min(1180px,calc(100% - 38px));margin:auto}.topbar{height:4px;background:linear-gradient(90deg,var(--lime),#69d5a1,#ffb273)}.site-header{position:sticky;top:0;z-index:30;background:#0b0e0aeF;backdrop-filter:blur(18px);border-bottom:1px solid #ffffff12}.nav{height:74px;display:flex;align-items:center;justify-content:space-between;gap:20px}.brand{display:flex;gap:11px;align-items:center;text-decoration:none}.brand-icon{width:43px;height:43px;display:grid;place-items:center;background:var(--lime);color:#10140c;border-radius:14px;font:800 19px "Space Grotesk";box-shadow:0 7px 22px #d8fa4b2b;transform:rotate(-4deg)}.brand strong{font:700 14px "Space Grotesk";letter-spacing:.4px}.brand small{display:block;font-size:8.5px;letter-spacing:1.8px;color:var(--muted);margin-top:3px}.nav-links{display:flex;gap:27px}.nav-links a{font-size:12px;font-weight:800;color:#c6cebf;text-decoration:none}.nav-links a:hover{color:var(--lime)}.nav-tools{display:flex;gap:9px;align-items:center}.round-link{height:39px;width:39px;border:1px solid var(--line);border-radius:13px;display:grid;place-items:center;text-decoration:none;font-weight:900}.admin-open,.primary{background:var(--lime);color:#10140b;border:0;border-radius:12px;padding:12px 16px;font-size:11px;font-weight:900;letter-spacing:.4px}
 .vip-nav-btn{background:linear-gradient(135deg,#f59e0b,#d8fa4b);color:#10140b;border:0;border-radius:12px;padding:11px 14px;font-size:11px;font-weight:900;letter-spacing:.4px;box-shadow:0 4px 16px #d8fa4b33;display:inline-flex;align-items:center;gap:5px;transition:transform .2s}
 .vip-nav-btn:hover{transform:scale(1.04)}
 
 .hero{padding:58px 0 46px;display:grid;grid-template-columns:1.05fr .95fr;gap:38px;align-items:center}
-.hero-barcode-showcase{max-height:0;opacity:0;overflow:hidden;margin-bottom:0;transition:max-height .75s ease, margin-bottom .75s ease}
+
+/* === HERO BARCODE MARQUEE SHOWCASE === */
+.hero-barcode-showcase{max-height:0;opacity:0;overflow:hidden;margin-bottom:0;perspective:1000px;transition:max-height .75s cubic-bezier(0.22, 1, 0.36, 1), margin-bottom .75s cubic-bezier(0.22, 1, 0.36, 1)}
 .hero-barcode-showcase.active{max-height:230px;opacity:1;margin-bottom:20px}
-.hb-inner{display:flex;flex-direction:column;gap:9px}
+.hb-inner{display:flex;flex-direction:column;gap:9px;will-change:transform, opacity, filter}
 .hb-header{display:flex;align-items:center;justify-content:space-between;gap:8px}
-.hp-badge{display:inline-flex;align-items:center;gap:6px;background:#d8fa4b18;color:var(--lime);border:1px solid #d8fa4b45;padding:4px 10px;border-radius:30px;font-size:8.5px;font-weight:900;letter-spacing:1.4px}
+.hp-badge{display:inline-flex;align-items:center;gap:6px;background:#d8fa4b18;color:var(--lime);border:1px solid #d8fa4b45;padding:4px 10px;border-radius:30px;font-size:8.5px;font-weight:900;letter-spacing:1.4px;width:fit-content}
 .hb-live-dot{width:6px;height:6px;border-radius:50%;background:var(--lime);animation:pulseLive 1.4s infinite ease-in-out}
 @keyframes pulseLive{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.5);opacity:.45}}
-.hb-marquee-viewport{width:100%;overflow:hidden;position:relative;padding:4px 0}
-.hb-marquee-track{display:flex;align-items:stretch;gap:12px;width:max-content;animation:marqueeRightToLeft 16s linear infinite}
-.hb-item{display:flex;align-items:center;gap:10px;background:linear-gradient(135deg, #182016, #11160f);border:1px solid #d8fa4b35;border-radius:16px;padding:8px 12px 8px 8px;min-width:215px;max-width:255px;flex-shrink:0}
-.hb-qr-box{width:56px;height:56px;border-radius:11px;background:#ffffff;padding:4px;flex-shrink:0;display:grid;place-items:center;cursor:pointer}
-.hb-qr-box img{width:100%;height:100%;object-fit:contain}
+.hb-marquee-viewport{width:100%;overflow:hidden;position:relative;padding:4px 0;mask-image:linear-gradient(to right, transparent 0%, #000 5%, #000 95%, transparent 100%);-webkit-mask-image:linear-gradient(to right, transparent 0%, #000 5%, #000 95%, transparent 100%)}
+.hb-marquee-track{display:flex;align-items:stretch;gap:12px;width:max-content;animation:marqueeRightToLeft var(--marquee-duration, 16s) linear infinite}
+.hb-marquee-viewport:hover .hb-marquee-track,.hb-marquee-viewport:active .hb-marquee-track{animation-play-state:paused}
+@keyframes marqueeRightToLeft{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+.hb-item{display:flex;align-items:center;gap:10px;background:linear-gradient(135deg, #182016, #11160f);border:1px solid #d8fa4b35;border-radius:16px;padding:8px 12px 8px 8px;min-width:215px;max-width:255px;flex-shrink:0;box-shadow:0 8px 24px rgba(0,0,0,0.45);transition:border-color .25s, transform .25s}
+.hb-item:hover{border-color:var(--lime);transform:translateY(-2px)}
+.hb-qr-box{width:56px;height:56px;border-radius:11px;background:#ffffff;padding:4px;flex-shrink:0;display:grid;place-items:center;cursor:zoom-in;position:relative;overflow:hidden}
+.hb-qr-box img{width:100%;height:100%;object-fit:contain;display:block}
+.hb-qr-placeholder{font-size:8px;font-weight:800;color:#10140c;text-align:center;line-height:1.1}
 .hb-info{display:flex;flex-direction:column;justify-content:center;gap:5px;min-width:0;flex:1}
 .hb-title{font:700 11.5px "Space Grotesk";color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.hb-btn{display:inline-flex;align-items:center;justify-content:center;gap:4px;padding:5px 10px;border-radius:9px;background:var(--lime);color:#10140c;font-size:9.5px;font-weight:900;text-decoration:none;width:fit-content}
-@keyframes marqueeRightToLeft{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+.hb-btn{display:inline-flex;align-items:center;justify-content:center;gap:4px;padding:5px 10px;border-radius:9px;background:var(--lime);color:#10140c;font-size:9.5px;font-weight:900;text-decoration:none;width:fit-content;animation:pulseMedium 2.2s infinite ease-in-out;transition:background .2s, transform .2s}
+.hb-btn:hover{background:var(--lime2);transform:scale(1.04)}
+.hb-btn.zoom-only{background:#242e20;color:var(--lime);border:1px solid #d8fa4b40}
+@keyframes pulseMedium{0%{transform:scale(1)}50%{transform:scale(1.035);box-shadow:0 0 12px rgba(216,250,75,0.3)}100%{transform:scale(1)}}
 
-.eyebrow{display:inline-flex;gap:9px;align-items:center;border:1px solid #d8fa4b45;color:var(--lime);padding:8px 12px;border-radius:50px;font-size:9px;font-weight:900;letter-spacing:2px}.dot{width:7px;height:7px;border-radius:50%;background:var(--lime);box-shadow:0 0 0 5px #d8fa4b1c}
-.hero h1{font:700 clamp(45px,6.4vw,78px)/.97 "Space Grotesk";letter-spacing:-4px;margin:23px 0 18px}.hero h1 em{font-style:normal;color:var(--lime)}
-.hero-copy{max-width:510px;color:var(--muted);font-size:14px;line-height:1.85}.hero-buttons{display:flex;gap:11px;flex-wrap:wrap;margin-top:26px}
-.primary,.secondary{display:inline-flex;align-items:center;gap:10px;text-decoration:none;padding:14px 18px;border-radius:13px;font-size:11px;font-weight:900}.secondary{border:1px solid var(--line);color:white}
-.hero-visual{border:1px solid #ffffff18;border-radius:30px;position:relative;overflow:hidden;background:#0d120a}
-.hero-slider-container{width:100%;position:relative;display:grid;place-items:center;min-height:340px}
-.hero-slide{grid-area:1/1;opacity:0;visibility:hidden;transition:opacity .8s ease;width:100%;display:flex;justify-content:center;align-items:center}
-.hero-slide.active{opacity:1;visibility:visible}.hero-slide img{width:100%;height:auto;max-height:850px;object-fit:contain;display:block}
-.hero-slide-fallback{width:100%;min-height:360px;display:grid;place-items:center;background:linear-gradient(145deg,#222d1c,#11160f 75%)}
+/* ANIMASI HERO BARCODE */
+@keyframes animInFlip3D{0%{opacity:0;transform:rotateX(-75deg) translateY(-20px) scale(0.92);filter:blur(4px)}100%{opacity:1;transform:rotateX(0deg) translateY(0) scale(1);filter:blur(0)}}
+@keyframes animOutFlip3D{0%{opacity:1;transform:rotateX(0deg) scale(1)}100%{opacity:0;transform:rotateX(75deg) translateY(15px) scale(0.92)}}
+@keyframes animInElastic{0%{opacity:0;transform:scale(0.65) translateY(25px)}60%{opacity:1;transform:scale(1.04) translateY(-4px)}80%{transform:scale(0.98) translateY(2px)}100%{opacity:1;transform:scale(1) translateY(0)}}
+@keyframes animOutElastic{0%{opacity:1;transform:scale(1)}30%{transform:scale(1.03)}100%{opacity:0;transform:scale(0.6) translateY(-20px)}}
+@keyframes animInCyber{0%{opacity:0;transform:translateX(70px) skewX(-18deg);filter:brightness(1.8)}70%{opacity:1;transform:translateX(-8px) skewX(5deg);filter:brightness(1.2)}100%{opacity:1;transform:translateX(0) skewX(0deg);filter:brightness(1)}}
+@keyframes animOutCyber{0%{opacity:1;transform:translateX(0) skewX(0deg)}100%{opacity:0;transform:translateX(-80px) skewX(18deg);filter:blur(3px)}}
+@keyframes animInBlurZoom{0%{opacity:0;transform:scale(1.18);filter:blur(12px)}100%{opacity:1;transform:scale(1);filter:blur(0)}}
+@keyframes animOutBlurZoom{0%{opacity:1;transform:scale(1);filter:blur(0)}100%{opacity:0;transform:scale(1.15);filter:blur(10px)}}
+@keyframes animInCurtain{0%{opacity:0;clip-path:inset(0 50% 0 50%);transform:scale(0.96)}100%{opacity:1;clip-path:inset(0 0% 0 0%);transform:scale(1)}}
+@keyframes animOutCurtain{0%{opacity:1;clip-path:inset(0 0% 0 0%)}100%{opacity:0;clip-path:inset(50% 0 50% 0)}}
+@keyframes animInDiagonal{0%{opacity:0;transform:translate(-45px, -30px) rotate(-3deg)}100%{opacity:1;transform:translate(0, 0) rotate(0deg)}}
+@keyframes animOutDiagonal{0%{opacity:1;transform:translate(0, 0) rotate(0deg)}100%{opacity:0;transform:translate(45px, 25px) rotate(3deg)}}
+
+.fx-in-1{animation:animInFlip3D .75s cubic-bezier(0.16, 1, 0.3, 1) forwards}.fx-out-1{animation:animOutFlip3D .55s cubic-bezier(0.7, 0, 0.84, 0) forwards}
+.fx-in-2{animation:animInElastic .8s cubic-bezier(0.22, 1, 0.36, 1) forwards}.fx-out-2{animation:animOutElastic .55s ease-in forwards}
+.fx-in-3{animation:animInCyber .65s cubic-bezier(0.16, 1, 0.3, 1) forwards}.fx-out-3{animation:animOutCyber .5s ease-in forwards}
+.fx-in-4{animation:animInBlurZoom .7s ease-out forwards}.fx-out-4{animation:animOutBlurZoom .5s ease-in forwards}
+.fx-in-5{animation:animInCurtain .75s cubic-bezier(0.25, 1, 0.5, 1) forwards}.fx-out-5{animation:animOutCurtain .5s ease-in forwards}
+.fx-in-6{animation:animInDiagonal .7s cubic-bezier(0.16, 1, 0.3, 1) forwards}.fx-out-6{animation:animOutDiagonal .5s ease-in forwards}
+
+.eyebrow{display:inline-flex;gap:9px;align-items:center;border:1px solid #d8fa4b45;color:var(--lime);padding:8px 12px;border-radius:50px;font-size:9px;font-weight:900;letter-spacing:2px}.dot{width:7px;height:7px;border-radius:50%;background:var(--lime);box-shadow:0 0 0 5px #d8fa4b1c}.hero h1{font:700 clamp(45px,6.4vw,78px)/.97 "Space Grotesk";letter-spacing:-4px;margin:23px 0 18px}.hero h1 em{font-style:normal;color:var(--lime)}.hero-copy{max-width:510px;color:var(--muted);font-size:14px;line-height:1.85}.hero-buttons{display:flex;gap:11px;flex-wrap:wrap;margin-top:26px}.primary,.secondary{display:inline-flex;align-items:center;gap:10px;text-decoration:none;padding:14px 18px;border-radius:13px;font-size:11px;font-weight:900}.secondary{border:1px solid var(--line);color:white}
+
+.hero-visual{border:1px solid #ffffff18;border-radius:30px;position:relative;overflow:hidden;background:#0d120a;}
+.hero-slider-container{width:100%;position:relative;display:grid;place-items:center;min-height:340px;}
+.hero-slide{grid-area:1/1;opacity:0;visibility:hidden;transition:opacity .8s cubic-bezier(.4,0,.2,1);width:100%;display:flex;justify-content:center;align-items:center;}
+.hero-slide.active{opacity:1;visibility:visible;}
+.hero-slide img{width:100%;height:auto;max-height:850px;object-fit:contain;display:block;}
+.hero-slide-fallback{width:100%;min-height:360px;display:grid;place-items:center;position:relative;background:radial-gradient(circle at 70% 25%,#d8fa4b27,transparent 35%),linear-gradient(145deg,#222d1c,#11160f 75%)}
+.hero-cup{z-index:1;width:142px;height:198px;border-radius:23px 23px 35px 35px;background:linear-gradient(90deg,#b87843,#fff0d2 48%,#bd8751);box-shadow:22px 25px 55px #0009;display:grid;place-items:center;color:#33401c;text-align:center;font:800 18px/1.15 "Space Grotesk";transform:rotate(7deg);position:relative}
 .visual-label{position:absolute;top:20px;left:22px;z-index:5;color:#ffffff;background:#00000080;backdrop-filter:blur(8px);padding:6px 12px;border-radius:30px;border:1px solid #ffffff20;font-size:9px;letter-spacing:1.8px;font-weight:900}
 .sticker{position:absolute;right:8%;bottom:10%;z-index:5;width:82px;height:82px;border-radius:50%;background:var(--lime);color:#10140c;display:grid;place-items:center;text-align:center;font:800 10px/1.2 "Space Grotesk";transform:rotate(11deg);box-shadow:0 8px 25px #0008}
 .hero-slider-dots{position:absolute;bottom:18px;left:50%;transform:translateX(-50%);z-index:5;display:flex;gap:7px}
-.hero-dot{width:8px;height:8px;border-radius:50%;background:#ffffff40;cursor:pointer}.hero-dot.active{background:var(--lime);width:22px;border-radius:10px}
+.hero-dot{width:8px;height:8px;border-radius:50%;background:#ffffff40;cursor:pointer;transition:.3s}
+.hero-dot.active{background:var(--lime);width:22px;border-radius:10px}
 
-.section{padding:43px 0}.section-head{display:flex;align-items:end;justify-content:space-between;gap:22px;margin-bottom:23px}.kicker{color:var(--lime);font-size:9px;font-weight:900;letter-spacing:2.4px}
-.section h2{font:700 clamp(28px,4vw,39px) "Space Grotesk";letter-spacing:-1.5px;margin:7px 0 0}.section-intro{max-width:420px;color:var(--muted);font-size:12px;line-height:1.7}
-.promo-layout{display:grid;grid-template-columns:1.25fr .75fr;gap:15px}
-.promo-feature{border:1px solid #d8fa4b33;border-radius:24px;padding:26px;position:relative;overflow:hidden;background:linear-gradient(110deg,#2a391c,#141b12 75%)}
-.promo-label{display:inline-block;background:var(--lime);color:#10140c;padding:7px 10px;border-radius:7px;font-size:9px;font-weight:900;letter-spacing:1px}
-.promo-feature h3{font:700 28px "Space Grotesk";margin:14px 0 8px}.promo-feature p{color:#c2cdb8;font-size:12px;line-height:1.7;max-width:370px}
-.promo-value{font:700 20px "Space Grotesk";color:var(--lime);margin-top:10px}.promo-image{width:100%;max-height:850px;object-fit:contain;border-radius:18px;border:1px solid #ffffff1d;margin-top:18px;background:#0005}
-.promo-side{background:var(--surface);border:1px solid var(--line);border-radius:24px;padding:23px;display:flex;flex-direction:column;justify-content:space-between;gap:16px}
-.promo-side h3{font:700 22px "Space Grotesk";margin:8px 0 6px}.promo-side p{font-size:11.5px;line-height:1.6;color:var(--muted);margin:0}.promo-foot{color:var(--lime);font-size:9px;font-weight:900;letter-spacing:1.3px}
+.section{padding:43px 0}.section-head{display:flex;align-items:end;justify-content:space-between;gap:22px;margin-bottom:23px}.kicker{color:var(--lime);font-size:9px;font-weight:900;letter-spacing:2.4px}.section h2{font:700 clamp(28px,4vw,39px) "Space Grotesk";letter-spacing:-1.5px;margin:7px 0 0}.section-intro{max-width:420px;color:var(--muted);font-size:12px;line-height:1.7}.promo-layout{display:grid;grid-template-columns:1.25fr .75fr;gap:15px}.promo-feature{border:1px solid #d8fa4b33;border-radius:24px;padding:26px;position:relative;overflow:hidden;background:linear-gradient(110deg,#2a391c,#141b12 75%)}.promo-label{display:inline-block;background:var(--lime);color:#10140c;padding:7px 10px;border-radius:7px;font-size:9px;font-weight:900;letter-spacing:1px}.promo-feature h3{font:700 28px "Space Grotesk";max-width:380px;margin:14px 0 8px;position:relative;z-index:2}.promo-feature p{color:#c2cdb8;font-size:12px;line-height:1.7;max-width:370px;position:relative;z-index:2}.promo-value{font:700 20px "Space Grotesk";color:var(--lime);margin-top:10px;position:relative;z-index:2}.promo-image{width:100%;max-height:850px;object-fit:contain;border-radius:18px;border:1px solid #ffffff1d;margin-top:18px;display:block;background:#0005}.promo-side{background:var(--surface);border:1px solid var(--line);border-radius:24px;padding:23px;display:flex;flex-direction:column;justify-content:space-between;gap:16px}.promo-side h3{font:700 22px "Space Grotesk";margin:8px 0 6px}.promo-side p{font-size:11.5px;line-height:1.6;color:var(--muted);margin:0}.promo-foot{color:var(--lime);font-size:9px;font-weight:900;letter-spacing:1.3px}
 
 .qr-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:6px}
-.qr-card{background:#182016;border:1px solid var(--line);border-radius:16px;padding:12px;display:flex;flex-direction:column;align-items:center;text-align:center}
-.qr-thumb-wrap{width:100%;aspect-ratio:1/1;background:#ffffff;border-radius:11px;padding:8px;display:grid;place-items:center;overflow:hidden;cursor:pointer;position:relative}
-.qr-thumb-wrap img{width:100%;height:100%;object-fit:contain}
-.qr-zoom-badge{position:absolute;bottom:5px;right:5px;background:#0b0e0acc;color:var(--lime);font-size:8px;font-weight:800;padding:2px 6px;border-radius:6px}
-.qr-title{font:700 11.5px "Space Grotesk";color:var(--text);margin-top:9px}.qr-sub{font-size:9.5px;color:var(--muted);margin-top:2px}
+.qr-card{background:#182016;border:1px solid var(--line);border-radius:16px;padding:12px;display:flex;flex-direction:column;align-items:center;text-align:center;transition:border-color .25s, transform .25s}
+.qr-card:hover{border-color:var(--lime);transform:translateY(-2px)}
+.qr-thumb-wrap{width:100%;aspect-ratio:1/1;background:#ffffff;border-radius:11px;padding:8px;display:grid;place-items:center;overflow:hidden;cursor:zoom-in;position:relative}
+.qr-thumb-wrap img{width:100%;height:100%;object-fit:contain;display:block}
+.qr-zoom-badge{position:absolute;bottom:5px;right:5px;background:#0b0e0acc;color:var(--lime);font-size:8px;font-weight:800;padding:2px 6px;border-radius:6px;pointer-events:none}
+.qr-title{font:700 11.5px "Space Grotesk";color:var(--text);margin-top:9px;line-height:1.3}
+.qr-sub{font-size:9.5px;color:var(--muted);margin-top:2px;line-height:1.4}
 .qr-open-link{margin-top:8px;display:inline-flex;align-items:center;gap:4px;font-size:9.5px;font-weight:800;color:#10140c;background:var(--lime);padding:5px 10px;border-radius:8px;text-decoration:none}
-.qr-empty{grid-column:1/-1;background:#182016;border:1px dashed var(--line);border-radius:14px;padding:22px 14px;text-align:center;color:var(--muted);font-size:11px}
+.qr-open-link:hover{background:var(--lime2)}
+.qr-empty{grid-column:1/-1;background:#182016;border:1px dashed var(--line);border-radius:14px;padding:22px 14px;text-align:center;color:var(--muted);font-size:11px;line-height:1.6}
 
 .qr-modal{display:none;position:fixed;inset:0;z-index:95;background:#000000e0;backdrop-filter:blur(8px);padding:20px;align-items:center;justify-content:center}
 .qr-modal.show{display:flex}
-.qr-modal-box{background:#121710;border:1px solid #46543d;border-radius:24px;padding:22px;max-width:380px;width:100%;text-align:center}
+.qr-modal-box{background:#121710;border:1px solid #46543d;border-radius:24px;padding:22px;max-width:380px;width:100%;text-align:center;box-shadow:0 25px 80px #000}
 .qr-modal-img-wrap{background:#fff;padding:14px;border-radius:16px;margin:14px 0;display:grid;place-items:center}
-.qr-modal-img-wrap img{width:100%;max-height:300px;object-fit:contain}
+.qr-modal-img-wrap img{width:100%;max-height:300px;object-fit:contain;display:block}
 
-.menu-toolbar{display:flex;gap:10px;align-items:center;justify-content:space-between;flex-wrap:wrap;margin:24px 0}
-.category-pills{display:flex;gap:8px;flex-wrap:wrap}
-.pill{background:transparent;color:#c4cdbd;border:1px solid var(--line);border-radius:40px;padding:9px 13px;font-size:10px;font-weight:900}
-.pill.active,.pill:hover{background:var(--lime);border-color:var(--lime);color:#11150d}
-.category-card{background:var(--surface);border:1px solid var(--line);border-radius:24px;overflow:hidden;margin-bottom:24px;box-shadow:var(--shadow)}
-.category-header{padding:20px 24px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center}
-.category-header h3{font:700 22px "Space Grotesk";margin:0}
-.category-poster{width:100%;background:#0d120a;display:grid;place-items:center;overflow:hidden}
-.category-poster img{width:100%;height:auto;max-height:850px;object-fit:contain;display:block}
-.no-poster{padding:60px 20px;text-align:center;color:var(--muted);font-size:13px}
-.additional-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
-.add-on{background:var(--surface);border:1px solid var(--line);border-radius:13px;padding:14px}
-.add-on strong{font-size:11px;display:block}.add-on span{font-size:10px;color:var(--lime);font-weight:900;display:block;margin-top:5px}
-.contact-box{display:grid;grid-template-columns:.8fr 1.2fr;gap:25px;padding:28px;border-radius:25px;border:1px solid var(--line);background:linear-gradient(135deg,#1b2517,#10150e)}
-.contact-box h2{font:700 32px "Space Grotesk";margin:8px 0}.contact-box p{font-size:12px;color:var(--muted);line-height:1.7}
-.contact-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
-.contact-card{display:flex;align-items:center;gap:11px;text-decoration:none;background:#ffffff05;border:1px solid var(--line);border-radius:14px;padding:13px}
-.avatar{width:38px;height:38px;display:grid;place-items:center;border-radius:12px;background:#d8fa4b20;color:var(--lime);font-weight:900;flex:none}
-.contact-card strong{font-size:11px;display:block}.contact-card small{display:block;color:var(--muted);font-size:9px;margin-top:4px}
-.socials{display:flex;gap:9px;flex-wrap:wrap;margin-top:18px}
-.social{border:1px solid var(--line);padding:10px 13px;border-radius:11px;text-decoration:none;font-size:10px;font-weight:900}
-.social:hover{border-color:var(--lime);color:var(--lime)}
+.menu-toolbar{display:flex;gap:10px;align-items:center;justify-content:space-between;flex-wrap:wrap;margin:24px 0}.category-pills{display:flex;gap:8px;flex-wrap:wrap}.pill{background:transparent;color:#c4cdbd;border:1px solid var(--line);border-radius:40px;padding:9px 13px;font-size:10px;font-weight:900}.pill.active,.pill:hover{background:var(--lime);border-color:var(--lime);color:#11150d}.category-block{margin:32px 0 43px;scroll-margin-top:94px}.category-card{background:var(--surface);border:1px solid var(--line);border-radius:24px;overflow:hidden;margin-bottom:24px;box-shadow:var(--shadow)}.category-header{padding:20px 24px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center}.category-header h3{font:700 22px "Space Grotesk";margin:0}.category-poster{width:100%;background:#0d120a;display:grid;place-items:center;overflow:hidden}.category-poster img{width:100%;height:auto;max-height:850px;object-fit:contain;display:block}.no-poster{padding:60px 20px;text-align:center;color:var(--muted);font-size:13px}.additional-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.add-on{background:var(--surface);border:1px solid var(--line);border-radius:13px;padding:14px}.add-on strong{font-size:11px;display:block}.add-on span{font-size:10px;color:var(--lime);font-weight:900;display:block;margin-top:5px}.contact-box{display:grid;grid-template-columns:.8fr 1.2fr;gap:25px;padding:28px;border-radius:25px;border:1px solid var(--line);background:linear-gradient(135deg,#1b2517,#10150e)}.contact-box h2{font:700 32px "Space Grotesk";margin:8px 0}.contact-box p{font-size:12px;color:var(--muted);line-height:1.7}.contact-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.contact-card{display:flex;align-items:center;gap:11px;text-decoration:none;background:#ffffff05;border:1px solid var(--line);border-radius:14px;padding:13px;min-width:0}.avatar{width:38px;height:38px;display:grid;place-items:center;border-radius:12px;background:#d8fa4b20;color:var(--lime);font-weight:900;flex:none}.contact-card strong{font-size:11px;display:block}.contact-card small{display:block;color:var(--muted);font-size:9px;margin-top:4px;overflow:hidden;text-overflow:ellipsis}.socials{display:flex;gap:9px;flex-wrap:wrap;margin-top:18px}.social{border:1px solid var(--line);padding:10px 13px;border-radius:11px;text-decoration:none;font-size:10px;font-weight:900}.social:hover{border-color:var(--lime);color:var(--lime)}
 
 .video-showcase-card{background:linear-gradient(145deg,#182016,#0f140d);border:1px solid #d8fa4b38;border-radius:26px;padding:20px;box-shadow:var(--shadow)}
-.video-player-wrap{position:relative;width:100%;aspect-ratio:9/16;max-height:650px;margin:auto;border-radius:18px;overflow:hidden;background:#000;border:1px solid #ffffff15}
+.video-player-wrap{position:relative;width:100%;aspect-ratio: 9/16;max-height: 650px;margin: auto;border-radius:18px;overflow:hidden;background:#000;border:1px solid #ffffff15;box-shadow:0 10px 30px #0008}
 .video-player-wrap iframe{width:100%;height:100%;border:0;display:block}
 .video-caption-row{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;margin-top:16px;padding:0 4px}
-.video-caption-row h3{font:700 19px "Space Grotesk";margin:0}.video-caption-row p{font-size:11.5px;color:var(--muted);margin:4px 0 0}
+.video-caption-row h3{font:700 19px "Space Grotesk";margin:0}
+.video-caption-row p{font-size:11.5px;color:var(--muted);margin:4px 0 0}
 
-footer{margin-top:50px;border-top:1px solid var(--line);padding:30px 0 40px}
-.footer-row{display:flex;justify-content:space-between;align-items:center;gap:20px;color:var(--muted);font-size:10px}
-.footer-row b{color:white}
+footer{margin-top:50px;border-top:1px solid var(--line);padding:30px 0 40px}.footer-row{display:flex;justify-content:space-between;align-items:center;gap:20px;color:var(--muted);font-size:10px}.footer-row b{color:white}.admin-modal{display:none;position:fixed;inset:0;z-index:80;background:#000c;padding:16px;align-items:center;justify-content:center}.admin-modal.show{display:flex}.admin-window{width:min(1000px,100%);max-height:94vh;overflow:auto;background:#11170f;border:1px solid #46543d;border-radius:22px;padding:21px;box-shadow:0 35px 110px #000c}.admin-header{display:flex;justify-content:space-between;align-items:center;gap:15px}.admin-header h2{font:700 23px "Space Grotesk";margin:0}.close-btn,.tab-btn,.mini-btn{background:transparent;color:white;border:1px solid var(--line);border-radius:9px;padding:8px 11px;font-size:10px;font-weight:800}.admin-tabs{display:flex;gap:8px;flex-wrap:wrap;margin:19px 0}.tab-btn.active{background:var(--lime);border-color:var(--lime);color:#10140c}.admin-content{border-top:1px solid var(--line);padding-top:17px}.admin-row{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:15px}.admin-row h3{font:700 17px "Space Grotesk";margin:0}.add-btn{background:var(--lime);color:#111;border:0;border-radius:9px;padding:9px 12px;font-size:10px;font-weight:900}.admin-list{display:grid;gap:8px}.admin-item{display:flex;justify-content:space-between;align-items:center;gap:12px;background:#1b2318;border:1px solid var(--line);border-radius:11px;padding:10px 12px}.admin-item strong{font-size:11px}.admin-item small{display:block;color:var(--muted);font-size:9px;margin-top:4px}.admin-actions{display:flex;gap:6px;flex:none}.mini-btn{padding:7px 9px}.mini-btn.danger{background:#492b27;color:#ffb4a8}.form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.field{display:grid;gap:6px}.field.full{grid-column:1/-1}.field label{font-size:9px;letter-spacing:.8px;color:#bdc8b4;font-weight:900}.field input,.field select,.field textarea{width:100%;background:#0a0f09;border:1px solid #35402f;color:white;border-radius:9px;padding:11px;outline:none;font-size:11px}.field textarea{min-height:72px;resize:vertical}.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--lime)}.field input[type=checkbox]{width:auto;accent-color:var(--lime)}.check{display:flex;align-items:center;gap:8px;color:#c7d1c0;font-size:11px}.form-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:15px}.hint{color:var(--muted);font-size:9px;line-height:1.7}.login-card{max-width:360px;margin:34px auto;text-align:center}.login-card input{width:100%;background:#090e08;color:white;border:1px solid var(--line);border-radius:10px;padding:12px;margin:12px 0}.toast{position:fixed;z-index:100;bottom:22px;left:50%;transform:translateX(-50%);background:var(--lime);color:#10140c;border-radius:12px;padding:12px 17px;font-size:11px;font-weight:900;display:none;box-shadow:var(--shadow)}.toast.show{display:block}
 
-.admin-modal{display:none;position:fixed;inset:0;z-index:80;background:#000c;padding:16px;align-items:center;justify-content:center}
-.admin-modal.show{display:flex}
-.admin-window{width:min(1000px,100%);max-height:94vh;overflow:auto;background:#11170f;border:1px solid #46543d;border-radius:22px;padding:21px}
-.admin-header{display:flex;justify-content:space-between;align-items:center;gap:15px}.admin-header h2{font:700 23px "Space Grotesk";margin:0}
-.close-btn,.tab-btn,.mini-btn{background:transparent;color:white;border:1px solid var(--line);border-radius:9px;padding:8px 11px;font-size:10px;font-weight:800}
-.admin-tabs{display:flex;gap:8px;flex-wrap:wrap;margin:19px 0}.tab-btn.active{background:var(--lime);border-color:var(--lime);color:#10140c}
-.admin-content{border-top:1px solid var(--line);padding-top:17px}
-.admin-row{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:15px}.admin-row h3{font:700 17px "Space Grotesk";margin:0}
-.add-btn{background:var(--lime);color:#111;border:0;border-radius:9px;padding:9px 12px;font-size:10px;font-weight:900}
-.admin-list{display:grid;gap:8px}
-.admin-item{display:flex;justify-content:space-between;align-items:center;gap:12px;background:#1b2318;border:1px solid var(--line);border-radius:11px;padding:10px 12px}
-.admin-item strong{font-size:11px}.admin-item small{display:block;color:var(--muted);font-size:9px;margin-top:4px}
-.admin-actions{display:flex;gap:6px}
-.mini-btn.danger{background:#492b27;color:#ffb4a8}
-.form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
-.field{display:grid;gap:6px}.field.full{grid-column:1/-1}
-.field label{font-size:9px;letter-spacing:.8px;color:#bdc8b4;font-weight:900}
-.field input,.field select,.field textarea{width:100%;background:#0a0f09;border:1px solid #35402f;color:white;border-radius:9px;padding:11px;outline:none;font-size:11px}
-.form-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:15px}.hint{color:var(--muted);font-size:9px;line-height:1.7}
-.login-card{max-width:360px;margin:34px auto;text-align:center}
-.login-card input{width:100%;background:#090e08;color:white;border:1px solid var(--line);border-radius:10px;padding:12px;margin:12px 0}
-.toast{position:fixed;z-index:100;bottom:22px;left:50%;transform:translateX(-50%);background:var(--lime);color:#10140c;border-radius:12px;padding:12px 17px;font-size:11px;font-weight:900;display:none;box-shadow:var(--shadow)}.toast.show{display:block}
-
-/* === FULL-SCREEN VIP STAMP CARD (TERKUNCI & TIDAK BISA DIGESER) === */
-.vip-modal-overlay{display:none;position:fixed;inset:0;z-index:99999;background:rgba(5,8,4,0.95);backdrop-filter:blur(12px);align-items:center;justify-content:center;overflow:hidden;padding:10px}
+/* === VIP STAMP CARD MODAL & ANIMATION STYLES === */
+.vip-modal-overlay{display:none;position:fixed;inset:0;z-index:90;background:rgba(5,8,4,0.88);backdrop-filter:blur(10px);padding:16px;align-items:center;justify-content:center;overflow-y:auto}
 .vip-modal-overlay.show{display:flex}
-.vip-card-shell{width:100%;max-width:390px;max-height:92vh;background:#121710;border:1px solid #d8fa4b55;border-radius:26px;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 25px 80px #000;position:relative}
-.vip-banner{background:linear-gradient(135deg,#d8fa4b,#98c91e);padding:16px;text-align:center;color:#0b0e0a;position:relative;flex-shrink:0}
-.vip-close-x{position:absolute;top:12px;right:12px;width:28px;height:28px;border-radius:50%;background:#0b0e0a20;border:0;color:#0b0e0a;font-weight:900;font-size:13px;display:grid;place-items:center}
-.vip-body{padding:16px;overflow-y:auto;flex:1;-webkit-overflow-scrolling:touch}
-.vip-input{width:100%;padding:12px;background:#0a0f09;border:1px solid #293326;border-radius:12px;color:#fff;font-size:13px;outline:none;margin-top:6px}
+.vip-card-shell{width:100%;max-width:410px;background:#121710;border:1px solid #d8fa4b45;border-radius:28px;overflow:hidden;box-shadow:0 25px 80px #000;position:relative;margin:auto}
+.vip-banner{background:linear-gradient(135deg,#d8fa4b,#98c91e);padding:22px 20px;text-align:center;color:#0b0e0a;position:relative}
+.vip-close-x{position:absolute;top:14px;right:14px;width:30px;height:30px;border-radius:50%;background:#0b0e0a20;border:0;color:#0b0e0a;font-weight:900;font-size:14px;display:grid;place-items:center}
+.vip-body{padding:22px}
+.vip-input{width:100%;padding:13px 15px;background:#0a0f09;border:1px solid #293326;border-radius:13px;color:#fff;font-size:13px;outline:none;margin-top:6px}
 .vip-input:focus{border-color:var(--lime)}
-.vip-btn-main{width:100%;background:var(--lime);color:#0b0e0a;border:0;border-radius:12px;padding:13px;font-weight:900;font-size:12px;margin-top:10px;box-shadow:0 6px 20px #d8fa4b25}
-.vip-btn-sec{width:100%;background:#192018;color:var(--lime);border:1px solid #d8fa4b35;border-radius:11px;padding:10px;font-weight:800;font-size:11px;display:flex;align-items:center;justify-content:center;gap:6px}
-.vip-profile-box{background:#0b0e0a;border:1px solid #d8fa4b45;border-radius:18px;padding:14px;text-align:center;position:relative;overflow:hidden}
-.vip-badge-tag{display:inline-block;background:#d8fa4b18;color:var(--lime);border:1px solid #d8fa4b35;font-size:8.5px;font-weight:900;padding:3px 10px;border-radius:20px;letter-spacing:1px}
-.vip-stamp-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;background:#0b0e0a;padding:10px;border-radius:16px;border:1px solid #293326;margin-top:6px}
-.vip-stamp-cell{aspect-ratio:1/1;border-radius:10px;display:grid;place-items:center;font-weight:900;font-size:11px;background:#151b13;color:#525e4d;border:1px solid #232c20}
-.vip-stamp-cell.filled{background:var(--lime);color:#0b0e0a;border-color:var(--lime);font-size:14px}
-.vip-reward-box{background:linear-gradient(135deg,#132e1c,#0d1f14);border:1px solid #4ade8060;border-radius:16px;padding:12px;text-align:center;margin-top:10px}
+.vip-btn-main{width:100%;background:var(--lime);color:#0b0e0a;border:0;border-radius:13px;padding:14px;font-weight:900;font-size:12px;letter-spacing:.3px;margin-top:12px;box-shadow:0 6px 20px #d8fa4b25}
+.vip-btn-sec{width:100%;background:#192018;color:var(--lime);border:1px solid #d8fa4b35;border-radius:12px;padding:10px 12px;font-weight:800;font-size:11px;display:flex;align-items:center;justify-content:center;gap:6px}
+.vip-profile-box{background:#0b0e0a;border:1px solid #d8fa4b45;border-radius:20px;padding:18px;text-align:center;position:relative;overflow:hidden}
+.vip-badge-tag{display:inline-block;background:#d8fa4b18;color:var(--lime);border:1px solid #d8fa4b35;font-size:9px;font-weight:900;padding:4px 12px;border-radius:20px;letter-spacing:1.2px;position:relative;z-index:2}
+.vip-stamp-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;background:#0b0e0a;padding:12px;border-radius:18px;border:1px solid #293326;margin-top:8px}
+.vip-stamp-cell{aspect-ratio:1/1;border-radius:12px;display:grid;place-items:center;font-weight:900;font-size:12px;background:#151b13;color:#525e4d;border:1px solid #232c20;transition:.3s}
+.vip-stamp-cell.filled{background:var(--lime);color:#0b0e0a;border-color:var(--lime);font-size:16px;box-shadow:0 4px 14px #d8fa4b35}
+.vip-reward-box{background:linear-gradient(135deg,#132e1c,#0d1f14);border:1px solid #4ade8060;border-radius:18px;padding:14px;text-align:center;margin-top:14px}
 
-/* LIVE COUNTDOWN LOADER OVERLAY */
-.vip-loader-overlay{display:none;position:absolute;inset:0;background:rgba(11,14,10,0.92);z-index:50;flex-direction:server;align-items:center;justify-content:center;text-align:center;padding:20px}
-.vip-loader-overlay.show{display:flex}
-.vip-countdown-number{font:800 48px "Space Grotesk";color:var(--lime);animation:pulseNum 1s infinite}
-@keyframes pulseNum{0%,100%{transform:scale(1)}50%{transform:scale(1.1)}}
+/* Animasi Bintang Putih Berkedip VIP */
+@keyframes twinkleStar{0%,100%{transform:translateY(0) scale(.8);opacity:.25}50%{transform:translateY(-4px) scale(1.25);opacity:1}}
+.vip-star{position:absolute;background:#fff;border-radius:50%;animation:twinkleStar 3s infinite ease-in-out;pointer-events:none}
+.vs1{width:4px;height:4px;top:18%;left:14%;animation-duration:2.1s}
+.vs2{width:3px;height:3px;top:65%;left:82%;animation-duration:3.4s;animation-delay:.8s}
+.vs3{width:5px;height:5px;top:28%;left:74%;animation-duration:1.9s;animation-delay:.4s}
+.vs4{width:2.5px;height:2.5px;top:76%;left:22%;animation-duration:3.8s;animation-delay:1.2s}
+.vs5{width:4px;height:4px;top:46%;left:48%;animation-duration:2.5s;animation-delay:.7s}
+.vs6{width:3px;height:3px;top:15%;left:86%;animation-duration:3.1s;animation-delay:1.6s}
 
-/* POPUP PUTIH BERSIH */
-.white-popup-overlay{display:none;position:fixed;inset:0;z-index:110000;background:rgba(0,0,0,0.85);backdrop-filter:blur(6px);padding:16px;align-items:center;justify-content:center}
+/* Custom White Pop-up Modal (Pengganti alert/prompt/confirm) */
+.white-popup-overlay{display:none;position:fixed;inset:0;z-index:110;background:rgba(0,0,0,0.82);backdrop-filter:blur(6px);padding:16px;align-items:center;justify-content:center}
 .white-popup-overlay.show{display:flex}
-.white-popup-box{background:#ffffff;color:#10140b;width:100%;max-width:330px;border-radius:24px;padding:22px;text-align:center;box-shadow:0 25px 70px #000}
-.wp-icon{width:46px;height:46px;border-radius:50%;background:#f1f8d6;color:#4d6600;display:grid;place-items:center;font-size:20px;margin:0 auto 10px}
-.wp-input{width:100%;padding:10px;background:#f3f4f6;border:1px solid #d1d5db;border-radius:11px;text-align:center;font-size:14px;font-weight:800;letter-spacing:3px;margin-top:10px;color:#111;outline:none}
-.wp-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:14px}
-.wp-btn-ok{background:#10140b;color:var(--lime);border:0;border-radius:11px;padding:10px;font-weight:900;font-size:11.5px}
-.wp-btn-cancel{background:#e5e7eb;color:#374151;border:0;border-radius:11px;padding:10px;font-weight:800;font-size:11.5px}
+.white-popup-box{background:#ffffff;color:#10140b;width:100%;max-width:340px;border-radius:26px;padding:24px;text-align:center;box-shadow:0 25px 70px #000}
+.wp-icon{width:48px;height:48px;border-radius:50%;background:#f1f8d6;color:#4d6600;display:grid;place-items:center;font-size:22px;margin:0 auto 12px}
+.wp-input{width:100%;padding:11px;background:#f3f4f6;border:1px solid #d1d5db;border-radius:12px;text-align:center;font-size:15px;font-weight:800;letter-spacing:3px;margin-top:12px;color:#111;outline:none}
+.wp-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:16px}
+.wp-btn-ok{background:#10140b;color:var(--lime);border:0;border-radius:12px;padding:11px;font-weight:900;font-size:12px}
+.wp-btn-cancel{background:#e5e7eb;color:#374151;border:0;border-radius:12px;padding:11px;font-weight:800;font-size:12px}
 
 @media(max-width:820px){.nav-links{display:none}.hero{grid-template-columns:1fr;padding-top:42px}.promo-layout{grid-template-columns:1fr}.contact-box{grid-template-columns:1fr}}
+@media(max-width:570px){.container{width:calc(100% - 26px)}.nav{height:65px}.brand strong{font-size:11px}.brand-icon{width:38px;height:38px}.admin-open{padding:10px 11px}.vip-nav-btn{padding:9px 10px;font-size:10px}.round-link{width:35px;height:35px}.hero h1{letter-spacing:-2.5px}.section{padding:31px 0}.section-head{display:block}.section-intro{margin-top:10px}.menu-toolbar{align-items:stretch}.category-pills{width:100%}.additional-grid{grid-template-columns:repeat(2,1fr)}.contact-box{padding:20px}.contact-grid{grid-template-columns:1fr}.footer-row{display:block;line-height:2}.form-grid{grid-template-columns:1fr}.field.full{grid-column:auto}.admin-window{padding:15px}.admin-item{align-items:flex-start}.admin-actions{flex-wrap:wrap}.video-showcase-card{padding:14px}}
 </style>
 </head>
 <body>
@@ -175,6 +158,7 @@ footer{margin-top:50px;border-top:1px solid var(--line);padding:30px 0 40px}
 <a class="brand" href="#"><span class="brand-icon">PC</span><span><strong>POINT COFFEE</strong><small>DIPONEGORO 2</small></span></a>
 <nav class="nav-links"><a href="#promo">PROMO</a><a href="#menu">OUR MENU</a><a href="#barista">CONTACT</a><a href="#videoPromo">VIDEO</a></nav>
 <div class="nav-tools">
+  <!-- TOMBOL KHUSUS JOIN VIP STAMP CARD -->
   <button class="vip-nav-btn" onclick="openVipModal()">⭐ VIP STAMP</button>
   <a class="round-link" id="tiktokTop" href="https://vt.tiktok.com/ZS9fUVAdewXEn-8OUCG/?poisharing=Point-Coffee---Indomaret-Diponegoro-2-%28TLQG%29" target="_blank" aria-label="TikTok">♪</a>
   <a class="round-link" id="mapsTop" href="#" target="_blank" aria-label="Maps">⌖</a>
@@ -216,162 +200,166 @@ footer{margin-top:50px;border-top:1px solid var(--line);padding:30px 0 40px}
 
 <section class="container section" id="promo">
   <div class="section-head">
-    <div><div class="kicker">DON'T MISS THE DEAL</div><h2>Promo hari ini<span style="color:var(--lime)">.</span></h2></div>
-    <div class="section-intro">Penawaran spesial Point Coffee Diponegoro 2.</div>
+    <div>
+      <div class="kicker">DON'T MISS THE DEAL</div>
+      <h2>Promo hari ini<span style="color:var(--lime)">.</span></h2>
+    </div>
+    <div class="section-intro">Penawaran spesial & scan barcode TikTok, Shopee, Maps Point Coffee Diponegoro 2.</div>
   </div>
   <div id="promoView"></div>
 </section>
 
-<section class="container section" id="menu">
-  <div class="section-head"><div><div class="kicker">FIND YOUR FAVORITE</div><h2>Coffee and Non Coffee <span style="color:var(--lime)">.</span></h2></div></div>
-  <div class="menu-toolbar"><div class="category-pills" id="categoryPills"></div></div>
-  <div id="menuCatalog"></div>
+<section class="container section" id="menu"><div class="section-head"><div><div class="kicker">FIND YOUR FAVORITE</div><h2>Coffee and Non Coffee <span style="color:var(--lime)">.</span></h2></div><div class="section-intro">Pilih kategori menu kami.</div></div>
+<div class="menu-toolbar"><div class="category-pills" id="categoryPills"></div></div>
+<div id="menuCatalog"></div>
 </section>
 
-<section class="container section" id="additional">
-  <div class="section-head"><div><div class="kicker">MAKE IT YOURS</div><h2>Extra your way<span style="color:var(--lime)">.</span></h2></div></div>
-  <div class="additional-grid" id="additionalView"></div>
-</section>
+<section class="container section" id="additional"><div class="section-head"><div><div class="kicker">MAKE IT YOURS</div><h2>Extra your way<span style="color:var(--lime)">.</span></h2></div><div class="section-intro">Tambahan untuk bikin minuman favoritmu makin personal.</div></div><div class="additional-grid" id="additionalView"></div></section>
 
-<section class="container section" id="barista">
-  <div class="contact-box">
-    <div><div class="kicker">LET'S TALK COFFEE</div><h2>Say hi to<br>our barista<span style="color:var(--lime)">.</span></h2><p>Hubungi tim barista kami untuk info pesanan.</p></div>
-    <div class="contact-grid" id="contactView"></div>
-  </div>
-</section>
+<section class="container section" id="barista"><div class="contact-box"><div><div class="kicker">LET'S TALK COFFEE</div><h2>Say hi to<br>our barista<span style="color:var(--lime)">.</span></h2><p>Mau tanya menu, order, atau promo yang sedang berlangsung? Hubungi tim barista kami. Kami siap bantu!</p><div class="socials"><a class="social" id="tiktokLink" href="https://vt.tiktok.com/ZS9fUVAdewXEn-8OUCG/?poisharing=Point-Coffee---Indomaret-Diponegoro-2-%28TLQG%29" target="_blank">♪ TikTok Shop & Voucher ↗</a><a class="social" id="mapsLink" href="#" target="_blank">⌖ Google Maps & Review ↗</a></div></div><div class="contact-grid" id="contactView"></div></div></section>
 
 <section class="container section" id="videoPromo" style="display:none"></section>
 </main>
 
-<footer><div class="container footer-row"><div><b>POINT COFFEE DIPONEGORO 2</b></div><div>© <span id="year"></span> Point Coffee Diponegoro 2</div></div></footer>
+<footer><div class="container footer-row"><div><b>POINT COFFEE DIPONEGORO 2</b><br>Good coffee, good company.</div><div>© <span id="year"></span> Point Coffee Diponegoro 2 · Made with ☕ and good energy.</div></div></footer>
 
-<!-- ================= FULL-SCREEN VIP STAMP CARD MODAL ================= -->
+<!-- ================= MODAL VIP STAMP CARD DIPONEGORO 2 ================= -->
 <div class="vip-modal-overlay" id="vipModal" onclick="if(event.target===this) closeVipModal()">
   <div class="vip-card-shell">
-    
-    <!-- LOADER DENGAN HITUNG MUNDUR ANGKA AKURAT -->
-    <div class="vip-loader-overlay" id="vipLoaderOverlay">
-      <div id="vipLoaderText" style="font-size:12px;color:var(--muted);font-weight:800;margin-bottom:10px">Menghubungkan ke Database...</div>
-      <div class="vip-countdown-number" id="vipCountdownNum">3</div>
-    </div>
-
     <div class="vip-banner">
       <button class="vip-close-x" onclick="closeVipModal()">✕</button>
-      <div style="font:800 18px 'Space Grotesk'">☕ POINT COFFEE</div>
-      <div style="font-size:9.5px;font-weight:900;letter-spacing:1.5px;margin-top:2px">DIPONEGORO 2 VIP PASS</div>
+      <div style="font:800 20px 'Space Grotesk';letter-spacing:-.5px">☕ POINT COFFEE</div>
+      <div style="font-size:10px;font-weight:900;letter-spacing:1.8px;margin-top:2px">DIPONEGORO 2 VIP PASS</div>
     </div>
 
     <div class="vip-body">
-      <!-- 1. LOGIN / DAFTAR -->
+      <!-- 1. LOGIN / REGISTER VIP -->
       <div id="vipLoginSec">
-        <div style="text-align:center;margin-bottom:12px">
-          <div style="font:700 16px 'Space Grotesk';color:var(--lime)">Kartu Stamp Digital VIP</div>
-          <p style="font-size:11px;color:var(--muted);margin:4px 0 0">Kumpulkan 10 stamp & dapatkan <b>1 Free Palm Sugar Latte</b>!</p>
+        <div style="text-align:center;margin-bottom:14px">
+          <div style="font:700 17px 'Space Grotesk';color:var(--lime)">Kartu Stamp Digital VIP</div>
+          <p style="font-size:11.5px;color:var(--muted);margin:5px 0 0;line-height:1.5">Kumpulkan 10 stamp transaksi di Diponegoro 2 & dapatkan <b>1 Free Palm Sugar Latte</b>!</p>
         </div>
 
-        <button type="button" class="vip-btn-sec" onclick="openVipInfo()" style="margin-bottom:12px">
-          📖 Baca Ketentuan VIP Card
+        <button type="button" class="vip-btn-sec" onclick="openVipInfo()" style="margin-bottom:14px">
+          📖 Baca Ketentuan & Informasi VIP Card
         </button>
 
-        <label style="font-size:9.5px;font-weight:900;color:var(--muted);letter-spacing:1px">NOMOR WHATSAPP</label>
+        <label style="font-size:10px;font-weight:900;color:var(--muted);letter-spacing:1px">NOMOR WHATSAPP</label>
         <input type="tel" id="vipPhoneInput" class="vip-input" placeholder="Contoh: 081234567890">
 
-        <div id="vipNameWrap" style="display:none;margin-top:10px">
-          <label style="font-size:9.5px;font-weight:900;color:var(--muted);letter-spacing:1px">NAMA LENGKAP (MEMBER BARU)</label>
+        <div id="vipNameWrap" style="display:none;margin-top:12px">
+          <label style="font-size:10px;font-weight:900;color:var(--muted);letter-spacing:1px">NAMA LENGKAP (MEMBER BARU)</label>
           <input type="text" id="vipNameInput" class="vip-input" placeholder="Masukkan nama kamu">
-          <div style="font-size:10px;color:var(--lime);margin-top:4px">Nomor belum terdaftar. Isi nama untuk membuat VIP Pass!</div>
+          <div style="font-size:10.5px;color:var(--lime);margin-top:5px">Nomor belum terdaftar. Isi nama untuk membuat VIP Pass!</div>
         </div>
 
         <button type="button" id="vipLoginBtn" class="vip-btn-main" onclick="handleVipAuth()">MASUK / CEK KARTU VIP ↗</button>
 
-        <div style="border-top:1px solid #293326;margin-top:14px;padding-top:10px;text-align:center">
-          <button type="button" onclick="openBaristaPinPopup()" style="background:none;border:0;color:var(--muted);font-size:10.5px;font-weight:700">
+        <div style="border-top:1px solid #293326;margin-top:16px;padding-top:12px;text-align:center">
+          <button type="button" onclick="openBaristaPinPopup()" style="background:none;border:0;color:var(--muted);font-size:11px;font-weight:700">
             🔒 Khusus Barista (Mode QR / Kode Unik)
           </button>
         </div>
       </div>
 
-      <!-- 2. DASHBOARD MEMBER -->
+      <!-- 2. DASHBOARD MEMBER VIP -->
       <div id="vipDashSec" style="display:none">
         <div class="vip-profile-box">
+          <div class="vip-star vs1"></div>
+          <div class="vip-star vs2"></div>
+          <div class="vip-star vs3"></div>
+          <div class="vip-star vs4"></div>
+          <div class="vip-star vs5"></div>
+          <div class="vip-star vs6"></div>
+
           <span class="vip-badge-tag">⭐ MEMBER POINT COFFEE DIPONEGORO 2</span>
-          <div id="vipUserName" style="font:800 18px 'Space Grotesk';margin-top:6px">-</div>
-          <div id="vipUserPhone" style="font-size:11px;color:var(--muted);font-family:monospace;margin-top:2px">-</div>
-          <button type="button" class="vip-btn-sec" onclick="openVipInfo()" style="margin-top:10px">
-            ℹ️ Ketentuan & Informasi Eksklusif
+          <div id="vipUserName" style="font:800 20px 'Space Grotesk';margin-top:8px;position:relative;z-index:2">-</div>
+          <div id="vipUserPhone" style="font-size:11.5px;color:var(--muted);font-family:monospace;margin-top:2px;position:relative;z-index:2">-</div>
+
+          <button type="button" class="vip-btn-sec" onclick="openVipInfo()" style="margin-top:12px;position:relative;z-index:2">
+            ℹ️ Ketentuan & Informasi Eksklusif Outlet
           </button>
         </div>
 
-        <div style="margin-top:12px">
+        <div style="margin-top:16px">
           <div style="display:flex;justify-content:space-between;align-items:center">
-            <span style="font-size:10px;font-weight:900;color:var(--muted);letter-spacing:1px">KOLEKSI STAMP</span>
-            <span id="vipStampText" style="font-size:10.5px;font-weight:900;color:var(--lime);background:#d8fa4b18;padding:2px 8px;border-radius:20px">0 / 10 Stamp</span>
+            <span style="font-size:10.5px;font-weight:900;color:var(--muted);letter-spacing:1px">KOLEKSI STAMP KAMU</span>
+            <span id="vipStampText" style="font-size:11px;font-weight:900;color:var(--lime);background:#d8fa4b18;padding:3px 10px;border-radius:20px">0 / 10 Stamp</span>
           </div>
           <div class="vip-stamp-grid" id="vipStampGrid"></div>
         </div>
 
+        <!-- BANNER KLAIM KOPI GRATIS (MUNCUL SAAT 10 STAMP) -->
         <div id="vipRewardBanner" class="vip-reward-box" style="display:none">
-          <div style="font-weight:900;font-size:12px;color:#4ade80">🎉 Stamp Kamu Sudah 10!</div>
-          <div style="font-size:10.5px;color:#d1fae5;margin-top:2px">Berhak <b>1 Free Palm Sugar Latte</b>.</div>
-          <button type="button" onclick="confirmVipClaim()" style="width:100%;background:#4ade80;color:#052e16;border:0;border-radius:10px;padding:10px;font-weight:900;font-size:11px;margin-top:8px">
+          <div style="font-weight:900;font-size:13px;color:#4ade80">🎉 Selamat! Stamp Kamu Sudah 10!</div>
+          <div style="font-size:11px;color:#d1fae5;margin-top:4px">Kamu berhak mendapatkan <b>1 Free Palm Sugar Latte</b>.</div>
+          <div style="font-size:10px;color:#fde047;background:#fef08a18;padding:5px;border-radius:8px;margin-top:6px">⚠️ Wajib ditukar hari ini juga di Point Coffee Diponegoro 2!</div>
+          <button type="button" onclick="confirmVipClaim()" style="width:100%;background:#4ade80;color:#052e16;border:0;border-radius:11px;padding:11px;font-weight:900;font-size:11.5px;margin-top:10px">
             KLAIM GRATIS PALM SUGAR LATTE 🎁
           </button>
         </div>
 
-        <button type="button" class="vip-btn-main" onclick="startVipScanner()" style="margin-top:12px">
+        <!-- OPSI 1: SCAN QR BARISTA -->
+        <button type="button" class="vip-btn-main" onclick="startVipScanner()" style="margin-top:14px">
           📷 SCAN QR BARISTA (TAMBAH STAMP)
         </button>
 
-        <div id="vipScannerWrap" style="display:none;margin-top:10px">
-          <div id="vipQrReader" style="border-radius:12px;overflow:hidden;border:1px solid var(--line)"></div>
-          <button type="button" onclick="stopVipScanner()" style="width:100%;background:#7f1d1d;color:#fecaca;border:0;border-radius:9px;padding:8px;font-size:10.5px;font-weight:800;margin-top:6px">
+        <!-- CONTAINER KAMERA -->
+        <div id="vipScannerWrap" style="display:none;margin-top:12px">
+          <div id="vipQrReader" style="border-radius:14px;overflow:hidden;border:1px solid var(--line)"></div>
+          <button type="button" onclick="stopVipScanner()" style="width:100%;background:#7f1d1d;color:#fecaca;border:0;border-radius:10px;padding:9px;font-size:11px;font-weight:800;margin-top:8px">
             Tutup Kamera
           </button>
         </div>
 
-        <div style="background:#0b0e0a;border:1px solid #293326;border-radius:14px;padding:10px;margin-top:10px">
-          <label style="font-size:9px;font-weight:900;color:var(--muted);letter-spacing:.8px">KODE UNIK BARISTA:</label>
-          <div style="display:flex;gap:8px;margin-top:5px">
-            <input type="text" id="vipUniqueCodeInput" class="vip-input" placeholder="Masukkan 10 digit" style="margin-top:0;padding:9px;font-family:monospace">
-            <button type="button" onclick="submitVipUniqueCode()" style="background:#192018;color:var(--lime);border:1px solid #d8fa4b45;border-radius:11px;padding:0 14px;font-weight:900;font-size:11px">
+        <!-- OPSI 2: INPUT KODE UNIK BARISTA -->
+        <div style="background:#0b0e0a;border:1px solid #293326;border-radius:16px;padding:12px;margin-top:12px">
+          <label style="font-size:9.5px;font-weight:900;color:var(--muted);letter-spacing:.8px">ATAU MASUKKAN KODE UNIK DARI BARISTA:</label>
+          <div style="display:flex;gap:8px;margin-top:6px">
+            <input type="text" id="vipUniqueCodeInput" class="vip-input" placeholder="10 digit kode" style="margin-top:0;padding:10px;font-family:monospace">
+            <button type="button" onclick="submitVipUniqueCode()" style="background:#192018;color:var(--lime);border:1px solid #d8fa4b45;border-radius:12px;padding:0 16px;font-weight:900;font-size:11px">
               Submit
             </button>
           </div>
         </div>
 
-        <button type="button" onclick="logoutVip()" style="width:100%;background:none;border:0;color:var(--muted);font-size:10.5px;margin-top:10px;text-decoration:underline">
+        <p style="font-size:9.5px;color:var(--muted);text-align:center;margin:10px 0 0">*1x transaksi = 1 stamp (tidak berlaku kelipatan).</p>
+
+        <button type="button" onclick="logoutVip()" style="width:100%;background:none;border:0;color:var(--muted);font-size:11px;margin-top:12px;text-decoration:underline">
           Keluar / Ganti Nomor HP
         </button>
       </div>
 
-      <!-- 3. BARISTA AREA -->
+      <!-- 3. AREA BARISTA (QR PERMANEN & KODE UNIK) -->
       <div id="vipBaristaSec" style="display:none;text-align:center">
-        <div style="background:#d8fa4b15;border:1px solid #d8fa4b35;border-radius:12px;padding:10px;margin-bottom:12px">
-          <div style="font-weight:900;font-size:12px;color:var(--lime)">QR Code Resmi Barista</div>
-          <div style="font-size:10.5px;color:var(--muted);margin-top:2px">Scan QR ini menggunakan HP customer.</div>
+        <div style="background:#d8fa4b15;border:1px solid #d8fa4b35;border-radius:14px;padding:12px;margin-bottom:14px">
+          <div style="font-weight:900;font-size:13px;color:var(--lime)">QR Code Resmi Barista</div>
+          <div style="font-size:11px;color:var(--muted);margin-top:3px">Scan QR di bawah menggunakan HP customer untuk menambah stamp.</div>
         </div>
-        <div style="background:#fff;padding:12px;border-radius:16px;display:inline-block;margin:auto">
+
+        <div style="background:#fff;padding:14px;border-radius:18px;display:inline-block;margin:auto">
           <div id="vipBaristaQrCanvas"></div>
         </div>
-        <div style="background:#0b0e0a;border:1px solid #293326;border-radius:12px;padding:10px;margin-top:12px">
-          <div style="font-size:9px;color:var(--muted)">KODE UNIK ALTERNATIF:</div>
-          <div style="font:800 18px monospace;color:var(--lime);letter-spacing:2px;margin-top:3px">2015703939</div>
+
+        <div style="background:#0b0e0a;border:1px solid #293326;border-radius:14px;padding:12px;margin-top:14px">
+          <div style="font-size:9.5px;color:var(--muted);letter-spacing:1px">KODE UNIK ALTERNATIF BARISTA:</div>
+          <div style="font:800 20px monospace;color:var(--lime);letter-spacing:3px;margin-top:4px">2015703939</div>
         </div>
-        <button type="button" class="vip-btn-sec" onclick="backFromBaristaQr()" style="margin-top:12px">
+
+        <button type="button" class="vip-btn-sec" onclick="backFromBaristaQr()" style="margin-top:14px">
           ← Kembali ke Halaman Member
         </button>
       </div>
-
     </div>
   </div>
 </div>
 
-<!-- POPUP PUTIH BERSIH -->
+<!-- CUSTOM POP-UP PUTIH BERSIH (TANPA TULISAN LOCALHOST) -->
 <div class="white-popup-overlay" id="whitePopup">
   <div class="white-popup-box">
     <div class="wp-icon" id="wpIcon">✨</div>
-    <h3 id="wpTitle" style="font:800 16px 'Space Grotesk';margin:0 0 6px">Informasi</h3>
-    <p id="wpMsg" style="font-size:11.5px;color:#4b5563;line-height:1.5;margin:0"></p>
+    <h3 id="wpTitle" style="font:800 17px 'Space Grotesk';margin:0 0 6px">Informasi</h3>
+    <p id="wpMsg" style="font-size:12px;color:#4b5563;line-height:1.55;margin:0;white-space:pre-line"></p>
     <input type="password" id="wpInput" class="wp-input" placeholder="••••" style="display:none">
     <div class="wp-actions" id="wpActions">
       <button type="button" class="wp-btn-cancel" id="wpCancelBtn" onclick="closeWhitePopup(false)">Batal</button>
@@ -380,29 +368,35 @@ footer{margin-top:50px;border-top:1px solid var(--line);padding:30px 0 40px}
   </div>
 </div>
 
-<!-- MODAL ZOOM & ADMIN -->
+<!-- MODAL QR ZOOM & ADMIN MODAL (TETAP UTUH) -->
 <div class="qr-modal" id="qrZoomModal" onclick="if(event.target===this) closeQrZoom()">
   <div class="qr-modal-box">
     <div class="kicker">SCAN BARCODE</div>
-    <h3 id="qrZoomTitle" style="font:700 18px 'Space Grotesk';margin:6px 0 4px">Barcode</h3>
-    <div class="qr-modal-img-wrap"><img id="qrZoomImg" src="" alt="Zoom"></div>
-    <button class="close-btn" style="padding:10px 14px" onclick="closeQrZoom()">✕ TUTUP</button>
+    <h3 id="qrZoomTitle" style="font:700 20px 'Space Grotesk';margin:6px 0 4px">Barcode</h3>
+    <p id="qrZoomSub" style="font-size:11px;color:var(--muted);margin:0"></p>
+    <div class="qr-modal-img-wrap">
+      <img id="qrZoomImg" src="" alt="Barcode Zoom">
+    </div>
+    <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap">
+      <a id="qrZoomLink" href="#" target="_blank" rel="noopener" class="primary" style="padding:10px 14px;display:none">BUKA LINK LANGSUNG ↗</a>
+      <button class="close-btn" style="padding:10px 14px" onclick="closeQrZoom()">✕ TUTUP</button>
+    </div>
   </div>
 </div>
 
 <div class="admin-modal" id="adminModal"><div class="admin-window">
 <div class="admin-header"><h2>✳ POINT CONTROL ROOM</h2><button class="close-btn" onclick="closeAdmin()">✕ CLOSE</button></div>
-<div id="loginView" class="login-card"><div class="kicker">RESTRICTED ACCESS</div><h3>Welcome, Admin.</h3><input id="adminPin" type="password" placeholder="PIN admin"><button class="add-btn" style="width:100%;padding:13px" onclick="loginAdmin()">UNLOCK ↗</button></div>
+<div id="loginView" class="login-card"><div class="kicker">RESTRICTED ACCESS</div><h3>Welcome, Admin.</h3><p class="hint">Masukkan PIN untuk membuka dashboard pengelolaan website.</p><input id="adminPin" type="password" placeholder="PIN admin"><button class="add-btn" style="width:100%;padding:13px" onclick="loginAdmin()">UNLOCK DASHBOARD ↗</button><p class="hint">PIN default awal adalah 123456 (Dapat diubah di tab Pengaturan).</p></div>
 <div id="dashboard" style="display:none">
   <div class="admin-tabs">
-    <button class="tab-btn active" data-tab="hero" onclick="switchTab('hero')">Hero</button>
-    <button class="tab-btn" data-tab="promos" onclick="switchTab('promos')">Promos</button>
-    <button class="tab-btn" data-tab="barcodes" onclick="switchTab('barcodes')">Barcodes</button>
-    <button class="tab-btn" data-tab="categories" onclick="switchTab('categories')">Categories</button>
-    <button class="tab-btn" data-tab="contacts" onclick="switchTab('contacts')">Contacts</button>
-    <button class="tab-btn" data-tab="extras" onclick="switchTab('extras')">Extras</button>
-    <button class="tab-btn" data-tab="video" onclick="switchTab('video')">Video</button>
-    <button class="tab-btn" data-tab="settings" onclick="switchTab('settings')">Settings</button>
+    <button class="tab-btn active" data-tab="hero" onclick="switchTab('hero')">Hero Freshly Made</button>
+    <button class="tab-btn" data-tab="promos" onclick="switchTab('promos')">Promo Hari Ini</button>
+    <button class="tab-btn" data-tab="barcodes" onclick="switchTab('barcodes')">Barcode & QR</button>
+    <button class="tab-btn" data-tab="categories" onclick="switchTab('categories')">Poster Kategori</button>
+    <button class="tab-btn" data-tab="contacts" onclick="switchTab('contacts')">Kontak Barista</button>
+    <button class="tab-btn" data-tab="extras" onclick="switchTab('extras')">Additional</button>
+    <button class="tab-btn" data-tab="video" onclick="switchTab('video')">Video Promo</button>
+    <button class="tab-btn" data-tab="settings" onclick="switchTab('settings')">Pengaturan</button>
   </div>
   <div class="admin-content" id="adminContent"></div>
 </div>
@@ -411,10 +405,12 @@ footer{margin-top:50px;border-top:1px solid var(--line);padding:30px 0 40px}
 
 <script>
 const STORE = 'pointcoffee_diponegoro2_v1';
-const API_URL = 'https://script.google.com/macros/s/AKfycbzV8lMr9fswc1RgNEKMYJjVk9oAxs3P7Jd6iGY5hruCTvwXwb43L9iOeckWw_fasDg-/exec';
+const API_URL = 'https://script.google.com/macros/s/AKfycbzNKR3vFLnQyhxVVkP_dRT6TgqiLGR91K8evb3eYEq9oH-eNeyr7FRbw-tYWnckhkaY/exec';
 
 let adminPinSession = '';
-let activeFilter = 'All';
+let cloudReady = false;
+let heroSliderTimer = null;
+let currentHeroSlideIndex = 0;
 
 const categoriesList = [
  { id: 'cat1', name: 'Signature', image: '', active: true },
@@ -428,59 +424,381 @@ const categoriesList = [
 const starter = {
  categories: categoriesList,
  heroImages: [],
- promos: [{ id: 'promo1', title: 'Promo Spesial Point Coffee', tag: 'TIKTOK & SHOPEE VIP', description: 'Gunakan voucher diskon menarik di TikTok Shop.', price: 'Voucher Mulai Rp 1', period: 'Hari ini', image: '', active: true }],
- barcodes: [{ id: 'qr1', title: 'TikTok Shop & Voucher', subtitle: 'Scan voucher TikTok', image: '', url: 'https://vt.tiktok.com/ZS9fUVAdewXEn-8OUCG/', active: true }],
+ promos: [{ id: 'promo1', title: 'Promo Spesial Point Coffee', tag: 'TIKTOK & SHOPEE VIP', description: 'Gunakan voucher diskon menarik di TikTok Shop atau klaim voucher spesial Rp 1 Rupiah dengan Shopee VIP untuk pemesanan lebih hemat.', price: 'Voucher Mulai Rp 1', period: 'Berlaku hari ini', image: '', active: true }],
+ barcodes: [
+  { id: 'qr1', title: 'TikTok Shop & Voucher', subtitle: 'Scan untuk klaim voucher TikTok', image: '', url: 'https://vt.tiktok.com/ZS9fUVAdewXEn-8OUCG/?poisharing=Point-Coffee---Indomaret-Diponegoro-2-%28TLQG%29', active: true },
+  { id: 'qr2', title: 'Shopee VIP Rp 1', subtitle: 'Scan voucher hemat Shopee', image: '', url: 'https://shopee.co.id/', active: true },
+  { id: 'qr3', title: 'Google Maps & Review', subtitle: 'Scan lokasi & ulasan store', image: '', url: 'https://maps.google.com/', active: true }
+ ],
  contacts: [{ id: 'c1', name: 'Barista Point Coffee', role: 'Customer Service', phone: '628123456789', label: 'WhatsApp' }],
- extras: [['Syrup', '+3K', 'Caramel / Vanilla'], ['Espresso', '+5K', 'Extra shot']],
- promoVideo: { active: false, url: '', title: '', subtitle: '', ctaText: '', ctaUrl: '' },
- settings: { tiktok: 'https://vt.tiktok.com/ZS9fUVAdewXEn-8OUCG/', maps: '#', pin: '123456' }
+ extras: [['Syrup', '+3K', 'Caramel / Vanilla / Matcha'], ['Sauce', '+3K', 'Caramel / Chocolate'], ['Toppings', '+3K', 'Coffee Jelly / Frappe Jelly'], ['Palm Sugar', '+3K', 'Tambahan palm sugar'], ['Natural Honey', '+5K', 'Tambahan natural honey'], ['Espresso', '+5K', 'Extra espresso shot'], ['Whipped Cream', '+5K', 'Extra whipped cream'], ['Upsize', '+5K', 'Ukuran lebih besar'], ['Oat Milk', '+4K', 'Milk alternative'], ['Cashew Milk', '+4K', 'Milk alternative'], ['Coconut Milk', '+10K', 'Milk alternative'], ['Decaf', '+8K', 'Decaffeinated coffee']],
+ promoVideo: {
+  active: true,
+  title: 'Freshly Brewed Every Day — Point Coffee Diponegoro 2',
+  subtitle: 'Tekan tombol play untuk menyaksikan kesegaran racikan minuman kami!',
+  url: 'https://drive.google.com/file/d/1kY3KPR6Wsgh9eZrwRWJSMYEWAibw9Zfr/view?usp=drivesdk',
+  ctaText: 'Klaim Voucher TikTok ↗',
+  ctaUrl: 'https://vt.tiktok.com/ZS9fUVAdewXEn-8OUCG/?poisharing=Point-Coffee---Indomaret-Diponegoro-2-%28TLQG%29'
+ },
+ settings: { tiktok: 'https://vt.tiktok.com/ZS9fUVAdewXEn-8OUCG/?poisharing=Point-Coffee---Indomaret-Diponegoro-2-%28TLQG%29', shopee: 'https://shopee.co.id/', maps: 'https://maps.google.com/', pin: '123456' }
 };
 
 function clone(x) { return JSON.parse(JSON.stringify(x)) }
-function loadData() {
- try {
-  let d = JSON.parse(localStorage.getItem(STORE));
+function loadData() { 
+ try { 
+  let d = JSON.parse(localStorage.getItem(STORE)); 
   if (d && (d.categories || d.heroImages)) {
    if(!d.heroImages) d.heroImages = [];
    if(!d.barcodes) d.barcodes = clone(starter.barcodes);
    if(!d.promoVideo) d.promoVideo = clone(starter.promoVideo);
    return d;
   }
-  return clone(starter);
- } catch (e) { return clone(starter) }
+  let backup = clone(starter);
+  if (d && d.menus) {
+   if (d.settings) backup.settings = d.settings;
+   if (d.promos) backup.promos = d.promos;
+   if (d.contacts) backup.contacts = d.contacts;
+   if (d.extras) backup.extras = d.extras;
+  }
+  return backup;
+ } catch (e) { return clone(starter) } 
 }
-let data = loadData();
 
-function persist(msg = 'Tersimpan!') {
- try { localStorage.setItem(STORE, JSON.stringify(data)); renderAll(); notify(msg); } catch(e){}
+let data = loadData(), activeFilter = 'All';
+
+function persist(message = 'Perubahan berhasil disimpan!') {
+ try {
+  localStorage.setItem(STORE, JSON.stringify(data));
+  renderAll();
+  if (isCloudConfigured() && adminPinSession) {
+   sendCloudSave(message);
+  } else {
+   notify(isCloudConfigured() ? 'Perubahan lokal tersimpan. Login admin untuk sinkronisasi cloud real-time.' : message + ' (lokal)');
+  }
+ } catch (e) {
+  notify('Penyimpanan penuh. Gunakan URL foto Google Drive.');
+ }
 }
+
+function isCloudConfigured() {
+ return API_URL.startsWith('https://script.google.com/macros/s/') && !API_URL.includes('PASTE_YOUR');
+}
+
+function cloudRead(done) {
+ if (!isCloudConfigured()) { done(null); return; }
+ let cb = 'pointCloudCb' + Date.now() + Math.floor(Math.random() * 1000);
+ window[cb] = payload => {
+  try { delete window[cb]; } catch (e) {}
+  script.remove();
+  done(payload && payload.ok ? payload.data : null);
+ };
+ let script = document.createElement('script');
+ script.src = API_URL + '?action=read&callback=' + cb + '&_=' + Date.now();
+ script.onerror = () => {
+  delete window[cb];
+  script.remove();
+  done(null);
+ };
+ document.head.appendChild(script);
+}
+
+function refreshCloud(silent = false) {
+ if (!isCloudConfigured()) return;
+ cloudRead(cloud => {
+  if (cloud && (cloud.categories || cloud.heroImages || cloud.promos || cloud.barcodes)) {
+   if (!cloud.heroImages) cloud.heroImages = [];
+   if (!cloud.barcodes) cloud.barcodes = [];
+   if (!cloud.promoVideo) cloud.promoVideo = clone(starter.promoVideo);
+   data = cloud;
+   try { localStorage.setItem(STORE, JSON.stringify(data)); } catch (e) {}
+   renderAll();
+   cloudReady = true;
+   if (!silent) notify('Data terbaru berhasil dimuat dari cloud (Real-time).');
+  } else if (!silent) {
+   notify('Belum ada data cloud atau koneksi gagal.');
+  }
+ });
+}
+
+function sendCloudSave(message) {
+ let payload = { action: 'saveAll', pin: adminPinSession, data: data };
+ fetch(API_URL, {
+  method: 'POST',
+  headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+  body: JSON.stringify(payload)
+ })
+ .then(res => res.json())
+ .then(res => {
+  if (res.ok) {
+   notify('Berhasil! Perubahan tersimpan real-time ke semua perangkat.');
+   setTimeout(() => refreshCloud(true), 1000);
+  } else {
+   notify('Gagal menyimpan: ' + (res.error || 'PIN Salah / Error'));
+  }
+ })
+ .catch(err => {
+  console.error('Cloud Save Error:', err);
+  notify('Gagal mengirim ke cloud. Periksa URL Apps Script.');
+ });
+}
+
 function esc(s) { return String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c])) }
 function asset(path) { return path ? (path.startsWith('data:') || path.startsWith('http') ? path : 'assets/' + path) : '' }
-function notify(msg) { let t = document.getElementById('toast'); t.textContent = msg; t.classList.add('show'); setTimeout(() => t.classList.remove('show'), 2200) }
+function notify(msg) { let t = document.getElementById('toast'); t.textContent = msg; t.classList.add('show'); setTimeout(() => t.classList.remove('show'), 2400) }
 
-/* ==================== SISTEM HITUNG MUNDUR & KONEKSI AKURAT ==================== */
-function showVipLoader(text, onComplete) {
-  const overlay = document.getElementById('vipLoaderOverlay');
-  const numEl = document.getElementById('vipCountdownNum');
-  document.getElementById('vipLoaderText').textContent = text;
-  overlay.classList.add('show');
-  
-  let count = 3;
-  numEl.textContent = count;
-  
-  let timer = setInterval(() => {
-    count--;
-    if (count > 0) {
-      numEl.textContent = count;
-    } else {
-      clearInterval(timer);
-      overlay.classList.remove('show');
-      if (onComplete) onComplete();
-    }
-  }, 330); // 3 detik hitung mundur akurat
+function parseDriveVideoUrl(rawUrl) {
+  if (!rawUrl) return '';
+  let url = rawUrl.trim();
+  let match = url.match(/\/file\/d\/([a-zA-Z0-9_-]+)/) || url.match(/[?&]id=([a-zA-Z0-9_-]+)/);
+  if (match && match[1]) {
+    return 'https://drive.google.com/file/d/' + match[1] + '/preview';
+  }
+  return url;
 }
 
-/* ==================== VIP STAMP CARD & FULL SCREEN LOCK ==================== */
+function renderPromoVideo() {
+  const sec = document.getElementById('videoPromo');
+  if (!sec) return;
+  const v = data.promoVideo || {};
+  const videoSrc = parseDriveVideoUrl(v.url);
+
+  if (!v.active || !videoSrc) {
+    sec.style.display = 'none';
+    sec.innerHTML = '';
+    return;
+  }
+
+  sec.style.display = 'block';
+  sec.innerHTML = `
+    <div class="section-head">
+      <div>
+        <div class="kicker">WATCH & CRAVE</div>
+        <h2>Promo Showcase<span style="color:var(--lime)">.</span></h2>
+      </div>
+      <div class="section-intro">Tonton kesegaran racikan minuman & promo terbaru dari Point Coffee Diponegoro 2.</div>
+    </div>
+    <div class="video-showcase-card">
+      <div class="video-player-wrap">
+        <iframe src="${esc(videoSrc)}" allow="autoplay; encrypted-media; fullscreen" allowfullscreen></iframe>
+      </div>
+      <div class="video-caption-row">
+        <div>
+          <h3>${esc(v.title || 'Promo Point Coffee Diponegoro 2')}</h3>
+          ${v.subtitle ? `<p>${esc(v.subtitle)}</p>` : ''}
+        </div>
+        ${v.ctaUrl ? `<a class="primary" href="${esc(v.ctaUrl)}" target="_blank" rel="noopener">${esc(v.ctaText || 'Lihat Promo ↗')}</a>` : ''}
+      </div>
+    </div>
+  `;
+}
+
+function renderHeroBarcodes() {
+  const track = document.getElementById('hbMarqueeTrack');
+  if (!track) return;
+
+  let activeBarcodes = (data.barcodes || []).filter(b => b.active !== false);
+  if (activeBarcodes.length === 0) {
+    track.innerHTML = `<div class="hb-item" style="min-width:260px"><div class="hb-info"><div class="hb-title">Belum ada barcode aktif</div><span style="font-size:9.5px;color:var(--muted)">Tambahkan via Admin → Barcode & QR</span></div></div>`;
+    return;
+  }
+
+  const buildSet = (list) => list.map(b => {
+    let imgSrc = asset(b.image);
+    return `
+      <div class="hb-item">
+        <div class="hb-qr-box" ${imgSrc ? `onclick="openQrZoom('${esc(b.id)}')"` : ''} title="${imgSrc ? 'Klik untuk memperbesar QR' : 'Belum ada gambar QR'}">
+          ${imgSrc
+            ? `<img src="${esc(imgSrc)}" alt="${esc(b.title)}" loading="lazy" onerror="this.style.display='none';this.parentElement.innerHTML='<span class=\\'hb-qr-placeholder\\'>QR<br>CODE</span>'">`
+            : `<span class="hb-qr-placeholder">QR<br>CODE</span>`
+          }
+        </div>
+        <div class="hb-info">
+          <div class="hb-title" title="${esc(b.title)}">${esc(b.title)}</div>
+          ${b.url
+            ? `<a class="hb-btn" href="${esc(b.url)}" target="_blank" rel="noopener">Buka Link ↗</a>`
+            : (imgSrc ? `<button type="button" class="hb-btn zoom-only" onclick="openQrZoom('${esc(b.id)}')">Lihat QR ⤢</button>` : `<span style="font-size:9px;color:var(--muted)">Scan langsung</span>`)
+          }
+        </div>
+      </div>
+    `;
+  }).join('');
+
+  let baseList = [...activeBarcodes];
+  while (baseList.length < 4) {
+    baseList = baseList.concat(activeBarcodes);
+  }
+  const singleHalfHtml = buildSet(baseList);
+  track.innerHTML = singleHalfHtml + singleHalfHtml;
+
+  const durationSec = Math.max(12, baseList.length * 4.5);
+  track.style.setProperty('--marquee-duration', durationSec + 's');
+}
+
+function renderHeroSlider() {
+ const container = document.getElementById('heroSliderContainer');
+ const dotsContainer = document.getElementById('heroSliderDots');
+ if (!container || !dotsContainer) return;
+ 
+ if (heroSliderTimer) { clearInterval(heroSliderTimer); heroSliderTimer = null; }
+
+ let images = (data.heroImages || []).map(img => asset(img.trim())).filter(Boolean);
+
+ if (images.length === 0) {
+  container.innerHTML = `<div class="hero-slide active"><div class="hero-slide-fallback"><div class="hero-cup">POINT<br>COFFEE</div></div></div>`;
+  dotsContainer.innerHTML = '';
+  return;
+ }
+
+ container.innerHTML = images.map((src, i) => `<div class="hero-slide ${i === 0 ? 'active' : ''}"><img src="${esc(src)}" alt="Freshly Made Point Coffee" loading="lazy" onerror="this.src='https://via.placeholder.com/600x800?text=Point+Coffee+Diponegoro+2'"></div>`).join('');
+
+ if (images.length > 1) {
+  dotsContainer.innerHTML = images.map((_, i) => `<div class="hero-dot ${i === 0 ? 'active' : ''}" onclick="goToHeroSlide(${i})"></div>`).join('');
+  currentHeroSlideIndex = 0;
+  heroSliderTimer = setInterval(() => {
+   currentHeroSlideIndex = (currentHeroSlideIndex + 1) % images.length;
+   updateHeroSlideUI();
+  }, 4000);
+ } else {
+  dotsContainer.innerHTML = '';
+ }
+}
+
+function goToHeroSlide(index) { currentHeroSlideIndex = index; updateHeroSlideUI(); }
+function updateHeroSlideUI() {
+ document.querySelectorAll('.hero-slide').forEach((slide, i) => slide.classList.toggle('active', i === currentHeroSlideIndex));
+ document.querySelectorAll('.hero-dot').forEach((dot, i) => dot.classList.toggle('active', i === currentHeroSlideIndex));
+}
+
+function renderPromo() {
+ let p = (data.promos || []).find(x => x.active) || (data.promos || [])[0];
+ let activeBarcodes = (data.barcodes || []).filter(b => b.active !== false);
+ let el = document.getElementById('promoView');
+ 
+ let barcodeCardsHtml = activeBarcodes.length ? activeBarcodes.map(b => {
+  let imgSrc = asset(b.image);
+  return `
+   <div class="qr-card">
+    ${imgSrc ? `
+     <div class="qr-thumb-wrap" onclick="openQrZoom('${esc(b.id)}')" title="Klik untuk memperbesar barcode">
+      <img src="${esc(imgSrc)}" alt="${esc(b.title)}" loading="lazy" onerror="this.style.display='none';this.parentElement.innerHTML='<span style=\\'font-size:10px;color:#333;font-weight:700\\'>Gambar QR tidak valid</span>'">
+      <span class="qr-zoom-badge">ZOOM ⤢</span>
+     </div>
+    ` : `
+     <div class="qr-thumb-wrap" style="background:#0f140d;border:1px dashed var(--line);cursor:default">
+      <span style="font-size:9.5px;color:var(--muted);padding:6px">Foto barcode belum dipasang</span>
+     </div>
+    `}
+    <div class="qr-title">${esc(b.title)}</div>
+    ${b.subtitle ? `<div class="qr-sub">${esc(b.subtitle)}</div>` : ''}
+    ${b.url ? `<a class="qr-open-link" href="${esc(b.url)}" target="_blank" rel="noopener">Buka Link ↗</a>` : ''}
+   </div>
+  `;
+ }).join('') : `<div class="qr-empty">Belum ada foto barcode yang aktif.<br>Silakan tambahkan melalui <b>Admin Panel → Barcode & QR</b>.</div>`;
+
+ el.innerHTML = `
+  <div class="promo-layout">
+   <div class="promo-feature">
+    ${p ? `
+     <span class="promo-label">${esc(p.tag || 'SPECIAL OFFER')}</span>
+     <h3>${esc(p.title)}</h3>
+     <p>${esc(p.description)}</p>
+     <div class="promo-value">${esc(p.price)}</div>
+     ${p.image ? `<img class="promo-image" src="${esc(asset(p.image))}" alt="${esc(p.title)}">` : ''}
+    ` : `
+     <span class="promo-label">SPECIAL OFFER</span>
+     <h3>Promo Point Coffee</h3>
+     <p>Belum ada promo aktif saat ini. Cek secara berkala atau scan barcode di samping untuk klaim voucher.</p>
+    `}
+   </div>
+   <div class="promo-side">
+    <div>
+     <div class="kicker">SCAN BARCODE</div>
+     <h3>Link & Voucher<br>Point Coffee<span style="color:var(--lime)">.</span></h3>
+     <p>Scan QR Code untuk akses cepat TikTok Shop, Shopee VIP, Google Maps & lainnya (klik gambar QR untuk memperbesar).</p>
+    </div>
+    <div class="qr-grid">${barcodeCardsHtml}</div>
+    <div class="promo-foot">✳ SCAN BARCODE • POINT COFFEE DIPONEGORO 2</div>
+   </div>
+  </div>
+ `;
+}
+
+function openQrZoom(id) {
+ let b = (data.barcodes || []).find(x => x.id === id);
+ if (!b || !b.image) return;
+ document.getElementById('qrZoomTitle').textContent = b.title || 'Scan Barcode';
+ document.getElementById('qrZoomSub').textContent = b.subtitle || '';
+ document.getElementById('qrZoomImg').src = asset(b.image);
+ let linkEl = document.getElementById('qrZoomLink');
+ if (b.url) { linkEl.href = b.url; linkEl.style.display = 'inline-flex'; } else { linkEl.style.display = 'none'; }
+ document.getElementById('qrZoomModal').classList.add('show');
+}
+function closeQrZoom() { document.getElementById('qrZoomModal').classList.remove('show'); }
+
+function renderPills() {
+ let cats = data.categories || [];
+ document.getElementById('categoryPills').innerHTML = ['All', ...cats.map(c => c.name)].map(c => `<button class="pill ${activeFilter === c ? 'active' : ''}" onclick="setFilter('${c}')">${c === 'All' ? 'Semua Kategori' : c}</button>`).join('');
+}
+function setFilter(c) { activeFilter = c; renderPills(); renderMenu(); }
+
+function renderMenu() {
+ let cats = data.categories || [];
+ let visible = cats.filter(c => c.active && (activeFilter === 'All' || c.name === activeFilter));
+ let html = visible.map(cat => {
+  let img = asset(cat.image);
+  return `<div class="category-card" id="cat-${cat.id}"><div class="category-header"><h3>${esc(cat.name)}</h3><span>KATALOG POSTER</span></div><div class="category-poster">${img ? `<img src="${esc(img)}" alt="${esc(cat.name)}" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><div class="no-poster" style="display:none">Poster belum diunggah atau link gambar tidak valid.</div>` : '<div class="no-poster">Belum ada poster untuk kategori ini. Silakan upload melalui Admin Panel.</div>'}</div></div>`;
+ }).join('');
+ document.getElementById('menuCatalog').innerHTML = html || '<div class="empty-state">Kategori tidak ditemukan.</div>';
+}
+
+function renderContacts() {
+ document.getElementById('contactView').innerHTML = data.contacts?.length ? data.contacts.map(c => `<a class="contact-card" href="https://wa.me/${esc(c.phone.replace(/\D/g, ''))}" target="_blank" rel="noopener"><span class="avatar">${esc((c.name || 'B').slice(0, 1).toUpperCase())}</span><span style="min-width:0"><strong>${esc(c.name)}</strong><small>${esc(c.role)} · ${esc(c.label || c.phone)}</small></span><b style="margin-left:auto;color:var(--lime)">↗</b></a>`).join('') : '<div class="empty-state">Kontak barista akan segera tersedia.</div>';
+}
+
+function renderExtras() {
+ document.getElementById('additionalView').innerHTML = (data.extras || []).map(x => `<div class="add-on"><strong>${esc(x[0])}</strong><span>${esc(x[1])}</span><small style="display:block;color:var(--muted);font-size:9px;margin-top:5px">${esc(x[2] || '')}</small></div>`).join('');
+}
+
+function renderLinks() {
+ const tiktokUrl = data.settings?.tiktok || 'https://vt.tiktok.com/ZS9fUVAdewXEn-8OUCG/?poisharing=Point-Coffee---Indomaret-Diponegoro-2-%28TLQG%29';
+ ['tiktokTop', 'tiktokLink'].forEach(id => { let el = document.getElementById(id); if(el) el.href = tiktokUrl; });
+ ['mapsTop', 'mapsLink'].forEach(id => { let el = document.getElementById(id); if(el) el.href = data.settings?.maps || '#'; });
+}
+
+function renderAll() {
+ renderHeroBarcodes(); renderHeroSlider(); renderPromo(); renderPills(); renderMenu(); renderContacts(); renderExtras(); renderLinks(); renderPromoVideo();
+ document.getElementById('year').textContent = new Date().getFullYear();
+}
+
+function initBarcodeShowcaseAnimation() {
+  const showcase = document.getElementById('heroBarcodeShowcase');
+  const innerBox = document.getElementById('hbInnerBox');
+  const track = document.getElementById('hbMarqueeTrack');
+  if (!showcase || !innerBox) return;
+  const totalEffects = 6;
+  let lastEffect = 0;
+  function pickRandomEffect() {
+    let fx;
+    do { fx = Math.floor(Math.random() * totalEffects) + 1; } while (fx === lastEffect && totalEffects > 1);
+    lastEffect = fx;
+    return fx;
+  }
+  function triggerCycle() {
+    const fx = pickRandomEffect();
+    if (track) { track.style.animation = 'none'; void track.offsetWidth; track.style.animation = ''; }
+    innerBox.className = 'hb-inner fx-in-' + fx;
+    showcase.classList.add('active');
+    setTimeout(() => {
+      const outFx = pickRandomEffect();
+      innerBox.className = 'hb-inner fx-out-' + outFx;
+      setTimeout(() => { showcase.classList.remove('active'); }, 550);
+    }, 20000);
+  }
+  setTimeout(triggerCycle, 800);
+  setInterval(triggerCycle, 25000);
+}
+
+/* ==================== LOGIKA VIP STAMP CARD (REAL-TIME GOOGLE SHEETS) ==================== */
 const VIP_SECRET_QR = "POINTCOFFEE_DIPONEGORO2_SECRET";
 const VIP_UNIQUE_CODE = "2015703939";
 const VIP_BARISTA_PIN = "1234";
@@ -500,56 +818,72 @@ function showWhitePopup({ title, message, type = "alert", icon = "✨", callback
   whitePopupCb = callback;
 
   if (type === "prompt") {
-    input.style.display = 'block'; input.value = ''; cancelBtn.style.display = 'block';
-    actions.style.gridTemplateColumns = '1fr 1fr'; setTimeout(() => input.focus(), 80);
+    input.style.display = 'block';
+    input.value = '';
+    cancelBtn.style.display = 'block';
+    actions.style.gridTemplateColumns = '1fr 1fr';
+    setTimeout(() => input.focus(), 80);
   } else if (type === "confirm") {
-    input.style.display = 'none'; cancelBtn.style.display = 'block'; actions.style.gridTemplateColumns = '1fr 1fr';
+    input.style.display = 'none';
+    cancelBtn.style.display = 'block';
+    actions.style.gridTemplateColumns = '1fr 1fr';
   } else {
-    input.style.display = 'none'; cancelBtn.style.display = 'none'; actions.style.gridTemplateColumns = '1fr';
+    input.style.display = 'none';
+    cancelBtn.style.display = 'none';
+    actions.style.gridTemplateColumns = '1fr';
   }
   overlay.classList.add('show');
 }
+
 function closeWhitePopup(ok) {
   const overlay = document.getElementById('whitePopup');
   const val = document.getElementById('wpInput').value;
   overlay.classList.remove('show');
-  if (whitePopupCb) { whitePopupCb(ok ? (val || true) : false); whitePopupCb = null; }
+  if (whitePopupCb) {
+    whitePopupCb(ok ? (val || true) : false);
+    whitePopupCb = null;
+  }
 }
 
 function openVipModal() {
-  document.body.classList.add('modal-open'); // Kunci layar tidak bisa digeser
   document.getElementById('vipModal').classList.add('show');
 }
 function closeVipModal() {
   stopVipScanner();
-  document.body.classList.remove('modal-open');
   document.getElementById('vipModal').classList.remove('show');
 }
 
 function openVipInfo() {
   showWhitePopup({
-    title: "Ketentuan VIP Diponegoro 2", icon: "☕",
-    message: "✨ Eksklusif Outlet: Kartu VIP khusus Point Coffee Diponegoro 2.\n\n📍 Setiap 1x transaksi mendapat 1 stamp.\n\n🎁 Kumpulkan 10 stamp untuk 1 Free Palm Sugar Latte."
+    title: "Ketentuan VIP Diponegoro 2",
+    icon: "☕",
+    message: "✨ Eksklusif Outlet: Kartu VIP ini khusus dan hanya berlaku untuk pembeli di Point Coffee Diponegoro 2.\n\n📍 Pengumpulan Stamp: Setiap 1x transaksi mendapat 1 stamp (berlaku non-kelipatan, beli 1 atau 20 cup tetap 1 stamp).\n\n🎁 Hadiah & Klaim: Kumpulkan 10 stamp untuk 1 Free Palm Sugar Latte. Penukaran wajib dilakukan pada hari yang sama saat stamp ke-10 tercapai, lalu stamp otomatis kembali ke 0."
   });
 }
 
 function openBaristaPinPopup() {
   showWhitePopup({
-    title: "Otorisasi Barista", message: "Masukkan PIN Barista:", type: "prompt", icon: "🔒",
+    title: "Otorisasi Barista",
+    message: "Masukkan PIN Rahasia Barista:",
+    type: "prompt",
+    icon: "🔒",
     callback: (res) => {
       if (res === VIP_BARISTA_PIN) {
         document.getElementById('vipLoginSec').style.display = 'none';
         document.getElementById('vipBaristaSec').style.display = 'block';
         if (!vipQrGenerated) {
-          new QRCode(document.getElementById('vipBaristaQrCanvas'), { text: VIP_SECRET_QR, width: 150, height: 150 });
+          new QRCode(document.getElementById('vipBaristaQrCanvas'), {
+            text: VIP_SECRET_QR, width: 165, height: 165, colorDark: "#000000", colorLight: "#ffffff"
+          });
           vipQrGenerated = true;
         }
       } else if (res !== false) {
-        showWhitePopup({ title: "PIN Salah", message: "PIN Barista salah!", icon: "❌" });
+        showWhitePopup({ title: "PIN Salah", message: "PIN Barista tidak sesuai!", icon: "❌" });
       }
     }
   });
 }
+
 function backFromBaristaQr() {
   document.getElementById('vipBaristaSec').style.display = 'none';
   document.getElementById('vipLoginSec').style.display = 'block';
@@ -564,7 +898,7 @@ function vipApiCall(payload, onDone) {
   .then(r => r.json())
   .then(res => onDone(res))
   .catch(() => {
-    showWhitePopup({ title: "Koneksi Gagal", message: "Periksa koneksi internet kamu.", icon: "⚠️" });
+    showWhitePopup({ title: "Koneksi Gagal", message: "Tidak dapat terhubung ke database Google Sheets. Periksa koneksi internet.", icon: "⚠️" });
   });
 }
 
@@ -572,31 +906,36 @@ function handleVipAuth() {
   const phone = document.getElementById('vipPhoneInput').value.trim().replace(/\D/g, '');
   const nameWrap = document.getElementById('vipNameWrap');
   const name = document.getElementById('vipNameInput').value.trim();
+  const btn = document.getElementById('vipLoginBtn');
 
   if (!phone || phone.length < 9) {
     showWhitePopup({ title: "Perhatian", message: "Masukkan nomor WhatsApp yang valid!", icon: "⚠️" });
     return;
   }
 
+  btn.textContent = "MEMERIKSA DATABASE...";
+  btn.disabled = true;
+
   const isRegistering = nameWrap.style.display === 'block';
   if (isRegistering && !name) {
-    showWhitePopup({ title: "Nama Wajib Diisi", message: "Masukkan nama lengkap kamu.", icon: "⚠️" });
+    btn.textContent = "DAFTAR SEKARANG ↗";
+    btn.disabled = false;
+    showWhitePopup({ title: "Nama Wajib Diisi", message: "Silakan masukkan nama lengkap kamu untuk mendaftar.", icon: "⚠️" });
     return;
   }
 
-  showVipLoader("Menghubungkan ke Database...", () => {
-    vipApiCall({ action: "vip_auth", phone: phone, name: isRegistering ? name : "" }, (res) => {
-      if (res && res.isRegistered) {
-        currentVipUser = { phone: res.phone, name: res.name, stamps: res.stamps };
-        if (isRegistering) {
-          showWhitePopup({ title: "Pendaftaran Berhasil! 🎉", message: "VIP Pass siap digunakan.", icon: "⭐" });
-        }
-        renderVipDashboard();
-      } else {
-        nameWrap.style.display = 'block';
-        showWhitePopup({ title: "Nomor Baru", message: "Nomor belum terdaftar. Silakan masukkan nama kamu lalu klik masuk kembali.", icon: "ℹ️" });
+  vipApiCall({ action: "vip_auth", phone: phone, name: isRegistering ? name : "" }, (res) => {
+    btn.disabled = false;
+    if (res && res.isRegistered) {
+      currentVipUser = { phone: res.phone, name: res.name, stamps: res.stamps };
+      if (isRegistering) {
+        showWhitePopup({ title: "Pendaftaran Berhasil! 🎉", message: "Kartu VIP Point Coffee Diponegoro 2 kamu siap digunakan.", icon: "⭐" });
       }
-    });
+      renderVipDashboard();
+    } else {
+      nameWrap.style.display = 'block';
+      btn.textContent = "DAFTAR SEKARANG ↗";
+    }
   });
 }
 
@@ -620,61 +959,82 @@ function startVipScanner() {
   document.getElementById('vipScannerWrap').style.display = 'block';
   vipQrScanner = new Html5Qrcode("vipQrReader");
   vipQrScanner.start(
-    { facingMode: "environment" }, { fps: 10, qrbox: { width: 200, height: 200 } },
+    { facingMode: "environment" },
+    { fps: 10, qrbox: { width: 210, height: 210 } },
     (decodedText) => {
       stopVipScanner();
-      if (decodedText === VIP_SECRET_QR) { executeVipAddStamp(); }
-      else { showWhitePopup({ title: "QR Tidak Valid", message: "Gunakan QR resmi Barista Diponegoro 2.", icon: "❌" }); }
+      if (decodedText === VIP_SECRET_QR) {
+        executeVipAddStamp();
+      } else {
+        showWhitePopup({ title: "QR Tidak Valid", message: "Pastikan men-scan QR Code resmi Barista Point Coffee Diponegoro 2.", icon: "❌" });
+      }
     },
     () => {}
-  ).catch(() => { showWhitePopup({ title: "Kamera Gagal", message: "Gunakan Kode Unik Barista di bawah.", icon: "📷" }); });
+  ).catch(() => {
+    showWhitePopup({ title: "Kamera Diblokir", message: "Izinkan akses kamera di browser atau gunakan Kode Unik Barista di bawah.", icon: "📷" });
+  });
 }
 
 function stopVipScanner() {
   if (vipQrScanner) {
-    vipQrScanner.stop().then(() => { document.getElementById('vipScannerWrap').style.display = 'none'; }).catch(() => { document.getElementById('vipScannerWrap').style.display = 'none'; });
-  } else { document.getElementById('vipScannerWrap').style.display = 'none'; }
+    vipQrScanner.stop().then(() => {
+      document.getElementById('vipScannerWrap').style.display = 'none';
+    }).catch(() => {
+      document.getElementById('vipScannerWrap').style.display = 'none';
+    });
+  } else {
+    document.getElementById('vipScannerWrap').style.display = 'none';
+  }
 }
 
 function submitVipUniqueCode() {
   const code = document.getElementById('vipUniqueCodeInput').value.trim();
+  if (!code) {
+    showWhitePopup({ title: "Kode Kosong", message: "Masukkan 10 digit kode unik dari barista.", icon: "⚠️" });
+    return;
+  }
   if (code === VIP_UNIQUE_CODE) {
     document.getElementById('vipUniqueCodeInput').value = '';
     executeVipAddStamp();
   } else {
-    showWhitePopup({ title: "Kode Salah", message: "Kode unik tidak sesuai!", icon: "❌" });
+    showWhitePopup({ title: "Kode Salah", message: "Kode unik barista tidak sesuai!", icon: "❌" });
   }
 }
 
 function executeVipAddStamp() {
-  showVipLoader("Memproses Stamp Barista...", () => {
-    vipApiCall({ action: "vip_add_stamp", phone: currentVipUser.phone }, (res) => {
-      if (res && res.status === "success") {
-        currentVipUser.stamps = res.stamps;
-        renderVipDashboard();
-        showWhitePopup({ title: "Stamp Bertambah! 🎉", message: `Total Stamp: ${res.stamps} / 10`, icon: "☕" });
-      } else if (res && res.status === "full") {
-        showWhitePopup({ title: "Stamp Penuh!", message: "Sudah 10/10! Klaim hadiah kamu sekarang.", icon: "🎁" });
-      } else {
-        showWhitePopup({ title: "Gagal", message: res.error || "Gagal menambah stamp.", icon: "❌" });
-      }
-    });
+  vipApiCall({ action: "vip_add_stamp", phone: currentVipUser.phone }, (res) => {
+    if (res && res.status === "success") {
+      currentVipUser.stamps = res.stamps;
+      renderVipDashboard();
+      showWhitePopup({
+        title: "Stamp Bertambah! 🎉",
+        message: `1 Stamp berhasil tercatat real-time!\nKoleksi kamu sekarang: ${res.stamps} / 10 Stamp`,
+        icon: "☕"
+      });
+    } else if (res && res.status === "full") {
+      showWhitePopup({ title: "Stamp Penuh!", message: "Stamp sudah 10/10! Silakan klaim Free Palm Sugar Latte kamu terlebih dahulu.", icon: "🎁" });
+    }
   });
 }
 
 function confirmVipClaim() {
   showWhitePopup({
-    title: "Klaim Palm Sugar Latte", message: "Tukar 10 stamp dengan Free Kopi sekarang?", type: "confirm", icon: "🎁",
+    title: "Klaim Palm Sugar Latte",
+    message: "Tukar 10 stamp dengan 1 Free Palm Sugar Latte sekarang?\n\n(Wajib ditukar hari ini di depan barista dan stamp akan kembali ke 0)",
+    type: "confirm",
+    icon: "🎁",
     callback: (yes) => {
       if (yes) {
-        showVipLoader("Memproses Klaim...", () => {
-          vipApiCall({ action: "vip_claim", phone: currentVipUser.phone }, (res) => {
-            if (res && res.status === "success") {
-              currentVipUser.stamps = 0;
-              renderVipDashboard();
-              showWhitePopup({ title: "Berhasil Diklaim! 🎉", message: "Tunjukkan layar ini ke Barista.", icon: "☕" });
-            }
-          });
+        vipApiCall({ action: "vip_claim", phone: currentVipUser.phone }, (res) => {
+          if (res && res.status === "success") {
+            currentVipUser.stamps = 0;
+            renderVipDashboard();
+            showWhitePopup({
+              title: "Berhasil Diklaim! 🎉",
+              message: "Tunjukkan layar ini kepada Barista Point Coffee Diponegoro 2 untuk mengambil Free Palm Sugar Latte kamu!",
+              icon: "☕"
+            });
+          }
         });
       }
     }
@@ -686,64 +1046,153 @@ function logoutVip() {
   document.getElementById('vipDashSec').style.display = 'none';
   document.getElementById('vipLoginSec').style.display = 'block';
   document.getElementById('vipNameWrap').style.display = 'none';
+  document.getElementById('vipLoginBtn').textContent = "MASUK / CEK KARTU VIP ↗";
   document.getElementById('vipPhoneInput').value = '';
+  document.getElementById('vipNameInput').value = '';
 }
 
-/* ==================== RENDER WEB LAMA ==================== */
-function renderAll() {
-  document.getElementById('year').textContent = new Date().getFullYear();
-  renderHeroSlider(); renderPromo(); renderPills(); renderMenu(); renderContacts(); renderExtras();
+/* ==================== ADMIN PANEL LAMA (TIDAK BERUBAH) ==================== */
+function openAdmin() {
+ document.getElementById('adminModal').classList.add('show');
+ document.getElementById('loginView').style.display = 'block';
+ document.getElementById('dashboard').style.display = 'none';
+ document.getElementById('adminPin').value = '';
 }
-function renderHeroSlider() {
-  const container = document.getElementById('heroSliderContainer');
-  const dotsContainer = document.getElementById('heroSliderDots');
-  if (!container) return;
-  container.innerHTML = `<div class="hero-slide active"><div class="hero-slide-fallback"><div style="font:800 20px 'Space Grotesk';color:#d8fa4b">POINT COFFEE</div></div></div>`;
-  if(dotsContainer) dotsContainer.innerHTML = '';
-}
-function renderPromo() {
-  let p = data.promos[0];
-  document.getElementById('promoView').innerHTML = `
-    <div class="promo-layout">
-      <div class="promo-feature">
-        <span class="promo-label">${esc(p.tag)}</span>
-        <h3>${esc(p.title)}</h3>
-        <p>${esc(p.description)}</p>
-        <div class="promo-value">${esc(p.price)}</div>
-      </div>
-      <div class="promo-side">
-        <div><div class="kicker">SCAN BARCODE</div><h3>Voucher & Promo</h3></div>
-        <div class="qr-grid"><div class="qr-empty">Scan QR Barista di store untuk stamp VIP.</div></div>
-      </div>
-    </div>`;
-}
-function renderPills() {
-  document.getElementById('categoryPills').innerHTML = ['All', ...data.categories.map(c => c.name)].map(c => `<button class="pill ${activeFilter === c ? 'active' : ''}" onclick="setFilter('${c}')">${c}</button>`).join('');
-}
-function setFilter(c) { activeFilter = c; renderPills(); renderMenu(); }
-function renderMenu() {
-  let visible = data.categories.filter(c => c.active && (activeFilter === 'All' || c.name === activeFilter));
-  document.getElementById('menuCatalog').innerHTML = visible.map(cat => `<div class="category-card"><div class="category-header"><h3>${esc(cat.name)}</h3></div><div class="category-poster"><div class="no-poster">Katalog Menu Point Coffee</div></div></div>`).join('');
-}
-function renderContacts() {
-  document.getElementById('contactView').innerHTML = data.contacts.map(c => `<a class="contact-card" href="https://wa.me/${esc(c.phone)}"><span class="avatar">C</span><div><strong>${esc(c.name)}</strong><small>${esc(c.role)}</small></div></a>`).join('');
-}
-function renderExtras() {
-  document.getElementById('additionalView').innerHTML = data.extras.map(x => `<div class="add-on"><strong>${esc(x[0])}</strong><span>${esc(x[1])}</span></div>`).join('');
-}
-function openAdmin() { document.getElementById('adminModal').classList.add('show'); }
 function closeAdmin() { document.getElementById('adminModal').classList.remove('show'); }
+
 function loginAdmin() {
-  if(document.getElementById('adminPin').value === '123456') {
-    document.getElementById('loginView').style.display = 'none';
-    document.getElementById('dashboard').style.display = 'block';
-  } else { notify('PIN Salah'); }
+ let pin = document.getElementById('adminPin').value.trim();
+ let correctPin = data.settings?.pin || '123456';
+ if (pin.length < 4) { notify('Masukkan PIN admin minimal 4 karakter.'); return; }
+ if (pin !== correctPin) { notify('PIN salah! Akses ditolak.'); return; }
+ adminPinSession = pin;
+ document.getElementById('loginView').style.display = 'none';
+ document.getElementById('dashboard').style.display = 'block';
+ switchTab('hero');
+ if (isCloudConfigured()) refreshCloud(true);
+ else notify('Mode lokal: URL Google Apps Script belum dipasang.');
 }
-function switchTab(t) { notify('Tab: ' + t); }
-function openQrZoom() {}
-function closeQrZoom() {}
+
+function switchTab(tab) {
+ document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active', b.dataset.tab === tab));
+ ({ hero: adminHero, promos: adminPromos, barcodes: adminBarcodes, categories: adminCategories, contacts: adminContacts, extras: adminExtras, video: adminVideo, settings: adminSettings })[tab]();
+}
+
+function adminHero() {
+ let c = document.getElementById('adminContent');
+ let currentUrls = (data.heroImages || []).join('\n');
+ c.innerHTML = `<div class="admin-row"><h3>Kelola Foto Carousel "Freshly Made" (Hero Atas)</h3></div><div class="form-grid"><div class="field full"><label>DAFTAR LINK FOTO HERO (URL GOOGLE DRIVE / DIRECT LINK)</label><textarea id="heroImagesInput" placeholder="https://lh3.googleusercontent.com/d/...">${esc(currentUrls)}</textarea></div></div><div class="form-actions"><button class="add-btn" onclick="saveHeroImages()">SIMPAN FOTO HERO</button></div>`;
+}
+function saveHeroImages() { data.heroImages = document.getElementById('heroImagesInput').value.split('\n').map(s => s.trim()).filter(Boolean); persist('Foto Hero Freshly Made berhasil diperbarui!'); adminHero(); }
+
+function adminPromos() {
+ document.getElementById('adminContent').innerHTML = `<div class="admin-row"><h3>Promo Hari Ini</h3><button class="add-btn" onclick="editPromo()">＋ TAMBAH / EDIT PROMO KHUSUS</button></div><div class="admin-list">${(data.promos || []).map(p => `<div class="admin-item"><div><strong>${esc(p.title)}</strong><small>${esc(p.tag)} · ${esc(p.period)} · ${p.active ? 'AKTIF' : 'NONAKTIF'}</small></div><div class="admin-actions"><button class="mini-btn" onclick="editPromo('${p.id}')">Edit</button><button class="mini-btn danger" onclick="removePromo('${p.id}')">Hapus</button></div></div>`).join('') || '<div class="empty-state">Belum ada promo.</div>'}</div>`;
+}
+function editPromo(id) {
+ let old = (data.promos || []).find(p => p.id === id);
+ let p = old || { id: 'p' + Date.now(), title: '', tag: 'TIKTOK & SHOPEE VIP', description: '', price: '', period: 'Berlaku hari ini', image: '', active: true };
+ document.getElementById('adminContent').innerHTML = `<div class="admin-row"><h3>${id ? 'Edit promo' : 'Buat promo baru'}</h3><button class="mini-btn" onclick="adminPromos()">← KEMBALI</button></div><div class="form-grid"><div class="field"><label>JUDUL PROMO</label><input id="pTitle" value="${esc(p.title)}"></div><div class="field"><label>LABEL PROMO</label><input id="pTag" value="${esc(p.tag)}"></div><div class="field"><label>HARGA / PENAWARAN</label><input id="pPrice" value="${esc(p.price)}"></div><div class="field"><label>PERIODE PROMO</label><input id="pPeriod" value="${esc(p.period)}"></div><div class="field full"><label>DESKRIPSI PROMO</label><textarea id="pDesc">${esc(p.description)}</textarea></div><div class="field full"><label>FOTO PROMO KHUSUS (URL GOOGLE DRIVE)</label><input id="pUrl" value="${esc(p.image)}"></div><div class="field"><label class="check"><input id="pActive" type="checkbox" ${p.active ? 'checked' : ''}> Tampilkan sebagai promo aktif utama</label></div></div><div class="form-actions"><button class="add-btn" onclick="savePromo('${id || ''}')">SIMPAN PROMO</button></div>`;
+}
+function savePromo(id) {
+ let p = { id: id || 'p' + Date.now(), title: document.getElementById('pTitle').value.trim(), tag: document.getElementById('pTag').value, price: document.getElementById('pPrice').value, period: document.getElementById('pPeriod').value, description: document.getElementById('pDesc').value, image: document.getElementById('pUrl').value.trim(), active: document.getElementById('pActive').checked };
+ if (!p.title) { notify('Judul promo wajib diisi.'); return; }
+ if (!data.promos) data.promos = [];
+ if (p.active) data.promos.forEach(x => x.active = false);
+ let i = data.promos.findIndex(x => x.id === id);
+ if (i >= 0) data.promos[i] = p; else data.promos.unshift(p);
+ persist(); adminPromos();
+}
+function removePromo(id) { if (confirm('Hapus promo ini?')) { data.promos = data.promos.filter(p => p.id !== id); persist(); adminPromos(); } }
+
+function adminBarcodes() {
+ let list = data.barcodes || [];
+ document.getElementById('adminContent').innerHTML = `<div class="admin-row"><h3>Kelola Foto Barcode / QR Code (${list.length})</h3><button class="add-btn" onclick="editBarcode()">＋ TAMBAH BARCODE BARU</button></div><div class="admin-list">${list.map(b => `<div class="admin-item"><div><strong>${esc(b.title)}</strong><small>${esc(b.subtitle || 'Tanpa keterangan')} · ${b.image ? 'Foto QR terpasang' : 'Belum ada foto QR'} · ${b.active !== false ? 'TAMPIL' : 'DISEMBUNYIKAN'}</small></div><div class="admin-actions"><button class="mini-btn" onclick="editBarcode('${b.id}')">Edit</button><button class="mini-btn danger" onclick="removeBarcode('${b.id}')">Hapus</button></div></div>`).join('') || '<div class="empty-state">Belum ada barcode.</div>'}</div>`;
+}
+function editBarcode(id) {
+ let old = (data.barcodes || []).find(b => b.id === id);
+ let b = old || { id: 'qr' + Date.now(), title: '', subtitle: '', image: '', url: '', active: true };
+ document.getElementById('adminContent').innerHTML = `<div class="admin-row"><h3>${id ? 'Edit Barcode / QR' : 'Tambah Barcode / QR Baru'}</h3><button class="mini-btn" onclick="adminBarcodes()">← KEMBALI</button></div><div class="form-grid"><div class="field"><label>NAMA BARCODE</label><input id="qrTitle" value="${esc(b.title)}"></div><div class="field"><label>KETERANGAN SINGKAT</label><input id="qrSub" value="${esc(b.subtitle)}"></div><div class="field full"><label>LINK FOTO BARCODE (URL GOOGLE DRIVE)</label><input id="qrImage" value="${esc(b.image)}"></div><div class="field full"><label>LINK TUJUAN</label><input id="qrUrl" value="${esc(b.url)}"></div><div class="field full"><label class="check"><input id="qrActive" type="checkbox" ${b.active !== false ? 'checked' : ''}> Tampilkan barcode ini di website</label></div></div><div class="form-actions"><button class="add-btn" onclick="saveBarcode('${id || ''}')">SIMPAN BARCODE</button></div>`;
+}
+function saveBarcode(id) {
+ let b = { id: id || 'qr' + Date.now(), title: document.getElementById('qrTitle').value.trim(), subtitle: document.getElementById('qrSub').value.trim(), image: document.getElementById('qrImage').value.trim(), url: document.getElementById('qrUrl').value.trim(), active: document.getElementById('qrActive').checked };
+ if (!b.title) { notify('Nama barcode wajib diisi.'); return; }
+ if (!data.barcodes) data.barcodes = [];
+ let i = data.barcodes.findIndex(x => x.id === id);
+ if (i >= 0) data.barcodes[i] = b; else data.barcodes.push(b);
+ persist('Barcode berhasil disimpan!'); adminBarcodes();
+}
+function removeBarcode(id) { if (confirm('Hapus barcode ini?')) { data.barcodes = (data.barcodes || []).filter(b => b.id !== id); persist('Barcode berhasil dihapus!'); adminBarcodes(); } }
+
+function adminCategories() {
+ document.getElementById('adminContent').innerHTML = `<div class="admin-row"><h3>Kelola Poster Kategori · ${data.categories.length} kategori</h3></div><div class="admin-list">${data.categories.map(cat => `<div class="admin-item"><div><strong>${esc(cat.name)}</strong><small>${cat.image ? 'Poster terpasang' : 'Belum ada poster'} · ${cat.active ? 'Tampil' : 'Disembunyikan'}</small></div><div class="admin-actions"><button class="mini-btn" onclick="editCategory('${cat.id}')">Upload/Edit Poster</button></div></div>`).join('')}</div>`;
+}
+function editCategory(id) {
+ let cat = data.categories.find(x => x.id === id); if (!cat) return;
+ document.getElementById('adminContent').innerHTML = `<div class="admin-row"><h3>Edit Poster: ${esc(cat.name)}</h3><button class="mini-btn" onclick="adminCategories()">← KEMBALI</button></div><div class="form-grid"><div class="field full"><label>NAMA KATEGORI</label><input id="catName" value="${esc(cat.name)}" disabled></div><div class="field full"><label>LINK POSTER (GOOGLE DRIVE)</label><input id="catUrl" value="${esc(cat.image)}"></div><div class="field" style="align-content:end"><label class="check"><input id="catActive" type="checkbox" ${cat.active ? 'checked' : ''}> Tampilkan kategori ini di website</label></div></div><div class="form-actions"><button class="add-btn" onclick="saveCategory('${id}')">SIMPAN POSTER</button></div>`;
+}
+function saveCategory(id) { let cat = data.categories.find(x => x.id === id); if (!cat) return; cat.image = document.getElementById('catUrl').value.trim(); cat.active = document.getElementById('catActive').checked; persist('Poster kategori berhasil diperbarui!'); adminCategories(); }
+
+function adminContacts() {
+ document.getElementById('adminContent').innerHTML = `<div class="admin-row"><h3>Kontak Barista</h3><button class="add-btn" onclick="editContact()">＋ TAMBAH KONTAK</button></div><div class="admin-list">${(data.contacts || []).map(x => `<div class="admin-item"><div><strong>${esc(x.name)}</strong><small>${esc(x.role)} · ${esc(x.phone)}</small></div><div class="admin-actions"><button class="mini-btn" onclick="editContact('${x.id}')">Edit</button><button class="mini-btn danger" onclick="removeContact('${x.id}')">Hapus</button></div></div>`).join('')}</div>`;
+}
+function editContact(id) {
+ let old = (data.contacts || []).find(x => x.id === id);
+ let x = old || { id: 'c' + Date.now(), name: '', role: 'Barista', phone: '', label: 'WhatsApp' };
+ document.getElementById('adminContent').innerHTML = `<div class="admin-row"><h3>${id ? 'Edit kontak' : 'Tambah kontak'}</h3><button class="mini-btn" onclick="adminContacts()">← KEMBALI</button></div><div class="form-grid"><div class="field"><label>NAMA</label><input id="cName" value="${esc(x.name)}"></div><div class="field"><label>ROLE</label><input id="cRole" value="${esc(x.role)}"></div><div class="field"><label>NOMOR WHATSAPP</label><input id="cPhone" value="${esc(x.phone)}"></div><div class="field"><label>LABEL</label><input id="cLabel" value="${esc(x.label)}"></div></div><div class="form-actions"><button class="add-btn" onclick="saveContact('${id || ''}')">SIMPAN</button></div>`;
+}
+function saveContact(id) {
+ let x = { id: id || 'c' + Date.now(), name: document.getElementById('cName').value.trim(), role: document.getElementById('cRole').value.trim(), phone: document.getElementById('cPhone').value.replace(/\D/g, ''), label: document.getElementById('cLabel').value.trim() };
+ if (!x.name || !x.phone) { notify('Nama dan nomor wajib diisi.'); return; }
+ if (!data.contacts) data.contacts = [];
+ let i = data.contacts.findIndex(c => c.id === id);
+ if (i >= 0) data.contacts[i] = x; else data.contacts.push(x);
+ persist(); adminContacts();
+}
+function removeContact(id) { if (confirm('Hapus kontak?')) { data.contacts = data.contacts.filter(c => c.id !== id); persist(); adminContacts(); } }
+
+function adminExtras() {
+ document.getElementById('adminContent').innerHTML = `<div class="admin-row"><h3>Additional / Topping</h3><button class="add-btn" onclick="editExtra()">＋ TAMBAH</button></div><div class="admin-list">${(data.extras || []).map((x, i) => `<div class="admin-item"><div><strong>${esc(x[0])}</strong><small>${esc(x[1])} · ${esc(x[2])}</small></div><div class="admin-actions"><button class="mini-btn" onclick="editExtra(${i})">Edit</button><button class="mini-btn danger" onclick="removeExtra(${i})">Hapus</button></div></div>`).join('')}</div>`;
+}
+function editExtra(i) {
+ let x = i === undefined ? ['', '', ''] : data.extras[i];
+ document.getElementById('adminContent').innerHTML = `<div class="admin-row"><h3>${i === undefined ? 'Tambah' : 'Edit'} additional</h3><button class="mini-btn" onclick="adminExtras()">← KEMBALI</button></div><div class="form-grid"><div class="field"><label>NAMA</label><input id="eName" value="${esc(x[0])}"></div><div class="field"><label>HARGA</label><input id="ePrice" value="${esc(x[1])}"></div><div class="field full"><label>KETERANGAN</label><input id="eDesc" value="${esc(x[2])}"></div></div><div class="form-actions"><button class="add-btn" onclick="saveExtra(${i === undefined ? 'null' : i})">SIMPAN</button></div>`;
+}
+function saveExtra(i) {
+ let x = [document.getElementById('eName').value, document.getElementById('ePrice').value, document.getElementById('eDesc').value];
+ if (!x[0]) { notify('Nama wajib diisi.'); return; }
+ if (!data.extras) data.extras = [];
+ if (i === null) data.extras.push(x); else data.extras[i] = x;
+ persist(); adminExtras();
+}
+function removeExtra(i) { if (confirm('Hapus item?')) { data.extras.splice(i, 1); persist(); adminExtras(); } }
+
+function adminVideo() {
+ let v = data.promoVideo || clone(starter.promoVideo);
+ document.getElementById('adminContent').innerHTML = `<div class="admin-row"><h3>Video Promo (Bagian Bawah Website)</h3></div><div class="form-grid"><div class="field full"><label>LINK VIDEO GOOGLE DRIVE</label><input id="vUrl" value="${esc(v.url)}"></div><div class="field"><label>JUDUL VIDEO PROMO</label><input id="vTitle" value="${esc(v.title)}"></div><div class="field"><label>TEKS TOMBOL AKSI</label><input id="vCtaText" value="${esc(v.ctaText)}"></div><div class="field full"><label>KETERANGAN</label><input id="vSub" value="${esc(v.subtitle)}"></div><div class="field full"><label>LINK TUJUAN TOMBOL</label><input id="vCtaUrl" value="${esc(v.ctaUrl)}"></div><div class="field full"><label class="check"><input id="vActive" type="checkbox" ${v.active !== false ? 'checked' : ''}> Tampilkan Video Promo</label></div></div><div class="form-actions"><button class="add-btn" onclick="saveVideoPromo()">SIMPAN VIDEO PROMO</button></div>`;
+}
+function saveVideoPromo() {
+ data.promoVideo = { url: document.getElementById('vUrl').value.trim(), title: document.getElementById('vTitle').value.trim(), subtitle: document.getElementById('vSub').value.trim(), ctaText: document.getElementById('vCtaText').value.trim(), ctaUrl: document.getElementById('vCtaUrl').value.trim(), active: document.getElementById('vActive').checked };
+ persist('Pengaturan Video Promo berhasil disimpan!'); adminVideo();
+}
+
+function adminSettings() {
+ document.getElementById('adminContent').innerHTML = `<div class="admin-row"><h3>Pengaturan website</h3></div><div class="form-grid"><div class="field full"><label>LINK TIKTOK SHOP (TLQG DIPONEGORO 2)</label><input id="sTikTok" value="${esc(data.settings?.tiktok || '')}"></div><div class="field full"><label>LINK SHOPEE BELANJA</label><input id="sShopee" value="${esc(data.settings?.shopee || '')}"></div><div class="field full"><label>LINK GOOGLE MAPS</label><input id="sMaps" value="${esc(data.settings?.maps)}"></div><div class="field full"><label>UBAH PIN ADMIN BARU</label><input id="sPin" type="password" value="${esc(data.settings?.pin || '123456')}"></div><div class="field full"><label>STATUS DATABASE</label><input value="${isCloudConfigured() ? 'Google Sheets API terpasang (Menu & VIP_Members Real-time)' : 'Belum dipasang'}" disabled></div></div><div class="form-actions"><button class="add-btn" onclick="saveSettings()">SIMPAN PENGATURAN</button></div><hr style="border:0;border-top:1px solid var(--line);margin:20px 0"><button class="mini-btn" onclick="refreshCloud()">↻ AMBIL DATA TERBARU</button><button class="mini-btn" onclick="publishInitialData()">↑ KIRIM DATA KE SHEETS</button><button class="mini-btn danger" onclick="resetData()">RESET DATA</button>`;
+}
+function saveSettings() {
+ if (!data.settings) data.settings = {};
+ data.settings.tiktok = document.getElementById('sTikTok').value.trim();
+ data.settings.shopee = document.getElementById('sShopee').value.trim();
+ data.settings.maps = document.getElementById('sMaps').value.trim();
+ let newPin = document.getElementById('sPin').value.trim();
+ if (newPin) data.settings.pin = newPin;
+ persist(); adminSettings();
+}
+function publishInitialData() { if (!isCloudConfigured() || !adminPinSession) { notify('Login admin terlebih dahulu.'); return; } persist('Data berhasil dikirim ke Google Sheets.'); }
+function resetData() { if (confirm('Reset seluruh data ke awal?')) { data = clone(starter); persist('Data dipulihkan.'); adminSettings(); } }
 
 renderAll();
+initBarcodeShowcaseAnimation();
+if (isCloudConfigured()) { refreshCloud(true); setInterval(() => refreshCloud(true), 10000); }
 </script>
 </body>
 </html>
