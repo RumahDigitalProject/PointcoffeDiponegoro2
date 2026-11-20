@@ -72,20 +72,54 @@ a{color:inherit}button,input,select,textarea{font:inherit}button{cursor:pointer}
 
 .eyebrow{display:inline-flex;gap:9px;align-items:center;border:1px solid #16a34a66;color:#4ade80;padding:8px 12px;border-radius:50px;font-size:9px;font-weight:900;letter-spacing:2px}.dot{width:7px;height:7px;border-radius:50%;background:#16a34a;box-shadow:0 0 0 5px #16a34a28}.hero h1{font:700 clamp(45px,6.4vw,78px)/.97 "Space Grotesk";letter-spacing:-4px;margin:23px 0 18px}.hero h1 em{font-style:normal;color:#22c55e}.hero-copy{max-width:510px;color:var(--muted);font-size:14px;line-height:1.85}.hero-buttons{display:flex;gap:11px;flex-wrap:wrap;margin-top:26px}.primary,.secondary{display:inline-flex;align-items:center;gap:10px;text-decoration:none;padding:14px 18px;border-radius:13px;font-size:11px;font-weight:900}.secondary{border:1px solid var(--line);color:white}.secondary:hover{border-color:#22c55e;color:#4ade80}
 
-.hero-visual{border:1px solid #1f3d27;border-radius:30px;position:relative;overflow:hidden;background:#0a170e;}
-.hero-slider-container{width:100%;position:relative;display:grid;place-items:center;min-height:340px;}
-.hero-slide{grid-area:1/1;opacity:0;visibility:hidden;transition:opacity .8s cubic-bezier(.4,0,.2,1);width:100%;display:flex;justify-content:center;align-items:center;}
-.hero-slide.active{opacity:1;visibility:visible;}
-.hero-slide img{width:100%;height:auto;max-height:850px;object-fit:contain;display:block;}
+/* === HERO VISUAL INTERACTIVE SWIPE CAROUSEL + ZOOM === */
+.hero-visual{border:1px solid #1f3d27;border-radius:30px;position:relative;overflow:hidden;background:#0a170e;user-select:none;-webkit-user-select:none;touch-action:pan-y}
+.hero-slider-viewport{width:100%;overflow:hidden;position:relative;min-height:340px;cursor:grab}
+.hero-slider-viewport.is-dragging{cursor:grabbing}
+.hero-slider-container{display:flex;width:100%;align-items:center;will-change:transform;transition:transform .48s cubic-bezier(0.22, 1, 0.36, 1)}
+.hero-slider-container.no-transition{transition:none !important}
+.hero-slide{flex:0 0 100%;width:100%;display:flex;justify-content:center;align-items:center;position:relative}
+.hero-slide img{width:100%;height:auto;max-height:850px;object-fit:contain;display:block;pointer-events:none;-webkit-user-drag:none}
 .hero-slide-fallback{width:100%;min-height:360px;display:grid;place-items:center;position:relative;background:#0c7d32}
 .hero-cup{z-index:1;width:142px;height:198px;border-radius:23px 23px 35px 35px;background:#ffffff;box-shadow:22px 25px 55px #0009;display:grid;place-items:center;color:#0c7d32;text-align:center;font:800 18px/1.15 "Space Grotesk";transform:rotate(7deg);position:relative}
-.visual-label{position:absolute;top:20px;left:22px;z-index:5;color:#ffffff;background:#07120acc;backdrop-filter:blur(8px);padding:6px 12px;border-radius:30px;border:1px solid #ffffff28;font-size:9px;letter-spacing:1.8px;font-weight:900}
-.sticker{position:absolute;right:8%;bottom:10%;z-index:5;width:82px;height:82px;border-radius:50%;background:#0c7d32;color:#ffffff;border:2px solid #ffffff40;display:grid;place-items:center;text-align:center;font:800 10px/1.2 "Space Grotesk";transform:rotate(11deg);box-shadow:0 8px 25px #0008}
-.hero-slider-dots{position:absolute;bottom:18px;left:50%;transform:translateX(-50%);z-index:5;display:flex;gap:7px}
-.hero-dot{width:8px;height:8px;border-radius:50%;background:#ffffff40;cursor:pointer;transition:.3s}
+.visual-label{position:absolute;top:20px;left:22px;z-index:5;color:#ffffff;background:#07120acc;backdrop-filter:blur(8px);padding:6px 12px;border-radius:30px;border:1px solid #ffffff28;font-size:9px;letter-spacing:1.8px;font-weight:900;pointer-events:none}
+.hero-zoom-hint{position:absolute;top:20px;right:20px;z-index:5;color:#4ade80;background:#07120acc;backdrop-filter:blur(8px);padding:6px 11px;border-radius:30px;border:1px solid #16a34a55;font-size:9px;letter-spacing:1px;font-weight:800;display:inline-flex;align-items:center;gap:4px;cursor:zoom-in;transition:background .2s, transform .2s}
+.hero-zoom-hint:hover{background:#0c7d32;color:#ffffff;transform:scale(1.04)}
+.hero-nav-arrow{position:absolute;top:50%;transform:translateY(-50%);z-index:6;width:36px;height:36px;border-radius:50%;background:rgba(7,18,10,0.68);backdrop-filter:blur(8px);border:1px solid #ffffff28;color:#ffffff;font-size:15px;font-weight:900;display:grid;place-items:center;opacity:0;transition:opacity .25s, background .2s, transform .2s}
+.hero-visual:hover .hero-nav-arrow{opacity:1}
+.hero-nav-arrow:hover{background:#0c7d32;border-color:#4ade80;transform:translateY(-50%) scale(1.08)}
+.hero-nav-arrow.prev{left:14px}
+.hero-nav-arrow.next{right:14px}
+.sticker{position:absolute;right:8%;bottom:10%;z-index:5;width:82px;height:82px;border-radius:50%;background:#0c7d32;color:#ffffff;border:2px solid #ffffff40;display:grid;place-items:center;text-align:center;font:800 10px/1.2 "Space Grotesk";transform:rotate(11deg);box-shadow:0 8px 25px #0008;pointer-events:none}
+.hero-slider-dots{position:absolute;bottom:18px;left:50%;transform:translateX(-50%);z-index:6;display:flex;gap:7px;background:rgba(7,18,10,0.55);backdrop-filter:blur(6px);padding:6px 11px;border-radius:20px;border:1px solid #ffffff1a}
+.hero-dot{width:8px;height:8px;border-radius:50%;background:#ffffff4d;cursor:pointer;transition:.3s}
 .hero-dot.active{background:#4ade80;width:22px;border-radius:10px}
 
-.section{padding:43px 0}.section-head{display:flex;align-items:end;justify-content:space-between;gap:22px;margin-bottom:23px}.kicker{color:#4ade80;font-size:9px;font-weight:900;letter-spacing:2.4px}.section h2{font:700 clamp(28px,4vw,39px) "Space Grotesk";letter-spacing:-1.5px;margin:7px 0 0}.section-intro{max-width:420px;color:var(--muted);font-size:12px;line-height:1.7}.promo-layout{display:grid;grid-template-columns:1.25fr .75fr;gap:15px}.promo-feature{border:1px solid #16a34a55;border-radius:24px;padding:26px;position:relative;overflow:hidden;background:#0e2315}.promo-label{display:inline-block;background:#0c7d32;color:#ffffff;padding:7px 10px;border-radius:7px;font-size:9px;font-weight:900;letter-spacing:1px}.promo-feature h3{font:700 28px "Space Grotesk";max-width:380px;margin:14px 0 8px;position:relative;z-index:2}.promo-feature p{color:#c4d8ca;font-size:12px;line-height:1.7;max-width:370px;position:relative;z-index:2}.promo-value{font:700 20px "Space Grotesk";color:#4ade80;margin-top:10px;position:relative;z-index:2}.promo-image{width:100%;max-height:850px;object-fit:contain;border-radius:18px;border:1px solid #ffffff1d;margin-top:18px;display:block;background:#07120a}.promo-side{background:var(--surface);border:1px solid var(--line);border-radius:24px;padding:23px;display:flex;flex-direction:column;justify-content:space-between;gap:16px}.promo-side h3{font:700 22px "Space Grotesk";margin:8px 0 6px}.promo-side p{font-size:11.5px;line-height:1.6;color:var(--muted);margin:0}.promo-foot{color:#4ade80;font-size:9px;font-weight:900;letter-spacing:1.3px}
+/* HERO IMAGE ZOOM LIGHTBOX */
+.hero-zoom-modal{display:none;position:fixed;inset:0;z-index:9900;background:rgba(4,10,6,0.92);backdrop-filter:blur(10px);padding:18px;align-items:center;justify-content:center}
+.hero-zoom-modal.show{display:flex}
+.hero-zoom-box{position:relative;max-width:min(94vw, 680px);max-height:90vh;width:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px}
+.hero-zoom-img-frame{position:relative;width:100%;background:#0a170e;border:1px solid #285435;border-radius:22px;overflow:hidden;box-shadow:0 28px 90px #000;display:grid;place-items:center}
+.hero-zoom-img-frame img{width:100%;max-height:78vh;object-fit:contain;display:block}
+.hero-zoom-toolbar{display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;background:#0c1c11;border:1px solid var(--line);border-radius:16px;padding:10px 14px}
+.hero-zoom-counter{font:700 11px "Space Grotesk";color:#4ade80;letter-spacing:.8px}
+.hero-zoom-controls{display:flex;gap:8px;align-items:center}
+
+.section{padding:43px 0}.section-head{display:flex;align-items:end;justify-content:space-between;gap:22px;margin-bottom:23px}.kicker{color:#4ade80;font-size:9px;font-weight:900;letter-spacing:2.4px}.section h2{font:700 clamp(28px,4vw,39px) "Space Grotesk";letter-spacing:-1.5px;margin:7px 0 0}.section-intro{max-width:420px;color:var(--muted);font-size:12px;line-height:1.7}.promo-layout{display:grid;grid-template-columns:1.25fr .75fr;gap:15px}.promo-feature{border:1px solid #16a34a55;border-radius:24px;padding:26px;position:relative;overflow:hidden;background:#0e2315}.promo-label{display:inline-block;background:#0c7d32;color:#ffffff;padding:7px 10px;border-radius:7px;font-size:9px;font-weight:900;letter-spacing:1px}.promo-feature h3{font:700 28px "Space Grotesk";max-width:380px;margin:14px 0 8px;position:relative;z-index:2}.promo-feature p{color:#c4d8ca;font-size:12px;line-height:1.7;max-width:370px;position:relative;z-index:2}.promo-value{font:700 20px "Space Grotesk";color:#4ade80;margin-top:10px;position:relative;z-index:2}.promo-period-badge{display:inline-flex;align-items:center;gap:5px;margin-top:8px;font-size:10px;font-weight:800;color:#9cb5a3;background:#07120a99;border:1px solid #1f3d27;padding:5px 10px;border-radius:8px}.promo-image{width:100%;max-height:850px;object-fit:contain;border-radius:18px;border:1px solid #ffffff1d;margin-top:18px;display:block;background:#07120a;cursor:zoom-in}.promo-side{background:var(--surface);border:1px solid var(--line);border-radius:24px;padding:23px;display:flex;flex-direction:column;justify-content:space-between;gap:16px}.promo-side h3{font:700 22px "Space Grotesk";margin:8px 0 6px}.promo-side p{font-size:11.5px;line-height:1.6;color:var(--muted);margin:0}.promo-foot{color:#4ade80;font-size:9px;font-weight:900;letter-spacing:1.3px}
+
+/* === KARTU POSTER PROMO HARIAN & E-WALLET (OPSI NO. 1) === */
+.daily-wallet-card{margin-top:16px;background:var(--surface);border:1px solid #16a34a55;border-radius:24px;padding:22px 24px;box-shadow:var(--shadow)}
+.dw-header{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-bottom:16px}
+.dw-title-group{display:flex;flex-direction:column;gap:5px}
+.dw-badge{display:inline-flex;align-items:center;gap:6px;background:#0c7d32;color:#ffffff;padding:6px 11px;border-radius:8px;font-size:9px;font-weight:900;letter-spacing:1.1px;width:fit-content}
+.dw-header h3{font:700 23px "Space Grotesk";margin:4px 0 0}
+.dw-header p{font-size:11.5px;color:var(--muted);margin:0;line-height:1.5}
+.dw-zoom-btn{background:#122818;color:#4ade80;border:1px solid #16a34a66;border-radius:11px;padding:9px 13px;font-size:10.5px;font-weight:900;display:inline-flex;align-items:center;gap:6px;transition:background .2s, color .2s, transform .2s}
+.dw-zoom-btn:hover{background:#0c7d32;color:#ffffff;transform:scale(1.03)}
+.dw-poster-frame{position:relative;width:100%;border-radius:18px;overflow:hidden;border:1px solid #ffffff1a;background:#07120a;cursor:zoom-in;display:grid;place-items:center}
+.dw-poster-frame img{width:100%;max-height:850px;object-fit:contain;display:block;transition:transform .3s ease}
+.dw-poster-frame:hover img{transform:scale(1.01)}
+.dw-zoom-pill{position:absolute;bottom:14px;right:14px;background:rgba(7,18,10,0.85);backdrop-filter:blur(8px);color:#4ade80;border:1px solid #16a34a66;padding:7px 12px;border-radius:10px;font-size:9.5px;font-weight:900;letter-spacing:.8px;pointer-events:none}
 
 .qr-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:6px}
 .qr-card{background:#112618;border:1px solid var(--line);border-radius:16px;padding:12px;display:flex;flex-direction:column;align-items:center;text-align:center;transition:border-color .25s, transform .25s}
@@ -101,9 +135,9 @@ a{color:inherit}button,input,select,textarea{font:inherit}button{cursor:pointer}
 
 .qr-modal{display:none;position:fixed;inset:0;z-index:95;background:#000000e0;backdrop-filter:blur(8px);padding:20px;align-items:center;justify-content:center}
 .qr-modal.show{display:flex}
-.qr-modal-box{background:#0c1c11;border:1px solid #285435;border-radius:24px;padding:22px;max-width:380px;width:100%;text-align:center;box-shadow:0 25px 80px #000}
-.qr-modal-img-wrap{background:#fff;padding:14px;border-radius:16px;margin:14px 0;display:grid;place-items:center}
-.qr-modal-img-wrap img{width:100%;max-height:300px;object-fit:contain;display:block}
+.qr-modal-box{background:#0c1c11;border:1px solid #285435;border-radius:24px;padding:22px;max-width:440px;width:100%;text-align:center;box-shadow:0 25px 80px #000}
+.qr-modal-img-wrap{background:#fff;padding:12px;border-radius:16px;margin:14px 0;display:grid;place-items:center}
+.qr-modal-img-wrap img{width:100%;max-height:70vh;object-fit:contain;display:block}
 
 /* === POPUP HALUS AWAL BUKA / REFRESH (AUTO CLOSE 3 DETIK) === */
 .welcome-promo-overlay{position:fixed;inset:0;z-index:9800;background:rgba(4,12,6,0.76);backdrop-filter:blur(7px);padding:18px;display:flex;align-items:center;justify-content:center;opacity:0;visibility:hidden;pointer-events:none;transition:opacity .38s cubic-bezier(.22,1,.36,1), visibility .38s ease}
@@ -135,7 +169,23 @@ a{color:inherit}button,input,select,textarea{font:inherit}button{cursor:pointer}
 .video-caption-row h3{font:700 19px "Space Grotesk";margin:0}
 .video-caption-row p{font-size:11.5px;color:var(--muted);margin:4px 0 0}
 
-footer{margin-top:50px;border-top:1px solid var(--line);padding:30px 0 40px}.footer-row{display:flex;justify-content:space-between;align-items:center;gap:20px;color:var(--muted);font-size:10px}.footer-row b{color:white}.admin-modal{display:none;position:fixed;inset:0;z-index:80;background:#000c;padding:16px;align-items:center;justify-content:center}.admin-modal.show{display:flex}.admin-window{width:min(1000px,100%);max-height:94vh;overflow:auto;background:#0c1c11;border:1px solid #285435;border-radius:22px;padding:21px;box-shadow:0 35px 110px #000c}.admin-header{display:flex;justify-content:space-between;align-items:center;gap:15px}.admin-header h2{font:700 23px "Space Grotesk";margin:0}.close-btn,.tab-btn,.mini-btn{background:transparent;color:white;border:1px solid var(--line);border-radius:9px;padding:8px 11px;font-size:10px;font-weight:800}.admin-tabs{display:flex;gap:8px;flex-wrap:wrap;margin:19px 0}.tab-btn.active{background:#0c7d32;border-color:#0c7d32;color:#ffffff}.admin-content{border-top:1px solid var(--line);padding-top:17px}.admin-row{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:15px}.admin-row h3{font:700 17px "Space Grotesk";margin:0}.add-btn{background:#0c7d32;color:#ffffff;border:0;border-radius:9px;padding:9px 12px;font-size:10px;font-weight:900}.add-btn:hover{background:#096528}.admin-list{display:grid;gap:8px}.admin-item{display:flex;justify-content:space-between;align-items:center;gap:12px;background:#132919;border:1px solid var(--line);border-radius:11px;padding:10px 12px}.admin-item strong{font-size:11px}.admin-item small{display:block;color:var(--muted);font-size:9px;margin-top:4px}.admin-actions{display:flex;gap:6px;flex:none}.mini-btn{padding:7px 9px}.mini-btn.danger{background:#492b27;color:#ffb4a8}.form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.field{display:grid;gap:6px}.field.full{grid-column:1/-1}.field label{font-size:9px;letter-spacing:.8px;color:#bdd2c3;font-weight:900}.field input,.field select,.field textarea{width:100%;background:#07120a;border:1px solid #24452d;color:white;border-radius:9px;padding:11px;outline:none;font-size:11px}.field textarea{min-height:72px;resize:vertical}.field input:focus,.field select:focus,.field textarea:focus{border-color:#22c55e}.field input[type=checkbox]{width:auto;accent-color:#16a34a}.check{display:flex;align-items:center;gap:8px;color:#c4d8ca;font-size:11px}.form-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:15px}.hint{color:var(--muted);font-size:9px;line-height:1.7}.login-card{max-width:360px;margin:34px auto;text-align:center}.login-card input{width:100%;background:#07120a;color:white;border:1px solid var(--line);border-radius:10px;padding:12px;margin:12px 0}.toast{position:fixed;z-index:100;bottom:22px;left:50%;transform:translateX(-50%);background:#0c7d32;color:#ffffff;border:1px solid #4ade8040;border-radius:12px;padding:12px 17px;font-size:11px;font-weight:900;display:none;box-shadow:var(--shadow)}.toast.show{display:block}
+footer{margin-top:50px;border-top:1px solid var(--line);padding:30px 0 40px}.footer-row{display:flex;justify-content:space-between;align-items:center;gap:20px;color:var(--muted);font-size:10px}.footer-row b{color:white}.admin-modal{display:none;position:fixed;inset:0;z-index:80;background:#000c;padding:16px;align-items:center;justify-content:center}.admin-modal.show{display:flex}.admin-window{width:min(1000px,100%);max-height:94vh;overflow:auto;background:#0c1c11;border:1px solid #285435;border-radius:22px;padding:21px;box-shadow:0 35px 110px #000c}.admin-header{display:flex;justify-content:space-between;align-items:center;gap:15px}.admin-header h2{font:700 23px "Space Grotesk";margin:0}.close-btn,.tab-btn,.mini-btn{background:transparent;color:white;border:1px solid var(--line);border-radius:9px;padding:8px 11px;font-size:10px;font-weight:800}.admin-tabs{display:flex;gap:8px;flex-wrap:wrap;margin:19px 0}.tab-btn.active{background:#0c7d32;border-color:#0c7d32;color:#ffffff}.admin-content{border-top:1px solid var(--line);padding-top:17px}.admin-row{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:15px}.admin-row h3{font:700 17px "Space Grotesk";margin:0}.add-btn{background:#0c7d32;color:#ffffff;border:0;border-radius:9px;padding:9px 12px;font-size:10px;font-weight:900}.add-btn:hover{background:#096528}.admin-list{display:grid;gap:8px}.admin-item{display:flex;justify-content:space-between;align-items:center;gap:12px;background:#132919;border:1px solid var(--line);border-radius:11px;padding:10px 12px}.admin-item strong{font-size:11px}.admin-item small{display:block;color:var(--muted);font-size:9px;margin-top:4px}.admin-actions{display:flex;gap:6px;flex:none}.mini-btn{padding:7px 9px}.mini-btn.danger{background:#492b27;color:#ffb4a8}.form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.field{display:grid;gap:6px}.field.full{grid-column:1/-1}.field label{font-size:9px;letter-spacing:.8px;color:#bdd2c3;font-weight:900}.field input,.field select,.field textarea{width:100%;background:#07120a;border:1px solid #24452d;color:white;border-radius:9px;padding:11px;outline:none;font-size:11px}.field textarea{min-height:72px;resize:vertical}.field input:focus,.field select:focus,.field textarea:focus{border-color:#22c55e}.field input[type=checkbox]{width:auto;accent-color:#16a34a}.field input[type=date]{color-scheme:dark}.check{display:flex;align-items:center;gap:8px;color:#c4d8ca;font-size:11px}.form-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:15px}.hint{color:var(--muted);font-size:9px;line-height:1.7}.login-card{max-width:360px;margin:34px auto;text-align:center}.login-card input{width:100%;background:#07120a;color:white;border:1px solid var(--line);border-radius:10px;padding:12px;margin:12px 0}.toast{position:fixed;z-index:100;bottom:22px;left:50%;transform:translateX(-50%);background:#0c7d32;color:#ffffff;border:1px solid #4ade8040;border-radius:12px;padding:12px 17px;font-size:11px;font-weight:900;display:none;box-shadow:var(--shadow)}.toast.show{display:block}
+
+/* === ADMIN LIVE IMAGE PREVIEW BOX === */
+.admin-preview-box{margin-top:6px;background:#07120a;border:1px dashed #285435;border-radius:14px;padding:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;min-height:90px;text-align:center}
+.admin-preview-box.has-img{border-style:solid;border-color:#16a34a66}
+.admin-preview-box img{max-width:100%;max-height:220px;border-radius:10px;object-fit:contain;display:block;background:#040b06}
+.admin-preview-status{font-size:9.5px;color:var(--muted);font-weight:700}
+.admin-preview-status.ok{color:#4ade80}
+.admin-preview-status.err{color:#fca5a5}
+.admin-hero-preview-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:10px;width:100%}
+.admin-hero-thumb{background:#0b1a10;border:1px solid #1f3d27;border-radius:11px;padding:6px;display:flex;flex-direction:column;align-items:center;gap:5px}
+.admin-hero-thumb img{width:100%;height:115px;object-fit:contain;border-radius:7px;background:#040b06}
+.admin-hero-thumb span{font-size:9px;font-weight:800;color:#4ade80}
+.schedule-pill{display:inline-block;padding:2px 7px;border-radius:6px;font-size:8.5px;font-weight:900;letter-spacing:.4px;margin-left:5px}
+.schedule-pill.live{background:#0c7d32;color:#ffffff}
+.schedule-pill.upcoming{background:#1e3a2f;color:#4ade80;border:1px solid #16a34a55}
+.schedule-pill.expired{background:#3f2220;color:#fca5a5}
 
 /* === VIP STAMP CARD FULL-SCREEN LOCKED PAGE (TIDAK BISA DIGESER) === */
 .vip-modal-overlay{display:none;position:fixed;inset:0;z-index:9999;background:#07120a;padding:12px;align-items:center;justify-content:center;overflow:hidden;touch-action:none}
@@ -187,7 +237,7 @@ footer{margin-top:50px;border-top:1px solid var(--line);padding:30px 0 40px}.foo
 .wp-btn-cancel{background:#e5e7eb;color:#374151;border:0;border-radius:12px;padding:11px;font-weight:800;font-size:12px}
 
 @media(max-width:820px){.nav-links{display:none}.hero{grid-template-columns:1fr;padding-top:42px}.promo-layout{grid-template-columns:1fr}.contact-box{grid-template-columns:1fr}}
-@media(max-width:570px){.container{width:calc(100% - 26px)}.nav{height:65px}.brand strong{font-size:11px}.brand-icon{width:38px;height:38px}.admin-icon-btn{width:35px;height:35px}.vip-nav-btn{padding:9px 10px;font-size:10px}.round-link{width:35px;height:35px}.hero h1{letter-spacing:-2.5px}.section{padding:31px 0}.section-head{display:block}.section-intro{margin-top:10px}.menu-toolbar{align-items:stretch}.category-pills{width:100%}.additional-grid{grid-template-columns:repeat(2,1fr)}.contact-box{padding:20px}.contact-grid{grid-template-columns:1fr}.footer-row{display:block;line-height:2}.form-grid{grid-template-columns:1fr}.field.full{grid-column:auto}.admin-window{padding:15px}.admin-item{align-items:flex-start}.admin-actions{flex-wrap:wrap}.video-showcase-card{padding:14px}}
+@media(max-width:570px){.container{width:calc(100% - 26px)}.nav{height:65px}.brand strong{font-size:11px}.brand-icon{width:38px;height:38px}.admin-icon-btn{width:35px;height:35px}.vip-nav-btn{padding:9px 10px;font-size:10px}.round-link{width:35px;height:35px}.hero h1{letter-spacing:-2.5px}.section{padding:31px 0}.section-head{display:block}.section-intro{margin-top:10px}.menu-toolbar{align-items:stretch}.category-pills{width:100%}.additional-grid{grid-template-columns:repeat(2,1fr)}.contact-box{padding:20px}.contact-grid{grid-template-columns:1fr}.footer-row{display:block;line-height:2}.form-grid{grid-template-columns:1fr}.field.full{grid-column:auto}.admin-window{padding:15px}.admin-item{align-items:flex-start}.admin-actions{flex-wrap:wrap}.video-showcase-card{padding:14px}.hero-nav-arrow{width:32px;height:32px;font-size:13px;opacity:.85}.daily-wallet-card{padding:18px}}
 </style>
 </head>
 <body>
@@ -235,7 +285,12 @@ footer{margin-top:50px;border-top:1px solid var(--line);padding:30px 0 40px}.foo
 
 <div class="hero-visual" id="heroVisual">
   <div class="visual-label">FRESHLY MADE • EVERY DAY</div>
-  <div class="hero-slider-container" id="heroSliderContainer"></div>
+  <button type="button" class="hero-zoom-hint" id="heroZoomHintBtn" onclick="openHeroZoom(currentHeroSlideIndex)" title="Klik untuk memperbesar gambar">ZOOM ⤢</button>
+  <button type="button" class="hero-nav-arrow prev" id="heroPrevBtn" onclick="stepHeroSlide(-1)" aria-label="Slide Sebelumnya">‹</button>
+  <button type="button" class="hero-nav-arrow next" id="heroNextBtn" onclick="stepHeroSlide(1)" aria-label="Slide Berikutnya">›</button>
+  <div class="hero-slider-viewport" id="heroSliderViewport">
+    <div class="hero-slider-container" id="heroSliderContainer"></div>
+  </div>
   <div class="sticker">GOOD<br>MOOD<br>ONLY ✳</div>
   <div class="hero-slider-dots" id="heroSliderDots"></div>
 </div>
@@ -265,6 +320,23 @@ footer{margin-top:50px;border-top:1px solid var(--line);padding:30px 0 40px}.foo
 </main>
 
 <footer><div class="container footer-row"><div><b>POINT COFFEE DIPONEGORO 2</b><br>Good coffee, good company.</div><div>© <span id="year"></span> Point Coffee Diponegoro 2 · Made with ☕ and good energy.</div></div></footer>
+
+<!-- ================= MODAL ZOOM GAMBAR HERO FRESHLY MADE ================= -->
+<div class="hero-zoom-modal" id="heroZoomModal" onclick="if(event.target===this) closeHeroZoom()">
+  <div class="hero-zoom-box">
+    <div class="hero-zoom-img-frame" id="heroZoomFrame">
+      <img id="heroZoomImg" src="" alt="Freshly Made Promo Zoom">
+    </div>
+    <div class="hero-zoom-toolbar">
+      <span class="hero-zoom-counter" id="heroZoomCounter">FOTO 1 / 1</span>
+      <div class="hero-zoom-controls">
+        <button type="button" class="mini-btn" id="heroZoomPrevBtn" onclick="stepHeroZoom(-1)">← Sebelumnya</button>
+        <button type="button" class="mini-btn" id="heroZoomNextBtn" onclick="stepHeroZoom(1)">Berikutnya →</button>
+        <button type="button" class="close-btn" onclick="closeHeroZoom()">✕ TUTUP</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 <!-- ================= POPUP HALUS AWAL BUKA / REFRESH (AUTO CLOSE 3 DETIK) ================= -->
 <div class="welcome-promo-overlay" id="welcomePromoModal" onclick="if(event.target===this) closeWelcomePromo()">
@@ -431,13 +503,13 @@ footer{margin-top:50px;border-top:1px solid var(--line);padding:30px 0 40px}.foo
   </div>
 </div>
 
-<!-- MODAL QR ZOOM & ADMIN MODAL -->
+<!-- MODAL QR & POSTER ZOOM -->
 <div class="qr-modal" id="qrZoomModal" onclick="if(event.target===this) closeQrZoom()">
   <div class="qr-modal-box">
-    <div class="kicker">SCAN BARCODE</div>
+    <div class="kicker" id="qrZoomKicker">SCAN BARCODE</div>
     <h3 id="qrZoomTitle" style="font:700 20px 'Space Grotesk';margin:6px 0 4px">Barcode</h3>
     <p id="qrZoomSub" style="font-size:11px;color:var(--muted);margin:0"></p>
-    <div class="qr-modal-img-wrap">
+    <div class="qr-modal-img-wrap" id="qrZoomImgWrap">
       <img id="qrZoomImg" src="" alt="Barcode Zoom">
     </div>
     <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap">
@@ -447,6 +519,7 @@ footer{margin-top:50px;border-top:1px solid var(--line);padding:30px 0 40px}.foo
   </div>
 </div>
 
+<!-- ADMIN CONTROL ROOM -->
 <div class="admin-modal" id="adminModal"><div class="admin-window">
 <div class="admin-header"><h2>✳ POINT CONTROL ROOM</h2><button class="close-btn" onclick="closeAdmin()">✕ CLOSE</button></div>
 <div id="loginView" class="login-card"><div class="kicker">RESTRICTED ACCESS</div><h3>Welcome, Admin.</h3><p class="hint">Masukkan PIN untuk membuka dashboard pengelolaan website.</p><input id="adminPin" type="password" placeholder="PIN admin"><button class="add-btn" style="width:100%;padding:13px" onclick="loginAdmin()">UNLOCK DASHBOARD ↗</button><p class="hint">PIN default awal adalah 123456 (Dapat diubah di tab Pengaturan).</p></div>
@@ -472,8 +545,12 @@ const API_URL = 'https://script.google.com/macros/s/AKfycbys6fDxyWBKijRCxiyQ2ug4
 
 let adminPinSession = '';
 let cloudReady = false;
-let heroSliderTimer = null;
+let heroIdleTimeout = null;
+let heroAutoInterval = null;
 let currentHeroSlideIndex = 0;
+let heroImagesList = [];
+let heroZoomIndex = 0;
+let heroGestureBound = false;
 let welcomePromoTimer = null;
 let welcomePromoDismissed = false;
 
@@ -495,10 +572,30 @@ const defaultSpecialPopup = {
  image: ''
 };
 
+const defaultDailyWalletPromo = {
+ enabled: true,
+ title: 'Promo Setiap Hari di Point Coffee',
+ tag: 'PROMO PEMBAYARAN HARIAN & E-WALLET',
+ subtitle: 'Nikmati cashback, diskon langsung, hingga Free Upsize menggunakan Allo Bank, Bina Digital, Livin\' by Mandiri, Mandiri e-money, Kredivo, DANA, Indodana, & Bale by BTN (Klik gambar untuk memperbesar).',
+ image: ''
+};
+
 const starter = {
  categories: categoriesList,
  heroImages: [],
- promos: [{ id: 'promo1', title: 'Promo Spesial Point Coffee', tag: 'TIKTOK & SHOPEE VIP', description: 'Gunakan voucher diskon menarik di TikTok Shop atau klaim voucher spesial Rp 1 Rupiah dengan Shopee VIP untuk pemesanan lebih hemat.', price: 'Voucher Mulai Rp 1', period: 'Berlaku hari ini', image: '', active: true }],
+ promos: [{
+  id: 'promo1',
+  title: 'Promo Spesial Point Coffee',
+  tag: 'TIKTOK & SHOPEE VIP',
+  description: 'Gunakan voucher diskon menarik di TikTok Shop atau klaim voucher spesial Rp 1 Rupiah dengan Shopee VIP untuk pemesanan lebih hemat.',
+  price: 'Voucher Mulai Rp 1',
+  period: 'Berlaku hari ini',
+  startDate: '',
+  endDate: '',
+  image: '',
+  active: true
+ }],
+ dailyWalletPromo: clone(defaultDailyWalletPromo),
  specialPopup: clone(defaultSpecialPopup),
  barcodes: [
   { id: 'qr1', title: 'TikTok Shop & Voucher', subtitle: 'Scan untuk klaim voucher TikTok', image: '', url: 'https://vt.tiktok.com/ZS9fUVAdewXEn-8OUCG/?poisharing=Point-Coffee---Indomaret-Diponegoro-2-%28TLQG%29', active: true },
@@ -519,15 +616,25 @@ const starter = {
 };
 
 function clone(x) { return JSON.parse(JSON.stringify(x)) }
+function normalizeDataDefaults(d) {
+ if (!d.heroImages) d.heroImages = [];
+ if (!d.barcodes) d.barcodes = clone(starter.barcodes);
+ if (!d.promoVideo) d.promoVideo = clone(starter.promoVideo);
+ if (!d.specialPopup) d.specialPopup = clone(defaultSpecialPopup);
+ if (!d.dailyWalletPromo) d.dailyWalletPromo = clone(defaultDailyWalletPromo);
+ if (!d.promos) d.promos = [];
+ d.promos.forEach(p => {
+  if (p.startDate === undefined) p.startDate = '';
+  if (p.endDate === undefined) p.endDate = '';
+ });
+ return d;
+}
+
 function loadData() { 
  try { 
   let d = JSON.parse(localStorage.getItem(STORE)); 
   if (d && (d.categories || d.heroImages)) {
-   if(!d.heroImages) d.heroImages = [];
-   if(!d.barcodes) d.barcodes = clone(starter.barcodes);
-   if(!d.promoVideo) d.promoVideo = clone(starter.promoVideo);
-   if(!d.specialPopup) d.specialPopup = clone(defaultSpecialPopup);
-   return d;
+   return normalizeDataDefaults(d);
   }
   let backup = clone(starter);
   if (d && d.menus) {
@@ -536,7 +643,7 @@ function loadData() {
    if (d.contacts) backup.contacts = d.contacts;
    if (d.extras) backup.extras = d.extras;
   }
-  return backup;
+  return normalizeDataDefaults(backup);
  } catch (e) { return clone(starter) } 
 }
 
@@ -582,13 +689,11 @@ function refreshCloud(silent = false) {
  if (!isCloudConfigured()) return;
  cloudRead(cloud => {
   if (cloud && (cloud.categories || cloud.heroImages || cloud.promos || cloud.barcodes)) {
-   if (!cloud.heroImages) cloud.heroImages = [];
-   if (!cloud.barcodes) cloud.barcodes = [];
-   if (!cloud.promoVideo) cloud.promoVideo = clone(starter.promoVideo);
-   if (!cloud.specialPopup) cloud.specialPopup = clone(defaultSpecialPopup);
-   data = cloud;
+   const prevHeroJson = JSON.stringify(data.heroImages || []);
+   const nextHeroJson = JSON.stringify(cloud.heroImages || []);
+   data = normalizeDataDefaults(cloud);
    try { localStorage.setItem(STORE, JSON.stringify(data)); } catch (e) {}
-   renderAll();
+   renderAll(prevHeroJson === nextHeroJson);
    if (document.getElementById('welcomePromoModal').classList.contains('show')) {
      renderWelcomePromoContent();
    }
@@ -626,9 +731,53 @@ function esc(s) { return String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;
 function asset(path) { return path ? (path.startsWith('data:') || path.startsWith('http') ? path : 'assets/' + path) : '' }
 function notify(msg) { let t = document.getElementById('toast'); t.textContent = msg; t.classList.add('show'); setTimeout(() => t.classList.remove('show'), 2400) }
 
+/* ==================== PENJADWALAN TANGGAL PROMO HARI INI ==================== */
+function getTodayYMD() {
+ const now = new Date();
+ const y = now.getFullYear();
+ const m = String(now.getMonth() + 1).padStart(2, '0');
+ const d = String(now.getDate()).padStart(2, '0');
+ return `${y}-${m}-${d}`;
+}
+
+function formatIndoDate(ymd) {
+ if (!ymd || !/^\d{4}-\d{2}-\d{2}$/.test(ymd)) return ymd || '';
+ const [y, m, d] = ymd.split('-');
+ const months = ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'];
+ return `${Number(d)} ${months[Number(m) - 1]} ${y}`;
+}
+
+function getPromoScheduleStatus(p, todayYMD = getTodayYMD()) {
+ const hasStart = Boolean(p.startDate);
+ const hasEnd = Boolean(p.endDate);
+ if (!hasStart && !hasEnd) return 'unscheduled';
+ const start = hasStart ? p.startDate : '0000-01-01';
+ const end = hasEnd ? p.endDate : '9999-12-31';
+ if (todayYMD >= start && todayYMD <= end) return 'scheduled_now';
+ if (todayYMD < start) return 'upcoming';
+ return 'expired';
+}
+
+function getEffectiveTodayPromo() {
+ const promos = data.promos || [];
+ const today = getTodayYMD();
+
+ // 1. Prioritas utama: promo aktif yang sedang masuk jadwal tanggal hari ini
+ const scheduledMatch = promos.find(p => p.active !== false && getPromoScheduleStatus(p, today) === 'scheduled_now');
+ if (scheduledMatch) return scheduledMatch;
+
+ // 2. Fallback: promo manual utama (tanpa jadwal tanggal / default) yang aktif
+ const defaultActive = promos.find(p => p.active && getPromoScheduleStatus(p, today) === 'unscheduled');
+ if (defaultActive) return defaultActive;
+
+ // 3. Cadangan jika semua promo punya tanggal di luar hari ini
+ const anyUnscheduled = promos.find(p => getPromoScheduleStatus(p, today) === 'unscheduled');
+ return anyUnscheduled || promos.find(p => p.active) || promos[0] || null;
+}
+
 /* ==================== POPUP HALUS PROMO HARI INI / ITEM KHUSUS (AUTO CLOSE 3 DETIK) ==================== */
 function getWelcomePromoItem() {
-  const activePromo = (data.promos || []).find(x => x.active);
+  const activePromo = getEffectiveTodayPromo();
   if (activePromo) {
     return {
       isFallback: false,
@@ -803,44 +952,247 @@ function renderHeroBarcodes() {
   track.style.setProperty('--marquee-duration', durationSec + 's');
 }
 
+/* ==================== HERO FRESHLY MADE: INTERACTIVE SWIPE CAROUSEL + ZOOM + 20S IDLE AUTO-SLIDE ==================== */
+function stopHeroAutoTimers() {
+ if (heroIdleTimeout) { clearTimeout(heroIdleTimeout); heroIdleTimeout = null; }
+ if (heroAutoInterval) { clearInterval(heroAutoInterval); heroAutoInterval = null; }
+}
+
+function resetHeroIdleTimer() {
+ stopHeroAutoTimers();
+ if (heroImagesList.length <= 1) return;
+ heroIdleTimeout = setTimeout(() => {
+  if (heroImagesList.length <= 1) return;
+  if (document.getElementById('heroZoomModal')?.classList.contains('show')) return;
+  heroAutoInterval = setInterval(() => {
+   if (document.getElementById('heroZoomModal')?.classList.contains('show')) return;
+   currentHeroSlideIndex = (currentHeroSlideIndex + 1) % heroImagesList.length;
+   updateHeroSlideUI(true);
+  }, 3500);
+ }, 20000);
+}
+
 function renderHeroSlider() {
  const container = document.getElementById('heroSliderContainer');
  const dotsContainer = document.getElementById('heroSliderDots');
+ const zoomBtn = document.getElementById('heroZoomHintBtn');
+ const prevBtn = document.getElementById('heroPrevBtn');
+ const nextBtn = document.getElementById('heroNextBtn');
  if (!container || !dotsContainer) return;
- 
- if (heroSliderTimer) { clearInterval(heroSliderTimer); heroSliderTimer = null; }
 
- let images = (data.heroImages || []).map(img => asset(img.trim())).filter(Boolean);
+ stopHeroAutoTimers();
 
- if (images.length === 0) {
-  container.innerHTML = `<div class="hero-slide active"><div class="hero-slide-fallback"><div class="hero-cup">POINT<br>COFFEE</div></div></div>`;
+ heroImagesList = (data.heroImages || []).map(img => asset(img.trim())).filter(Boolean);
+
+ if (heroImagesList.length === 0) {
+  currentHeroSlideIndex = 0;
+  container.classList.add('no-transition');
+  container.style.transform = 'translate3d(0,0,0)';
+  container.innerHTML = `<div class="hero-slide"><div class="hero-slide-fallback"><div class="hero-cup">POINT<br>COFFEE</div></div></div>`;
   dotsContainer.innerHTML = '';
+  if (zoomBtn) zoomBtn.style.display = 'none';
+  if (prevBtn) prevBtn.style.display = 'none';
+  if (nextBtn) nextBtn.style.display = 'none';
   return;
  }
 
- container.innerHTML = images.map((src, i) => `<div class="hero-slide ${i === 0 ? 'active' : ''}"><img src="${esc(src)}" alt="Freshly Made Point Coffee" loading="lazy" onerror="this.src='https://via.placeholder.com/600x800?text=Point+Coffee+Diponegoro+2'"></div>`).join('');
+ if (currentHeroSlideIndex >= heroImagesList.length) currentHeroSlideIndex = 0;
 
- if (images.length > 1) {
-  dotsContainer.innerHTML = images.map((_, i) => `<div class="hero-dot ${i === 0 ? 'active' : ''}" onclick="goToHeroSlide(${i})"></div>`).join('');
-  currentHeroSlideIndex = 0;
-  heroSliderTimer = setInterval(() => {
-   currentHeroSlideIndex = (currentHeroSlideIndex + 1) % images.length;
-   updateHeroSlideUI();
-  }, 4000);
+ container.innerHTML = heroImagesList.map((src, i) => `
+  <div class="hero-slide" data-index="${i}">
+   <img src="${esc(src)}" alt="Freshly Made Point Coffee ${i + 1}" loading="lazy" onerror="this.src='https://via.placeholder.com/600x800?text=Point+Coffee+Diponegoro+2'">
+  </div>
+ `).join('');
+
+ if (zoomBtn) zoomBtn.style.display = 'inline-flex';
+ if (prevBtn) prevBtn.style.display = heroImagesList.length > 1 ? 'grid' : 'none';
+ if (nextBtn) nextBtn.style.display = heroImagesList.length > 1 ? 'grid' : 'none';
+
+ if (heroImagesList.length > 1) {
+  dotsContainer.innerHTML = heroImagesList.map((_, i) => `<div class="hero-dot ${i === currentHeroSlideIndex ? 'active' : ''}" onclick="goToHeroSlide(${i}, true)"></div>`).join('');
+  dotsContainer.style.display = 'flex';
  } else {
   dotsContainer.innerHTML = '';
+  dotsContainer.style.display = 'none';
  }
+
+ updateHeroSlideUI(false);
+ bindHeroGestures();
+ resetHeroIdleTimer();
 }
 
-function goToHeroSlide(index) { currentHeroSlideIndex = index; updateHeroSlideUI(); }
-function updateHeroSlideUI() {
- document.querySelectorAll('.hero-slide').forEach((slide, i) => slide.classList.toggle('active', i === currentHeroSlideIndex));
+function goToHeroSlide(index, isManual = true) {
+ if (!heroImagesList.length) return;
+ currentHeroSlideIndex = (index + heroImagesList.length) % heroImagesList.length;
+ updateHeroSlideUI(true);
+ if (isManual) resetHeroIdleTimer();
+}
+
+function stepHeroSlide(delta) {
+ goToHeroSlide(currentHeroSlideIndex + delta, true);
+}
+
+function updateHeroSlideUI(smooth = true) {
+ const container = document.getElementById('heroSliderContainer');
+ if (!container) return;
+ if (smooth) container.classList.remove('no-transition');
+ else container.classList.add('no-transition');
+ container.style.transform = `translate3d(-${currentHeroSlideIndex * 100}%, 0, 0)`;
  document.querySelectorAll('.hero-dot').forEach((dot, i) => dot.classList.toggle('active', i === currentHeroSlideIndex));
 }
 
+function bindHeroGestures() {
+ if (heroGestureBound) return;
+ const viewport = document.getElementById('heroSliderViewport');
+ const container = document.getElementById('heroSliderContainer');
+ if (!viewport || !container) return;
+ heroGestureBound = true;
+
+ let isDown = false;
+ let startX = 0;
+ let startY = 0;
+ let deltaX = 0;
+ let isHorizontalDrag = null;
+
+ const onStart = (clientX, clientY) => {
+  if (!heroImagesList.length) return;
+  isDown = true;
+  startX = clientX;
+  startY = clientY;
+  deltaX = 0;
+  isHorizontalDrag = null;
+  stopHeroAutoTimers();
+  viewport.classList.add('is-dragging');
+  container.classList.add('no-transition');
+ };
+
+ const onMove = (clientX, clientY, e) => {
+  if (!isDown) return;
+  const dx = clientX - startX;
+  const dy = clientY - startY;
+
+  if (isHorizontalDrag === null && (Math.abs(dx) > 6 || Math.abs(dy) > 6)) {
+   isHorizontalDrag = Math.abs(dx) >= Math.abs(dy);
+  }
+
+  if (isHorizontalDrag === false) {
+   isDown = false;
+   viewport.classList.remove('is-dragging');
+   updateHeroSlideUI(true);
+   resetHeroIdleTimer();
+   return;
+  }
+
+  if (isHorizontalDrag) {
+   if (e && e.cancelable) e.preventDefault();
+   deltaX = dx;
+   const width = viewport.offsetWidth || 1;
+   let effectiveDx = deltaX;
+   if ((currentHeroSlideIndex === 0 && deltaX > 0) || (currentHeroSlideIndex === heroImagesList.length - 1 && deltaX < 0)) {
+    effectiveDx = deltaX * 0.32;
+   }
+   const offsetPercent = -(currentHeroSlideIndex * 100) + (effectiveDx / width) * 100;
+   container.style.transform = `translate3d(${offsetPercent}%, 0, 0)`;
+  }
+ };
+
+ const onEnd = () => {
+  if (!isDown) return;
+  isDown = false;
+  viewport.classList.remove('is-dragging');
+  const width = viewport.offsetWidth || 1;
+  const threshold = Math.min(75, width * 0.16);
+
+  if (!isHorizontalDrag && Math.abs(deltaX) < 8) {
+   updateHeroSlideUI(false);
+   openHeroZoom(currentHeroSlideIndex);
+   return;
+  }
+
+  if (heroImagesList.length > 1) {
+   if (deltaX <= -threshold && currentHeroSlideIndex < heroImagesList.length - 1) {
+    currentHeroSlideIndex++;
+   } else if (deltaX >= threshold && currentHeroSlideIndex > 0) {
+    currentHeroSlideIndex--;
+   }
+  }
+
+  updateHeroSlideUI(true);
+  resetHeroIdleTimer();
+ };
+
+ viewport.addEventListener('touchstart', (e) => {
+  if (e.touches.length !== 1) return;
+  onStart(e.touches[0].clientX, e.touches[0].clientY);
+ }, { passive: true });
+
+ viewport.addEventListener('touchmove', (e) => {
+  if (!isDown || e.touches.length !== 1) return;
+  onMove(e.touches[0].clientX, e.touches[0].clientY, e);
+ }, { passive: false });
+
+ viewport.addEventListener('touchend', onEnd);
+ viewport.addEventListener('touchcancel', onEnd);
+
+ viewport.addEventListener('mousedown', (e) => {
+  if (e.button !== 0) return;
+  e.preventDefault();
+  onStart(e.clientX, e.clientY);
+ });
+
+ window.addEventListener('mousemove', (e) => {
+  if (!isDown) return;
+  onMove(e.clientX, e.clientY, e);
+ });
+
+ window.addEventListener('mouseup', () => {
+  if (!isDown) return;
+  onEnd();
+ });
+}
+
+function openHeroZoom(index) {
+ if (!heroImagesList.length) return;
+ stopHeroAutoTimers();
+ heroZoomIndex = ((index ?? currentHeroSlideIndex) + heroImagesList.length) % heroImagesList.length;
+ updateHeroZoomUI();
+ document.getElementById('heroZoomModal').classList.add('show');
+}
+
+function updateHeroZoomUI() {
+ const img = document.getElementById('heroZoomImg');
+ const counter = document.getElementById('heroZoomCounter');
+ const prevBtn = document.getElementById('heroZoomPrevBtn');
+ const nextBtn = document.getElementById('heroZoomNextBtn');
+ if (!img || !heroImagesList.length) return;
+
+ img.src = heroImagesList[heroZoomIndex];
+ if (counter) counter.textContent = `FRESHLY MADE • FOTO ${heroZoomIndex + 1} / ${heroImagesList.length}`;
+ const multi = heroImagesList.length > 1;
+ if (prevBtn) prevBtn.style.display = multi ? 'inline-block' : 'none';
+ if (nextBtn) nextBtn.style.display = multi ? 'inline-block' : 'none';
+}
+
+function stepHeroZoom(delta) {
+ if (!heroImagesList.length) return;
+ heroZoomIndex = (heroZoomIndex + delta + heroImagesList.length) % heroImagesList.length;
+ currentHeroSlideIndex = heroZoomIndex;
+ updateHeroSlideUI(false);
+ updateHeroZoomUI();
+}
+
+function closeHeroZoom() {
+ const modal = document.getElementById('heroZoomModal');
+ if (modal) modal.classList.remove('show');
+ resetHeroIdleTimer();
+}
+
+/* ==================== RENDER PROMO HARI INI + KARTU POSTER PROMO HARIAN & E-WALLET ==================== */
 function renderPromo() {
- let p = (data.promos || []).find(x => x.active) || (data.promos || [])[0];
+ let p = getEffectiveTodayPromo();
  let activeBarcodes = (data.barcodes || []).filter(b => b.active !== false);
+ let dw = data.dailyWalletPromo || defaultDailyWalletPromo;
+ let dwImgSrc = asset(dw.image);
  let el = document.getElementById('promoView');
  
  let barcodeCardsHtml = activeBarcodes.length ? activeBarcodes.map(b => {
@@ -864,6 +1216,31 @@ function renderPromo() {
   `;
  }).join('') : `<div class="qr-empty">Belum ada foto barcode yang aktif.<br>Silakan tambahkan melalui <b>Admin Panel → Barcode & QR</b>.</div>`;
 
+ let scheduleInfoBadge = '';
+ if (p && (p.startDate || p.endDate)) {
+  const rangeStr = `${p.startDate ? formatIndoDate(p.startDate) : 'Mulai sekarang'} – ${p.endDate ? formatIndoDate(p.endDate) : 'Seterusnya'}`;
+  scheduleInfoBadge = `<div class="promo-period-badge">📅 Jadwal Aktif: ${esc(rangeStr)}</div>`;
+ } else if (p && p.period) {
+  scheduleInfoBadge = `<div class="promo-period-badge">✨ ${esc(p.period)}</div>`;
+ }
+
+ let dailyWalletHtml = (dw.enabled !== false && dwImgSrc) ? `
+  <div class="daily-wallet-card">
+   <div class="dw-header">
+    <div class="dw-title-group">
+     <span class="dw-badge">${esc(dw.tag || 'PROMO PEMBAYARAN HARIAN & E-WALLET')}</span>
+     <h3>${esc(dw.title || 'Promo Setiap Hari di Point Coffee')}</h3>
+     ${dw.subtitle ? `<p>${esc(dw.subtitle)}</p>` : ''}
+    </div>
+    <button type="button" class="dw-zoom-btn" onclick="openDailyWalletZoom()">PERBESAR POSTER ⤢</button>
+   </div>
+   <div class="dw-poster-frame" onclick="openDailyWalletZoom()" title="Klik untuk memperbesar poster promo pembayaran">
+    <img src="${esc(dwImgSrc)}" alt="${esc(dw.title || 'Promo Setiap Hari di Point Coffee')}" loading="lazy" onerror="this.closest('.daily-wallet-card').style.display='none'">
+    <span class="dw-zoom-pill">KLIK UNTUK PERBESAR DETAIL ⤢</span>
+   </div>
+  </div>
+ ` : '';
+
  el.innerHTML = `
   <div class="promo-layout">
    <div class="promo-feature">
@@ -872,7 +1249,8 @@ function renderPromo() {
      <h3>${esc(p.title)}</h3>
      <p>${esc(p.description)}</p>
      <div class="promo-value">${esc(p.price)}</div>
-     ${p.image ? `<img class="promo-image" src="${esc(asset(p.image))}" alt="${esc(p.title)}">` : ''}
+     ${scheduleInfoBadge}
+     ${p.image ? `<img class="promo-image" src="${esc(asset(p.image))}" alt="${esc(p.title)}" onclick="openPromoImageZoom()" title="Klik untuk memperbesar gambar promo">` : ''}
     ` : `
      <span class="promo-label">SPECIAL OFFER</span>
      <h3>Promo Point Coffee</h3>
@@ -889,19 +1267,63 @@ function renderPromo() {
     <div class="promo-foot">✳ SCAN BARCODE • POINT COFFEE DIPONEGORO 2</div>
    </div>
   </div>
+  ${dailyWalletHtml}
  `;
+}
+
+function openImageLightbox({ kicker, title, subtitle, imgSrc, url = '', darkBg = false }) {
+ if (!imgSrc) return;
+ document.getElementById('qrZoomKicker').textContent = kicker || 'PREVIEW GAMBAR';
+ document.getElementById('qrZoomTitle').textContent = title || 'Detail Gambar';
+ document.getElementById('qrZoomSub').textContent = subtitle || '';
+ const imgWrap = document.getElementById('qrZoomImgWrap');
+ imgWrap.style.background = darkBg ? '#07120a' : '#ffffff';
+ imgWrap.style.padding = darkBg ? '8px' : '14px';
+ document.getElementById('qrZoomImg').src = imgSrc;
+ let linkEl = document.getElementById('qrZoomLink');
+ if (url) { linkEl.href = url; linkEl.style.display = 'inline-flex'; } else { linkEl.style.display = 'none'; }
+ document.getElementById('qrZoomModal').classList.add('show');
 }
 
 function openQrZoom(id) {
  let b = (data.barcodes || []).find(x => x.id === id);
  if (!b || !b.image) return;
- document.getElementById('qrZoomTitle').textContent = b.title || 'Scan Barcode';
- document.getElementById('qrZoomSub').textContent = b.subtitle || '';
- document.getElementById('qrZoomImg').src = asset(b.image);
- let linkEl = document.getElementById('qrZoomLink');
- if (b.url) { linkEl.href = b.url; linkEl.style.display = 'inline-flex'; } else { linkEl.style.display = 'none'; }
- document.getElementById('qrZoomModal').classList.add('show');
+ openImageLightbox({
+  kicker: 'SCAN BARCODE',
+  title: b.title || 'Scan Barcode',
+  subtitle: b.subtitle || '',
+  imgSrc: asset(b.image),
+  url: b.url || '',
+  darkBg: false
+ });
 }
+
+function openDailyWalletZoom() {
+ let dw = data.dailyWalletPromo || defaultDailyWalletPromo;
+ if (!dw || !dw.image) return;
+ openImageLightbox({
+  kicker: dw.tag || 'PROMO PEMBAYARAN HARIAN',
+  title: dw.title || 'Promo Setiap Hari di Point Coffee',
+  subtitle: dw.subtitle || '',
+  imgSrc: asset(dw.image),
+  url: '',
+  darkBg: true
+ });
+}
+
+function openPromoImageZoom() {
+ let p = getEffectiveTodayPromo();
+ if (!p || !p.image) return;
+ openImageLightbox({
+  kicker: p.tag || 'PROMO HARI INI',
+  title: p.title || 'Promo Spesial',
+  subtitle: p.price || '',
+  imgSrc: asset(p.image),
+  url: '',
+  darkBg: true
+ });
+}
+
 function closeQrZoom() { document.getElementById('qrZoomModal').classList.remove('show'); }
 
 function renderPills() {
@@ -934,8 +1356,10 @@ function renderLinks() {
  ['mapsTop', 'mapsLink'].forEach(id => { let el = document.getElementById(id); if(el) el.href = data.settings?.maps || '#'; });
 }
 
-function renderAll() {
- renderHeroBarcodes(); renderHeroSlider(); renderPromo(); renderPills(); renderMenu(); renderContacts(); renderExtras(); renderLinks(); renderPromoVideo();
+function renderAll(skipHeroSlider = false) {
+ renderHeroBarcodes();
+ if (!skipHeroSlider) renderHeroSlider();
+ renderPromo(); renderPills(); renderMenu(); renderContacts(); renderExtras(); renderLinks(); renderPromoVideo();
  document.getElementById('year').textContent = new Date().getFullYear();
 }
 
@@ -977,7 +1401,7 @@ let vipQrGenerated = false;
 let whitePopupCb = null;
 let savedScrollY = 0;
 let vipCountdownInterval = null;
-let avgServerLatency = 2.8; // Rata-rata latensi terukur (detik)
+let avgServerLatency = 2.8;
 
 function normalizePhoneLocal(raw) {
   let d = String(raw || '').replace(/\D/g, '');
@@ -1320,6 +1744,49 @@ function logoutVip() {
   document.getElementById('vipNameInput').value = '';
 }
 
+/* ==================== ADMIN LIVE IMAGE PREVIEW HELPER ==================== */
+function updateAdminImagePreview(inputId, previewBoxId) {
+ const input = document.getElementById(inputId);
+ const box = document.getElementById(previewBoxId);
+ if (!input || !box) return;
+ const raw = input.value.trim();
+ const src = asset(raw);
+ if (!src) {
+  box.classList.remove('has-img');
+  box.innerHTML = `<span class="admin-preview-status">Tempel link foto di atas untuk melihat preview otomatis</span>`;
+  return;
+ }
+ box.classList.add('has-img');
+ box.innerHTML = `
+  <img src="${esc(src)}" alt="Preview Foto"
+   onload="this.nextElementSibling.textContent='✓ Foto berhasil dimuat & siap ditampilkan';this.nextElementSibling.className='admin-preview-status ok'"
+   onerror="this.style.display='none';this.nextElementSibling.textContent='✕ Link gambar tidak valid atau belum diatur publik di Google Drive';this.nextElementSibling.className='admin-preview-status err'">
+  <span class="admin-preview-status">Memuat preview foto...</span>
+ `;
+}
+
+function updateAdminHeroMultiPreview() {
+ const input = document.getElementById('heroImagesInput');
+ const box = document.getElementById('heroMultiPreviewBox');
+ if (!input || !box) return;
+ const urls = input.value.split('\n').map(s => s.trim()).filter(Boolean);
+ if (!urls.length) {
+  box.classList.remove('has-img');
+  box.innerHTML = `<span class="admin-preview-status">Masukkan minimal 1 link foto di atas untuk melihat preview</span>`;
+  return;
+ }
+ box.classList.add('has-img');
+ box.innerHTML = `<div class="admin-hero-preview-grid">${urls.map((u, idx) => {
+  const src = asset(u);
+  return `
+   <div class="admin-hero-thumb">
+    <img src="${esc(src)}" alt="Slide ${idx + 1}" onerror="this.style.opacity='0.25';this.nextElementSibling.textContent='Slide #${idx + 1} (Error)'">
+    <span>Slide #${idx + 1}</span>
+   </div>
+  `;
+ }).join('')}</div>`;
+}
+
 /* ==================== ADMIN PANEL ==================== */
 function openAdmin() {
  closeWelcomePromo();
@@ -1351,21 +1818,89 @@ function switchTab(tab) {
 function adminHero() {
  let c = document.getElementById('adminContent');
  let currentUrls = (data.heroImages || []).join('\n');
- c.innerHTML = `<div class="admin-row"><h3>Kelola Foto Carousel "Freshly Made" (Hero Atas)</h3></div><div class="form-grid"><div class="field full"><label>DAFTAR LINK FOTO HERO (URL GOOGLE DRIVE / DIRECT LINK)</label><textarea id="heroImagesInput" placeholder="https://lh3.googleusercontent.com/d/...">${esc(currentUrls)}</textarea></div></div><div class="form-actions"><button class="add-btn" onclick="saveHeroImages()">SIMPAN FOTO HERO</button></div>`;
+ c.innerHTML = `
+  <div class="admin-row"><h3>Kelola Foto Carousel "Freshly Made" (Hero Atas)</h3></div>
+  <div class="form-grid">
+   <div class="field full">
+    <label>DAFTAR LINK FOTO HERO (1 BARIS = 1 FOTO, URL GOOGLE DRIVE / DIRECT LINK)</label>
+    <textarea id="heroImagesInput" placeholder="https://lh3.googleusercontent.com/d/..." oninput="updateAdminHeroMultiPreview()">${esc(currentUrls)}</textarea>
+   </div>
+   <div class="field full">
+    <label>LIVE PREVIEW FOTO CAROUSEL</label>
+    <div class="admin-preview-box" id="heroMultiPreviewBox"></div>
+   </div>
+  </div>
+  <div class="form-actions"><button class="add-btn" onclick="saveHeroImages()">SIMPAN FOTO HERO</button></div>
+ `;
+ updateAdminHeroMultiPreview();
 }
 function saveHeroImages() { data.heroImages = document.getElementById('heroImagesInput').value.split('\n').map(s => s.trim()).filter(Boolean); persist('Foto Hero Freshly Made berhasil diperbarui!'); adminHero(); }
 
 function adminPromos() {
  let sp = data.specialPopup || clone(defaultSpecialPopup);
+ let dw = data.dailyWalletPromo || clone(defaultDailyWalletPromo);
+ let today = getTodayYMD();
+
+ let promoListHtml = (data.promos || []).map(p => {
+  const status = getPromoScheduleStatus(p, today);
+  let schedTag = '';
+  if (p.startDate || p.endDate) {
+   const rangeTxt = `${p.startDate ? formatIndoDate(p.startDate) : 'Awal'} – ${p.endDate ? formatIndoDate(p.endDate) : 'Seterusnya'}`;
+   if (status === 'scheduled_now') schedTag = `<span class="schedule-pill live">TERJADWAL HARI INI (${rangeTxt})</span>`;
+   else if (status === 'upcoming') schedTag = `<span class="schedule-pill upcoming">JADWAL: ${rangeTxt}</span>`;
+   else schedTag = `<span class="schedule-pill expired">SELESAI: ${rangeTxt}</span>`;
+  } else {
+   schedTag = `<span class="schedule-pill upcoming">DEFAULT (TANPA JADWAL TANGGAL)</span>`;
+  }
+  return `
+   <div class="admin-item">
+    <div>
+     <strong>${esc(p.title)}</strong>${schedTag}
+     <small>${esc(p.tag)} · ${esc(p.price || '-')} · ${p.active ? 'AKTIF' : 'NONAKTIF'}</small>
+    </div>
+    <div class="admin-actions">
+     <button class="mini-btn" onclick="editPromo('${p.id}')">Edit</button>
+     <button class="mini-btn danger" onclick="removePromo('${p.id}')">Hapus</button>
+    </div>
+   </div>
+  `;
+ }).join('') || '<div class="empty-state">Belum ada promo.</div>';
+
  document.getElementById('adminContent').innerHTML = `
-  <div class="admin-row"><h3>Promo Hari Ini</h3><button class="add-btn" onclick="editPromo()">＋ TAMBAH / EDIT PROMO KHUSUS</button></div>
-  <div class="admin-list">${(data.promos || []).map(p => `<div class="admin-item"><div><strong>${esc(p.title)}</strong><small>${esc(p.tag)} · ${esc(p.period)} · ${p.active ? 'AKTIF' : 'NONAKTIF'}</small></div><div class="admin-actions"><button class="mini-btn" onclick="editPromo('${p.id}')">Edit</button><button class="mini-btn danger" onclick="removePromo('${p.id}')">Hapus</button></div></div>`).join('') || '<div class="empty-state">Belum ada promo.</div>'}</div>
+  <div class="admin-row">
+   <div>
+    <h3>Promo Hari Ini & Penjadwalan Tanggal</h3>
+    <p class="hint" style="margin:4px 0 0">Jika ada promo aktif dengan jadwal tanggal yang cocok dengan hari ini, promo tersebut otomatis tampil. Jika tidak ada jadwal tanggal yang aktif hari ini, website menampilkan promo default (tanpa jadwal tanggal).</p>
+   </div>
+   <button class="add-btn" onclick="editPromo()">＋ TAMBAH PROMO / JADWAL</button>
+  </div>
+  <div class="admin-list">${promoListHtml}</div>
+
+  <hr style="border:0;border-top:1px solid var(--line);margin:22px 0">
+  <div class="admin-row">
+   <div>
+    <h3>Poster "Promo Harian & E-Wallet" (Di Bawah Promo Utama)</h3>
+    <p class="hint" style="margin:4px 0 0">Tampilkan poster promo pembayaran harian (Allo Bank, Livin', DANA, Kredivo, Indodana, dll.) lengkap dengan fitur klik untuk memperbesar.</p>
+   </div>
+  </div>
+  <div class="form-grid">
+   <div class="field full"><label class="check"><input id="dwEnabled" type="checkbox" ${dw.enabled !== false ? 'checked' : ''}> Tampilkan kartu Poster Promo Harian & E-Wallet di bagian Promo</label></div>
+   <div class="field"><label>JUDUL KARTU POSTER</label><input id="dwTitle" value="${esc(dw.title)}"></div>
+   <div class="field"><label>LABEL BADGE</label><input id="dwTag" value="${esc(dw.tag)}"></div>
+   <div class="field full"><label>KETERANGAN SINGKAT</label><input id="dwSubtitle" value="${esc(dw.subtitle)}"></div>
+   <div class="field full">
+    <label>LINK FOTO POSTER PROMO HARIAN (URL GOOGLE DRIVE)</label>
+    <input id="dwImage" value="${esc(dw.image)}" placeholder="https://lh3.googleusercontent.com/d/..." oninput="updateAdminImagePreview('dwImage','dwPreviewBox')">
+    <div class="admin-preview-box" id="dwPreviewBox"></div>
+   </div>
+  </div>
+  <div class="form-actions"><button class="add-btn" onclick="saveDailyWalletPromo()">SIMPAN POSTER PROMO HARIAN</button></div>
 
   <hr style="border:0;border-top:1px solid var(--line);margin:22px 0">
   <div class="admin-row">
     <div>
       <h3>Popup Awal Buka / Refresh (Auto-Close 3 Detik)</h3>
-      <p class="hint" style="margin:4px 0 0">Otomatis menampilkan Promo Hari Ini yang aktif beserta fotonya. Jika tidak ada promo aktif, otomatis menampilkan Item Khusus Promo di bawah ini.</p>
+      <p class="hint" style="margin:4px 0 0">Otomatis menampilkan Promo Hari Ini yang sedang aktif/terjadwal beserta fotonya. Jika tidak ada promo aktif, otomatis menampilkan Item Khusus Promo cadangan di bawah ini.</p>
     </div>
     <button class="mini-btn" onclick="closeAdmin();showWelcomePromo(true)">👁 PREVIEW POPUP</button>
   </div>
@@ -1374,12 +1909,31 @@ function adminPromos() {
     <div class="field"><label>JUDUL ITEM KHUSUS PROMO (CADANGAN)</label><input id="spTitle" value="${esc(sp.title)}"></div>
     <div class="field"><label>LABEL BADGE</label><input id="spTag" value="${esc(sp.tag)}"></div>
     <div class="field"><label>HARGA / PENAWARAN</label><input id="spPrice" value="${esc(sp.price)}"></div>
-    <div class="field"><label>FOTO ITEM KHUSUS PROMO (URL GOOGLE DRIVE)</label><input id="spImage" value="${esc(sp.image)}" placeholder="https://lh3.googleusercontent.com/d/..."></div>
+    <div class="field">
+     <label>FOTO ITEM KHUSUS PROMO (URL GOOGLE DRIVE)</label>
+     <input id="spImage" value="${esc(sp.image)}" placeholder="https://lh3.googleusercontent.com/d/..." oninput="updateAdminImagePreview('spImage','spPreviewBox')">
+    </div>
+    <div class="field full"><div class="admin-preview-box" id="spPreviewBox"></div></div>
     <div class="field full"><label>DESKRIPSI SINGKAT</label><textarea id="spDesc">${esc(sp.description)}</textarea></div>
   </div>
   <div class="form-actions"><button class="add-btn" onclick="saveSpecialPopup()">SIMPAN PENGATURAN POPUP</button></div>
  `;
+ updateAdminImagePreview('dwImage', 'dwPreviewBox');
+ updateAdminImagePreview('spImage', 'spPreviewBox');
 }
+
+function saveDailyWalletPromo() {
+ data.dailyWalletPromo = {
+  enabled: document.getElementById('dwEnabled').checked,
+  title: document.getElementById('dwTitle').value.trim() || 'Promo Setiap Hari di Point Coffee',
+  tag: document.getElementById('dwTag').value.trim() || 'PROMO PEMBAYARAN HARIAN & E-WALLET',
+  subtitle: document.getElementById('dwSubtitle').value.trim(),
+  image: document.getElementById('dwImage').value.trim()
+ };
+ persist('Poster Promo Harian & E-Wallet berhasil disimpan!');
+ adminPromos();
+}
+
 function saveSpecialPopup() {
  data.specialPopup = {
   enabled: document.getElementById('spEnabled').checked,
@@ -1392,19 +1946,71 @@ function saveSpecialPopup() {
  persist('Pengaturan Popup Promo berhasil disimpan!');
  adminPromos();
 }
+
 function editPromo(id) {
  let old = (data.promos || []).find(p => p.id === id);
- let p = old || { id: 'p' + Date.now(), title: '', tag: 'TIKTOK & SHOPEE VIP', description: '', price: '', period: 'Berlaku hari ini', image: '', active: true };
- document.getElementById('adminContent').innerHTML = `<div class="admin-row"><h3>${id ? 'Edit promo' : 'Buat promo baru'}</h3><button class="mini-btn" onclick="adminPromos()">← KEMBALI</button></div><div class="form-grid"><div class="field"><label>JUDUL PROMO</label><input id="pTitle" value="${esc(p.title)}"></div><div class="field"><label>LABEL PROMO</label><input id="pTag" value="${esc(p.tag)}"></div><div class="field"><label>HARGA / PENAWARAN</label><input id="pPrice" value="${esc(p.price)}"></div><div class="field"><label>PERIODE PROMO</label><input id="pPeriod" value="${esc(p.period)}"></div><div class="field full"><label>DESKRIPSI PROMO</label><textarea id="pDesc">${esc(p.description)}</textarea></div><div class="field full"><label>FOTO PROMO KHUSUS (URL GOOGLE DRIVE)</label><input id="pUrl" value="${esc(p.image)}"></div><div class="field"><label class="check"><input id="pActive" type="checkbox" ${p.active ? 'checked' : ''}> Tampilkan sebagai promo aktif utama</label></div></div><div class="form-actions"><button class="add-btn" onclick="savePromo('${id || ''}')">SIMPAN PROMO</button></div>`;
+ let p = old || { id: 'p' + Date.now(), title: '', tag: 'TIKTOK & SHOPEE VIP', description: '', price: '', period: 'Berlaku hari ini', startDate: '', endDate: '', image: '', active: true };
+ document.getElementById('adminContent').innerHTML = `
+  <div class="admin-row"><h3>${id ? 'Edit Promo & Jadwal' : 'Buat Promo Baru'}</h3><button class="mini-btn" onclick="adminPromos()">← KEMBALI</button></div>
+  <div class="form-grid">
+   <div class="field"><label>JUDUL PROMO</label><input id="pTitle" value="${esc(p.title)}"></div>
+   <div class="field"><label>LABEL PROMO</label><input id="pTag" value="${esc(p.tag)}"></div>
+   <div class="field"><label>HARGA / PENAWARAN</label><input id="pPrice" value="${esc(p.price)}"></div>
+   <div class="field"><label>KETERANGAN PERIODE (TEKS)</label><input id="pPeriod" value="${esc(p.period)}" placeholder="Contoh: Berlaku hari ini / Khusus Weekend"></div>
+   <div class="field">
+    <label>JADWAL TANGGAL MULAI (OPSIONAL)</label>
+    <input id="pStartDate" type="date" value="${esc(p.startDate || '')}">
+   </div>
+   <div class="field">
+    <label>JADWAL TANGGAL SELESAI (OPSIONAL)</label>
+    <input id="pEndDate" type="date" value="${esc(p.endDate || '')}">
+   </div>
+   <div class="field full">
+    <span class="hint">💡 Kosongkan kedua tanggal di atas jika promo ini dijadikan <b>Promo Default</b> (muncul otomatis saat tidak ada jadwal tanggal khusus pada hari tersebut).</span>
+   </div>
+   <div class="field full"><label>DESKRIPSI PROMO</label><textarea id="pDesc">${esc(p.description)}</textarea></div>
+   <div class="field full">
+    <label>FOTO PROMO KHUSUS (URL GOOGLE DRIVE)</label>
+    <input id="pUrl" value="${esc(p.image)}" placeholder="https://lh3.googleusercontent.com/d/..." oninput="updateAdminImagePreview('pUrl','promoImgPreviewBox')">
+    <div class="admin-preview-box" id="promoImgPreviewBox"></div>
+   </div>
+   <div class="field full"><label class="check"><input id="pActive" type="checkbox" ${p.active ? 'checked' : ''}> Aktifkan promo ini</label></div>
+  </div>
+  <div class="form-actions"><button class="add-btn" onclick="savePromo('${id || ''}')">SIMPAN PROMO</button></div>
+ `;
+ updateAdminImagePreview('pUrl', 'promoImgPreviewBox');
 }
+
 function savePromo(id) {
- let p = { id: id || 'p' + Date.now(), title: document.getElementById('pTitle').value.trim(), tag: document.getElementById('pTag').value, price: document.getElementById('pPrice').value, period: document.getElementById('pPeriod').value, description: document.getElementById('pDesc').value, image: document.getElementById('pUrl').value.trim(), active: document.getElementById('pActive').checked };
+ const startDate = document.getElementById('pStartDate').value;
+ const endDate = document.getElementById('pEndDate').value;
+ if (startDate && endDate && startDate > endDate) {
+  notify('Tanggal mulai tidak boleh lebih akhir dari tanggal selesai.');
+  return;
+ }
+ let p = {
+  id: id || 'p' + Date.now(),
+  title: document.getElementById('pTitle').value.trim(),
+  tag: document.getElementById('pTag').value,
+  price: document.getElementById('pPrice').value,
+  period: document.getElementById('pPeriod').value,
+  startDate: startDate,
+  endDate: endDate,
+  description: document.getElementById('pDesc').value,
+  image: document.getElementById('pUrl').value.trim(),
+  active: document.getElementById('pActive').checked
+ };
  if (!p.title) { notify('Judul promo wajib diisi.'); return; }
  if (!data.promos) data.promos = [];
- if (p.active) data.promos.forEach(x => x.active = false);
+ // Jika promo ini adalah promo default (tanpa jadwal tanggal) dan diaktifkan, nonaktifkan promo default lain agar tidak bentrok
+ if (p.active && !p.startDate && !p.endDate) {
+  data.promos.forEach(x => {
+   if (!x.startDate && !x.endDate) x.active = false;
+  });
+ }
  let i = data.promos.findIndex(x => x.id === id);
  if (i >= 0) data.promos[i] = p; else data.promos.unshift(p);
- persist(); adminPromos();
+ persist('Promo & jadwal berhasil disimpan!'); adminPromos();
 }
 function removePromo(id) { if (confirm('Hapus promo ini?')) { data.promos = data.promos.filter(p => p.id !== id); persist(); adminPromos(); } }
 
@@ -1415,7 +2021,22 @@ function adminBarcodes() {
 function editBarcode(id) {
  let old = (data.barcodes || []).find(b => b.id === id);
  let b = old || { id: 'qr' + Date.now(), title: '', subtitle: '', image: '', url: '', active: true };
- document.getElementById('adminContent').innerHTML = `<div class="admin-row"><h3>${id ? 'Edit Barcode / QR' : 'Tambah Barcode / QR Baru'}</h3><button class="mini-btn" onclick="adminBarcodes()">← KEMBALI</button></div><div class="form-grid"><div class="field"><label>NAMA BARCODE</label><input id="qrTitle" value="${esc(b.title)}"></div><div class="field"><label>KETERANGAN SINGKAT</label><input id="qrSub" value="${esc(b.subtitle)}"></div><div class="field full"><label>LINK FOTO BARCODE (URL GOOGLE DRIVE)</label><input id="qrImage" value="${esc(b.image)}"></div><div class="field full"><label>LINK TUJUAN</label><input id="qrUrl" value="${esc(b.url)}"></div><div class="field full"><label class="check"><input id="qrActive" type="checkbox" ${b.active !== false ? 'checked' : ''}> Tampilkan barcode ini di website</label></div></div><div class="form-actions"><button class="add-btn" onclick="saveBarcode('${id || ''}')">SIMPAN BARCODE</button></div>`;
+ document.getElementById('adminContent').innerHTML = `
+  <div class="admin-row"><h3>${id ? 'Edit Barcode / QR' : 'Tambah Barcode / QR Baru'}</h3><button class="mini-btn" onclick="adminBarcodes()">← KEMBALI</button></div>
+  <div class="form-grid">
+   <div class="field"><label>NAMA BARCODE</label><input id="qrTitle" value="${esc(b.title)}"></div>
+   <div class="field"><label>KETERANGAN SINGKAT</label><input id="qrSub" value="${esc(b.subtitle)}"></div>
+   <div class="field full">
+    <label>LINK FOTO BARCODE (URL GOOGLE DRIVE)</label>
+    <input id="qrImage" value="${esc(b.image)}" placeholder="https://lh3.googleusercontent.com/d/..." oninput="updateAdminImagePreview('qrImage','qrImgPreviewBox')">
+    <div class="admin-preview-box" id="qrImgPreviewBox"></div>
+   </div>
+   <div class="field full"><label>LINK TUJUAN</label><input id="qrUrl" value="${esc(b.url)}"></div>
+   <div class="field full"><label class="check"><input id="qrActive" type="checkbox" ${b.active !== false ? 'checked' : ''}> Tampilkan barcode ini di website</label></div>
+  </div>
+  <div class="form-actions"><button class="add-btn" onclick="saveBarcode('${id || ''}')">SIMPAN BARCODE</button></div>
+ `;
+ updateAdminImagePreview('qrImage', 'qrImgPreviewBox');
 }
 function saveBarcode(id) {
  let b = { id: id || 'qr' + Date.now(), title: document.getElementById('qrTitle').value.trim(), subtitle: document.getElementById('qrSub').value.trim(), image: document.getElementById('qrImage').value.trim(), url: document.getElementById('qrUrl').value.trim(), active: document.getElementById('qrActive').checked };
@@ -1432,7 +2053,20 @@ function adminCategories() {
 }
 function editCategory(id) {
  let cat = data.categories.find(x => x.id === id); if (!cat) return;
- document.getElementById('adminContent').innerHTML = `<div class="admin-row"><h3>Edit Poster: ${esc(cat.name)}</h3><button class="mini-btn" onclick="adminCategories()">← KEMBALI</button></div><div class="form-grid"><div class="field full"><label>NAMA KATEGORI</label><input id="catName" value="${esc(cat.name)}" disabled></div><div class="field full"><label>LINK POSTER (GOOGLE DRIVE)</label><input id="catUrl" value="${esc(cat.image)}"></div><div class="field" style="align-content:end"><label class="check"><input id="catActive" type="checkbox" ${cat.active ? 'checked' : ''}> Tampilkan kategori ini di website</label></div></div><div class="form-actions"><button class="add-btn" onclick="saveCategory('${id}')">SIMPAN POSTER</button></div>`;
+ document.getElementById('adminContent').innerHTML = `
+  <div class="admin-row"><h3>Edit Poster: ${esc(cat.name)}</h3><button class="mini-btn" onclick="adminCategories()">← KEMBALI</button></div>
+  <div class="form-grid">
+   <div class="field full"><label>NAMA KATEGORI</label><input id="catName" value="${esc(cat.name)}" disabled></div>
+   <div class="field full">
+    <label>LINK POSTER (GOOGLE DRIVE)</label>
+    <input id="catUrl" value="${esc(cat.image)}" placeholder="https://lh3.googleusercontent.com/d/..." oninput="updateAdminImagePreview('catUrl','catImgPreviewBox')">
+    <div class="admin-preview-box" id="catImgPreviewBox"></div>
+   </div>
+   <div class="field" style="align-content:end"><label class="check"><input id="catActive" type="checkbox" ${cat.active ? 'checked' : ''}> Tampilkan kategori ini di website</label></div>
+  </div>
+  <div class="form-actions"><button class="add-btn" onclick="saveCategory('${id}')">SIMPAN POSTER</button></div>
+ `;
+ updateAdminImagePreview('catUrl', 'catImgPreviewBox');
 }
 function saveCategory(id) { let cat = data.categories.find(x => x.id === id); if (!cat) return; cat.image = document.getElementById('catUrl').value.trim(); cat.active = document.getElementById('catActive').checked; persist('Poster kategori berhasil diperbarui!'); adminCategories(); }
 
@@ -1493,6 +2127,15 @@ function saveSettings() {
 }
 function publishInitialData() { if (!isCloudConfigured() || !adminPinSession) { notify('Login admin terlebih dahulu.'); return; } persist('Data berhasil dikirim ke Google Sheets.'); }
 function resetData() { if (confirm('Reset seluruh data ke awal?')) { data = clone(starter); persist('Data dipulihkan.'); adminSettings(); } }
+
+document.addEventListener('keydown', (e) => {
+ const heroZoomModal = document.getElementById('heroZoomModal');
+ if (heroZoomModal && heroZoomModal.classList.contains('show')) {
+  if (e.key === 'Escape') closeHeroZoom();
+  else if (e.key === 'ArrowRight') stepHeroZoom(1);
+  else if (e.key === 'ArrowLeft') stepHeroZoom(-1);
+ }
+});
 
 renderAll();
 initBarcodeShowcaseAnimation();
