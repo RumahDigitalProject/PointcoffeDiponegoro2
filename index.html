@@ -570,7 +570,7 @@ footer{margin-top:50px;border-top:1px solid var(--line);padding:30px 0 40px}.foo
         </div>
 
         <button type="button" class="vip-btn-sec" onclick="openVipInfo()" style="margin-bottom:12px">
-          📖 Baca Ketentuan & Informasi VIP Card
+           Ketentuan & Informasi VIP Card
         </button>
 
         <label style="font-size:9.5px;font-weight:900;color:var(--muted);letter-spacing:1px">NOMOR WHATSAPP</label>
@@ -586,7 +586,7 @@ footer{margin-top:50px;border-top:1px solid var(--line);padding:30px 0 40px}.foo
 
         <div style="border-top:1px solid var(--line);margin-top:14px;padding-top:10px;text-align:center">
           <button type="button" onclick="openBaristaPinPopup()" style="background:none;border:0;color:var(--muted);font-size:10.5px;font-weight:700">
-            🔒 Khusus Barista (Mode QR / Kode Unik)
+             Barista Point Coffe
           </button>
         </div>
       </div>
@@ -630,7 +630,7 @@ footer{margin-top:50px;border-top:1px solid var(--line);padding:30px 0 40px}.foo
 
         <!-- OPSI 1: SCAN QR BARISTA -->
         <button type="button" class="vip-btn-main" onclick="startVipScanner()" style="margin-top:12px">
-          📷 SCAN QR BARISTA (TAMBAH STAMP)
+           SCAN QR BARISTA (TAMBAH STAMP)
         </button>
 
         <!-- CONTAINER KAMERA -->
@@ -715,8 +715,8 @@ footer{margin-top:50px;border-top:1px solid var(--line);padding:30px 0 40px}.foo
 
 <!-- ADMIN CONTROL ROOM -->
 <div class="admin-modal" id="adminModal"><div class="admin-window">
-<div class="admin-header"><h2>✳ POINT CONTROL ROOM</h2><button class="close-btn" onclick="closeAdmin()">✕ CLOSE</button></div>
-<div id="loginView" class="login-card"><div class="kicker">RESTRICTED ACCESS</div><h3>Welcome, Admin.</h3><p class="hint">Masukkan PIN untuk membuka dashboard pengelolaan website.</p><input id="adminPin" type="password" placeholder="PIN admin"><button class="add-btn" style="width:100%;padding:13px" onclick="loginAdmin()">UNLOCK DASHBOARD ↗</button><p class="hint">PIN default awal adalah 123456 (Dapat diubah di tab Pengaturan).</p></div>
+<div class="admin-header"><h2>✳ Dashboard</h2><button class="close-btn" onclick="closeAdmin()">✕ CLOSE</button></div>
+<div id="loginView" class="login-card"><div class="kicker">RESTRICTED ACCESS</div><h3>Welcome, Barisra.</h3><p class="hint">Masukkan PIN untuk membuka dashboard pengelolaan website.</p><input id="adminPin" type="password" placeholder="PIN admin"><button class="add-btn" style="width:100%;padding:13px" onclick="loginAdmin()">UNLOCK DASHBOARD ↗</button><p class="hint">PIN default awal adalah 핮●po@/ (Dapat diubah di secret).</p></div>
 <div id="dashboard" style="display:none">
   <div class="admin-tabs">
     <button class="tab-btn active" data-tab="hero" onclick="switchTab('hero')">Hero Freshly Made</button>
@@ -1701,7 +1701,7 @@ function initBarcodeShowcaseAnimation() {
 /* ==================== LOGIKA VIP STAMP CARD (FULL SCREEN LOCK + HITUNG MUNDUR AKURAT) ==================== */
 const VIP_SECRET_QR = "POINTCOFFEE_DIPONEGORO2_SECRET";
 const VIP_UNIQUE_CODE = "2015703939";
-const VIP_BARISTA_PIN = "1234";
+const VIP_BARISTA_PIN = "2Udr7j$*1";
 let currentVipUser = null;
 let vipQrScanner = null;
 let vipQrGenerated = false;
@@ -1817,9 +1817,9 @@ function closeVipModal() {
 
 function openVipInfo() {
   showWhitePopup({
-    title: "Ketentuan VIP Diponegoro 2",
+    title: "Ketentuan VIP PASS Diponegoro 2",
     icon: "☕",
-    message: "✨ Eksklusif Outlet: Kartu VIP ini khusus dan hanya berlaku untuk pembeli di Point Coffee Diponegoro 2.\n\n📍 Pengumpulan Stamp: Setiap 1x transaksi mendapat 1 stamp (berlaku non-kelipatan, beli 1 atau 20 cup tetap 1 stamp).\n\n🎁 Hadiah & Klaim: Kumpulkan 10 stamp untuk 1 Free Palm Sugar Latte. Penukaran wajib dilakukan pada hari yang sama saat stamp ke-10 tercapai, lalu stamp otomatis kembali ke 0."
+    message: "Kartu VIP ini khusus dan hanya berlaku untuk pembelian di Point Coffee Diponegoro 2.\n\n Setiap 1x transaksi mendapat 1 stamp dengan minimal pembelian adalah Rp 20.000 (Voucher Shopee VIP tidak bisa mendapatkan Stamp).\n\n Kumpulkan 10 stamp untuk 1 Free Palm Sugar Latte. Penukaran wajib dilakukan pada hari yang sama saat Stamp ke-10."
   });
 }
 
